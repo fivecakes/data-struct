@@ -153,6 +153,13 @@ static void testList()
     }
 }
 
+static void printStack(Stack V)
+{
+    for (int i = 0; i<V.size; i++) {
+        printf("%d,",*(V.elem+i));
+    }
+    printf("\n");
+}
 
 static void testStack()
 {
@@ -165,11 +172,22 @@ static void testStack()
         push(&S, 2);
         push(&S, 3);
         push(&S, 4);
-        printVector(S);
+        printStack(S);
         printf("%d\n",pop(&S));
         printf("%d\n",pop(&S));
-        printVector(S);
+        printStack(S);
     }
+}
+
+static void printQueue(Queue L)
+{
+    QueueNode *p = L.header;
+    
+    for (int i = 0; i<L.size; i++) {
+        p = p->succ;
+        printf("%d,",p->data);
+    }
+    printf("\n");
 }
 
 static void testQueue()
@@ -183,10 +201,10 @@ static void testQueue()
         enqueue(&Q, 2);
         enqueue(&Q, 3);
         enqueue(&Q, 4);
-        printList(Q);
+        printQueue(Q);
         printf("%d\n",dequeue(&Q));
         printf("%d\n",dequeue(&Q));
-        printList(Q);
+        printQueue(Q);
     }
 }
 

@@ -1,9 +1,15 @@
 #ifndef stack_h
 #define stack_h
-#include "vector.h"
 
-typedef Vector Stack;
-static Stack initStack();
+struct Stack{
+    int *elem;
+    int size;
+    int capacity;
+};
+
+typedef struct Stack Stack;
+
+static Stack initStack(void);
 static void push(Stack *S, int e);
 
 static int pop(Stack *S);
