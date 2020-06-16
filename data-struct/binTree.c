@@ -1,11 +1,3 @@
-//
-//  binTree.c
-//  data-struct
-//
-//  Created by book on 2020/6/15.
-//  Copyright © 2020 book. All rights reserved.
-//
-
 #include "binTree.h"
 #include "queue.h"
 
@@ -54,11 +46,5 @@ static BinNode *insertAsRC(BinNode *x, int e)
 //层次遍历
 static void travLevel(BinTree *T)
 {
-//    Queue Q = initQueue();
-//    enqueue(&Q, T->root);
-//    while (Q.size) {
-//        BinNode *x = dequeue(&Q);
-//        printf("%d",x->data);
-//        enqueue(&Q, T->root);
-//    }
+    
 }

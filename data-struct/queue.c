@@ -1,4 +1,3 @@
-
 #include "queue.h"
 
 static Queue initQueue()
