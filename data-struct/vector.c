@@ -1,7 +1,7 @@
 #include "vector.h"
 
 
-static Vector init()
+static Vector initVector()
 {
     Vector V;
     V.elem = malloc(2* sizeof(int));
@@ -27,6 +27,14 @@ static void insert(Vector *V, int r, int e)
         *(V->elem+i) = *(V->elem+i-1);
     }
     *(V->elem+r) = e;
+    V->size++;
+}
+
+//插入
+static void insertBottom(Vector *V, int e)
+{
+    expand(V);
+    *(V->elem+V->size) = e;
     V->size++;
 }
 

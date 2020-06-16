@@ -8,15 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		FD89E9E22497723800EA93ED /* vector.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9E12497723800EA93ED /* vector.c */; };
-		FD89E9E52497776D00EA93ED /* vectorTest.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9E42497776D00EA93ED /* vectorTest.c */; };
 		FD89E9EF2497792C00EA93ED /* list.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9E72497792B00EA93ED /* list.c */; };
-		FD89E9F02497792C00EA93ED /* queueTest.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9E82497792B00EA93ED /* queueTest.c */; };
-		FD89E9F12497792C00EA93ED /* listTest.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9EA2497792B00EA93ED /* listTest.c */; };
-		FD89E9F22497792C00EA93ED /* stackTest.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9EB2497792B00EA93ED /* stackTest.c */; };
 		FD89E9F32497792C00EA93ED /* queue.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9EC2497792B00EA93ED /* queue.c */; };
 		FD89E9F42497792C00EA93ED /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9EE2497792C00EA93ED /* stack.c */; };
 		FD89E9F824986FCF00EA93ED /* binTree.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9F624986FCF00EA93ED /* binTree.c */; };
-		FD89E9F924986FCF00EA93ED /* binTreeTest.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9F724986FCF00EA93ED /* binTreeTest.c */; };
 		FD8E519724615E0300B23FAB /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = FD8E519624615E0300B23FAB /* main.c */; };
 /* End PBXBuildFile section */
 
@@ -35,19 +30,14 @@
 /* Begin PBXFileReference section */
 		FD89E9E12497723800EA93ED /* vector.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vector.c; sourceTree = "<group>"; };
 		FD89E9E32497756300EA93ED /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
-		FD89E9E42497776D00EA93ED /* vectorTest.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vectorTest.c; sourceTree = "<group>"; };
 		FD89E9E62497792B00EA93ED /* list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = list.h; sourceTree = "<group>"; };
 		FD89E9E72497792B00EA93ED /* list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = list.c; sourceTree = "<group>"; };
-		FD89E9E82497792B00EA93ED /* queueTest.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = queueTest.c; sourceTree = "<group>"; };
-		FD89E9E92497792B00EA93ED /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
-		FD89E9EA2497792B00EA93ED /* listTest.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = listTest.c; sourceTree = "<group>"; };
-		FD89E9EB2497792B00EA93ED /* stackTest.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stackTest.c; sourceTree = "<group>"; };
 		FD89E9EC2497792B00EA93ED /* queue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = queue.c; sourceTree = "<group>"; };
-		FD89E9ED2497792B00EA93ED /* queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = queue.h; sourceTree = "<group>"; };
 		FD89E9EE2497792C00EA93ED /* stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
 		FD89E9F524986FCF00EA93ED /* binTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = binTree.h; sourceTree = "<group>"; };
 		FD89E9F624986FCF00EA93ED /* binTree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = binTree.c; sourceTree = "<group>"; };
-		FD89E9F724986FCF00EA93ED /* binTreeTest.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = binTreeTest.c; sourceTree = "<group>"; };
+		FD89EA0D249891F800EA93ED /* queue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = queue.h; sourceTree = "<group>"; };
+		FD89EA0E2498927800EA93ED /* stack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
 		FD8E519324615E0300B23FAB /* data-struct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "data-struct"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8E519624615E0300B23FAB /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,19 +75,14 @@
 				FD8E519624615E0300B23FAB /* main.c */,
 				FD89E9E12497723800EA93ED /* vector.c */,
 				FD89E9E32497756300EA93ED /* vector.h */,
-				FD89E9E42497776D00EA93ED /* vectorTest.c */,
 				FD89E9E72497792B00EA93ED /* list.c */,
 				FD89E9E62497792B00EA93ED /* list.h */,
-				FD89E9EA2497792B00EA93ED /* listTest.c */,
 				FD89E9EC2497792B00EA93ED /* queue.c */,
-				FD89E9ED2497792B00EA93ED /* queue.h */,
-				FD89E9E82497792B00EA93ED /* queueTest.c */,
+				FD89EA0D249891F800EA93ED /* queue.h */,
 				FD89E9F624986FCF00EA93ED /* binTree.c */,
 				FD89E9F524986FCF00EA93ED /* binTree.h */,
-				FD89E9F724986FCF00EA93ED /* binTreeTest.c */,
 				FD89E9EE2497792C00EA93ED /* stack.c */,
-				FD89E9E92497792B00EA93ED /* stack.h */,
-				FD89E9EB2497792B00EA93ED /* stackTest.c */,
+				FD89EA0E2498927800EA93ED /* stack.h */,
 			);
 			path = "data-struct";
 			sourceTree = "<group>";
@@ -158,16 +143,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD89E9F02497792C00EA93ED /* queueTest.c in Sources */,
 				FD89E9E22497723800EA93ED /* vector.c in Sources */,
-				FD89E9F22497792C00EA93ED /* stackTest.c in Sources */,
 				FD89E9F42497792C00EA93ED /* stack.c in Sources */,
 				FD8E519724615E0300B23FAB /* main.c in Sources */,
-				FD89E9F12497792C00EA93ED /* listTest.c in Sources */,
 				FD89E9F32497792C00EA93ED /* queue.c in Sources */,
-				FD89E9F924986FCF00EA93ED /* binTreeTest.c in Sources */,
 				FD89E9F824986FCF00EA93ED /* binTree.c in Sources */,
-				FD89E9E52497776D00EA93ED /* vectorTest.c in Sources */,
 				FD89E9EF2497792C00EA93ED /* list.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

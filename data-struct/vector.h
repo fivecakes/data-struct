@@ -21,7 +21,7 @@ struct Vector{
 typedef struct Vector Vector;
 
 //初始化
-static Vector init(void);
+static Vector initVector(void);
 
 //扩容
 static void expand(Vector *V);

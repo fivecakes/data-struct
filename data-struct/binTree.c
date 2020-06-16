@@ -7,6 +7,7 @@
 //
 
 #include "binTree.h"
+#include "queue.h"
 
 #define stature(p) ((p) ? (p)->height : -1)
 #define max(a,b) ((a)>(b)?(a):(b))
@@ -29,12 +30,12 @@ struct BinTree{
 typedef struct BinNode BinNode;
 typedef struct BinTree BinTree;
 
-int updateHeight(BinNode *x)
+static int updateHeight(BinNode *x)
 {
     return x->height = 1 + max(stature(x->lChild) , stature(x->rChild));
 }
 
-void updateHeightAbove(BinNode *x)
+static void updateHeightAbove(BinNode *x)
 {
     while (x) {
         updateHeight(x);
@@ -42,7 +43,7 @@ void updateHeightAbove(BinNode *x)
     }
 }
 
-BinNode *insertAsRC(BinNode *x, int e)
+static BinNode *insertAsRC(BinNode *x, int e)
 {
     x->rChild = malloc(sizeof(BinNode));
     x->rChild->parent = x;
@@ -51,7 +52,13 @@ BinNode *insertAsRC(BinNode *x, int e)
 }
 
 //层次遍历
-void travLevel()
+static void travLevel(BinTree *T)
 {
-    
+//    Queue Q = initQueue();
+//    enqueue(&Q, T->root);
+//    while (Q.size) {
+//        BinNode *x = dequeue(&Q);
+//        printf("%d",x->data);
+//        enqueue(&Q, T->root);
+//    }
 }

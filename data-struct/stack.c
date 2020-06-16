@@ -1,9 +1,17 @@
-//
-//  stack.c
-//  data-struct
-//
-//  Created by book on 2020/6/15.
-//  Copyright © 2020 book. All rights reserved.
-//
-
 #include "stack.h"
+
+static Stack initStack()
+{
+    return initVector();
+}
+
+static void push(Stack *S, int e)
+{
+    insertBottom(S, e);
+}
+
+static int pop(Stack *S)
+{
+    S->size--;
+    return *(S->elem + S->size);
+}

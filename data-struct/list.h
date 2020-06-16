@@ -34,6 +34,7 @@ static List initList(void);
 //获取
 static int listGet(List L,int r);
 
+static void insertBefore(ListNode *p,int e);
 //插入
 static void listInsert(List *L, int n, int e);
 
