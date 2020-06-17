@@ -1,26 +1,50 @@
 #include "binTree.h"
 #include "queue.h"
 
-#define stature(p) ((p) ? (p)->height : -1)
-#define max(a,b) ((a)>(b)?(a):(b))
+static BinTreeQueue binTreeInitQueue()
+{
+    BinTreeQueue L;
+    L.size = 0;
+    L.header = malloc(sizeof(BinTreeQueueNode));
+    L.trailer = malloc(sizeof(BinTreeQueueNode));
+    L.trailer->pred = L.header;
+    L.header->succ = L.trailer;
+    return L;
+}
 
-struct BinNode{
-    int data;
-    struct BinNode *parent;
-    struct BinNode *lChild;
-    struct BinNode *rChild;
-    int height;
-    int npl;
-    int color;
-};
+static void binTreeEnqueue(BinTreeQueue *Q, BinNode *e)
+{
+    BinTreeQueueNode *p = Q->trailer;
 
-struct BinTree{
-    int size;
-    struct BinNode *root;
-};
+    BinTreeQueueNode *new = malloc(sizeof(BinTreeQueueNode));
+    BinTreeQueueNode *h = p->pred;
 
-typedef struct BinNode BinNode;
-typedef struct BinTree BinTree;
+    new->data = e;
+    h->succ =new;
+    p->pred = new;
+    new->pred = h;
+    new->succ = p;
+    Q->size++;
+}
+
+static BinNode *binTreeDequeue(BinTreeQueue *Q)
+{
+    BinNode *tmp = Q->header->succ->data;
+    Q->header->succ->succ->pred = Q->header;
+    Q->header->succ = Q->header->succ->succ;
+    Q->size--;
+    return tmp;
+}
+
+BinTree initBinTree(int e)
+{
+    BinTree T;
+    T.root = malloc(sizeof(BinNode));
+    T.root->lChild = NULL;
+    T.root->rChild = NULL;
+    T.root->data = e;
+    return T;
+}
 
 static int updateHeight(BinNode *x)
 {
@@ -29,7 +53,7 @@ static int updateHeight(BinNode *x)
 
 static void updateHeightAbove(BinNode *x)
 {
-    while (x) {
+    while (x != NULL) {
         updateHeight(x);
         x = x->parent;
     }
@@ -39,12 +63,30 @@ static BinNode *insertAsRC(BinNode *x, int e)
 {
     x->rChild = malloc(sizeof(BinNode));
     x->rChild->parent = x;
+    x->rChild->parent->lChild = NULL;
+    x->rChild->parent->rChild = NULL;
     updateHeightAbove(x);
     return x->rChild;
 }
 
+
+
 //层次遍历
-static void travLevel(BinTree *T)
+void travLevel(BinTree T)
 {
+    BinTreeQueue Q = binTreeInitQueue();
+    binTreeEnqueue(&Q, T.root);
     
+    while (Q.size) {
+        BinNode *x = binTreeDequeue(&Q);
+        if (x->lChild != NULL){
+            printf("%s\n","lChild enquque");
+            binTreeEnqueue(&Q, x->lChild);
+        }
+        
+        if (x->rChild != NULL){
+            printf("%s\n","rChild enquque");
+            binTreeEnqueue(&Q, x->rChild);
+        }
+    }
 }

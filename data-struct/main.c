@@ -1,8 +1,8 @@
-#include "vector.c"
-#include "list.c"
-#include "stack.c"
-#include "queue.c"
-#include "binTree.c"
+#include "vector.h"
+#include "list.h"
+#include "stack.h"
+#include "queue.h"
+#include "binTree.h"
 
 static void printVector(Vector V)
 {
@@ -208,10 +208,21 @@ static void testQueue()
     }
 }
 
+static void testBinTree()
+{
+    BinTree T = initBinTree(1);
+    
+    printf("测试二叉树...\n");
+    {
+        travLevel(T);
+    }
+}
+
 int main()
 {
-    testVector();
-    testList();
-    testStack();
-    testQueue();
+//    testVector();
+//    testList();
+//    testStack();
+//    testQueue();
+    testBinTree();
 }

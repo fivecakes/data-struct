@@ -2,7 +2,7 @@
 
 
 
-static List initList()
+List initList()
 {
     List L;
     L.size = 0;
@@ -13,7 +13,7 @@ static List initList()
     return L;
 }
 
-static int listGet(List L,int r)
+int listGet(List L,int r)
 {
     ListNode *p = L.header;
     while (r--) {
@@ -23,7 +23,7 @@ static int listGet(List L,int r)
 }
 
 
-static void insertBefore(ListNode *p,int e)
+void insertBefore(ListNode *p,int e)
 {
     ListNode *new = malloc(sizeof(ListNode));
     ListNode *h = p->pred;
@@ -36,7 +36,7 @@ static void insertBefore(ListNode *p,int e)
 }
 
 
-static void listInsert(List *L, int n, int e)
+void listInsert(List *L, int n, int e)
 {
     ListNode *p = L->header->succ;
     while (n) {
@@ -66,7 +66,7 @@ static ListNode* selectMax(List *L, int n)
 
 
 //选择排序
-static void selectionSort(List *L)
+void selectionSort(List *L)
 {
     ListNode* p;
     ListNode* t = L->trailer->pred;
@@ -107,7 +107,7 @@ static void moveAfter(ListNode *p,ListNode *s)
 }
 
 //插入排序
-static void insertSort(List *L)
+void insertSort(List *L)
 {
     ListNode *c = L->header->succ->succ->succ;
     ListNode *s,*p;

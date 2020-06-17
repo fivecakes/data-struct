@@ -13,24 +13,24 @@ struct Vector{
 typedef struct Vector Vector;
 
 //初始化
-static Vector initVector(void);
+Vector initVector(void);
 
 //扩容
 static void expand(Vector *V);
 
 //插入
-static void insert(Vector *V, int r, int e);
+void insert(Vector *V, int r, int e);
 
 //冒泡排序
-static void bubbleSort(Vector *V);
+void bubbleSort(Vector *V);
 
 //归并排序
-static void mergeSort(Vector *V, int lo, int hi);
+void mergeSort(Vector *V, int lo, int hi);
 
 //二分查找
-static int binSearch(Vector V, int e, int lo, int hi);
+int binSearch(Vector V, int e, int lo, int hi);
 
 //插值查找
-static int insertValueSearch(Vector V, int e, int lo, int hi);
+int insertValueSearch(Vector V, int e, int lo, int hi);
 
 #endif /* vector_h */

@@ -1,7 +1,7 @@
 #include "vector.h"
 
 
-static Vector initVector()
+Vector initVector()
 {
     Vector V;
     V.elem = malloc(2* sizeof(int));
@@ -20,7 +20,7 @@ static void expand(Vector *V)
 
 
 //插入
-static void insert(Vector *V, int r, int e)
+void insert(Vector *V, int r, int e)
 {
     expand(V);
     for (int i = V->size; i>r; i--) {
@@ -31,7 +31,7 @@ static void insert(Vector *V, int r, int e)
 }
 
 //插入
-static void insertBottom(Vector *V, int e)
+void insertBottom(Vector *V, int e)
 {
     expand(V);
     *(V->elem+V->size) = e;
@@ -39,7 +39,7 @@ static void insertBottom(Vector *V, int e)
 }
 
 //删除
-static void delete(Vector *V, int r)
+void deleteVector(Vector *V, int r)
 {
     for (int i = r; i<V->size -1; i++) {
         *(V->elem+i) = *(V->elem+i+1);
@@ -63,7 +63,7 @@ static int bubble(Vector *V,int lo, int hi)
     return last;
 }
 
-static void bubbleSort(Vector *V)
+void bubbleSort(Vector *V)
 {
     int lo = 0;
     int hi = V->size-1;
@@ -104,7 +104,7 @@ static void merge(Vector *V, int lo, int mi, int hi)
     }
 }
 
-static void mergeSort(Vector *V, int lo, int hi)
+void mergeSort(Vector *V, int lo, int hi)
 {
     if (hi - lo <2) {
         return;
@@ -116,7 +116,7 @@ static void mergeSort(Vector *V, int lo, int hi)
 }
 
 //二分查找
-static int binSearch(Vector V,int e,int lo,int hi)
+int binSearch(Vector V,int e,int lo,int hi)
 {
     while (lo<hi) {
         int mi = (lo+hi)>>1;
@@ -132,7 +132,7 @@ static int binSearch(Vector V,int e,int lo,int hi)
 }
 
 //插值查找
-static int insertValueSearch(Vector V,int e,int lo,int hi)
+int insertValueSearch(Vector V,int e,int lo,int hi)
 {
     hi--;
     while (lo<hi) {

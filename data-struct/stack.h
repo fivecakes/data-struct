@@ -9,8 +9,8 @@ struct Stack{
 
 typedef struct Stack Stack;
 
-static Stack initStack(void);
-static void push(Stack *S, int e);
+Stack initStack(void);
+void push(Stack *S, int e);
 
-static int pop(Stack *S);
+int pop(Stack *S);
 #endif /* stack_h */

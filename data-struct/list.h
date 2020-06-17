@@ -21,20 +21,20 @@ typedef struct ListNode ListNode;
 typedef struct List List;
 
 //初始化
-static List initList(void);
+List initList(void);
 
 //获取
-static int listGet(List L,int r);
+int listGet(List L,int r);
 
-static void insertBefore(ListNode *p,int e);
+void insertBefore(ListNode *p,int e);
 //插入
-static void listInsert(List *L, int n, int e);
+void listInsert(List *L, int n, int e);
 
 //选择排序
-static void selectionSort(List *L);
+void selectionSort(List *L);
 
 //插入排序
-static void insertSort(List *L);
+void insertSort(List *L);
 
 
 #endif /* list_h */

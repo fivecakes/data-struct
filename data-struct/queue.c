@@ -1,6 +1,6 @@
 #include "queue.h"
 
-static Queue initQueue()
+Queue initQueue()
 {
     Queue L;
     L.size = 0;
@@ -11,8 +11,10 @@ static Queue initQueue()
     return L;
 }
 
-static void insertBeforeQueueNode(QueueNode *p,int e)
+void enqueue(Queue *Q, int e)
 {
+    QueueNode *p = Q->trailer;
+    
     QueueNode *new = malloc(sizeof(QueueNode));
     QueueNode *h = p->pred;
     
@@ -21,16 +23,10 @@ static void insertBeforeQueueNode(QueueNode *p,int e)
     p->pred = new;
     new->pred = h;
     new->succ = p;
-}
-
-static void enqueue(Queue *Q, int e)
-{
-    QueueNode *p = Q->trailer;
-    insertBeforeQueueNode(p,e);
     Q->size++;
 }
 
-static int dequeue(Queue *Q)
+int dequeue(Queue *Q)
 {
     int tmp = Q->header->succ->data;
     Q->header->succ->succ->pred = Q->header;
