@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <math.h>
+#include <string.h>
+
+
 #define NULL ((void*)0)
 
 
@@ -28,29 +32,43 @@ struct BinTree{
 typedef struct BinNode BinNode;
 typedef struct BinTree BinTree;
 
+BinNode *insertAsRC(BinNode *x, int e);
+BinNode *insertAsLC(BinNode *x, int e);
 BinTree initBinTree(int e);
-void travLevel(BinTree T);
+void travLevel(BinTree T,void visit(BinNode *e));
+void PrintTree(BinTree T);
 
+
+//栈数据结构
+struct BinTreeStack{
+    BinNode **elem;
+    int size;
+    int capacity;
+};
+typedef struct BinTreeStack BinTreeStack;
+static BinTreeStack binTreeInitStack(void);
+static void binTreePush(BinTreeStack *S, BinNode *e);
+static BinNode *binTreePop(BinTreeStack *S);
+
+
+//队列数据结构
 struct BinTreeQueueNode{
     BinNode *data;
     struct BinTreeQueueNode *pred;
     struct BinTreeQueueNode *succ;
 };
-
 struct BinTreeQueue{
     int size;
     struct BinTreeQueueNode *header;
     struct BinTreeQueueNode *trailer;
 };
-
 typedef struct BinTreeQueueNode BinTreeQueueNode;
 typedef struct BinTreeQueue BinTreeQueue;
-
-
 static BinTreeQueue binTreeInitQueue(void);
 static void binTreeEnqueue(BinTreeQueue *Q, BinNode *e);
-
 static BinNode *binTreeDequeue(BinTreeQueue *Q);
+
+
 
 
 

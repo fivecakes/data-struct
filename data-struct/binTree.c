@@ -29,11 +29,44 @@ static void binTreeEnqueue(BinTreeQueue *Q, BinNode *e)
 
 static BinNode *binTreeDequeue(BinTreeQueue *Q)
 {
+    if (Q->size == 0) {
+        return NULL;
+    }
     BinNode *tmp = Q->header->succ->data;
     Q->header->succ->succ->pred = Q->header;
     Q->header->succ = Q->header->succ->succ;
     Q->size--;
     return tmp;
+}
+
+
+static BinTreeStack binTreeInitStack()
+{
+    BinTreeStack S;
+    S.elem = malloc(2* sizeof(int*));
+    S.capacity =2;
+    S.size = 0;
+    return S;
+}
+
+//扩容
+static void expand(BinTreeStack *S)
+{
+    if(S->size < S->capacity) return; //尚未满员，不必扩容
+    S->elem = realloc(S->elem,(S->capacity<<=1)*sizeof(int));
+}
+
+static void binTreePush(BinTreeStack *S, BinNode *e)
+{
+    expand(S);
+    *(S->elem+S->size) = e;
+    S->size++;
+}
+
+static BinNode *binTreePop(BinTreeStack *S)
+{
+    S->size--;
+    return *(S->elem + S->size);
 }
 
 BinTree initBinTree(int e)
@@ -43,6 +76,8 @@ BinTree initBinTree(int e)
     T.root->lChild = NULL;
     T.root->rChild = NULL;
     T.root->data = e;
+    T.root->height = 0;
+    
     return T;
 }
 
@@ -59,34 +94,104 @@ static void updateHeightAbove(BinNode *x)
     }
 }
 
-static BinNode *insertAsRC(BinNode *x, int e)
+BinNode *insertAsRC(BinNode *x, int e)
 {
-    x->rChild = malloc(sizeof(BinNode));
-    x->rChild->parent = x;
-    x->rChild->parent->lChild = NULL;
-    x->rChild->parent->rChild = NULL;
+    BinNode *new = malloc(sizeof(BinNode));
+    new->parent = x;
+    new->lChild = NULL;
+    new->rChild = NULL;
+    new->data = e;
+    new->height = 0;
+    
+    x->rChild = new;
+    
     updateHeightAbove(x);
-    return x->rChild;
+    return new;
+}
+
+BinNode *insertAsLC(BinNode *x, int e)
+{
+    BinNode *new = malloc(sizeof(BinNode));
+    new->parent = x;
+    new->lChild = NULL;
+    new->rChild = NULL;
+    new->data = e;
+    new->height = 0;
+    
+    x->lChild = new;
+    
+    updateHeightAbove(x);
+    return new;
 }
 
 
 
 //层次遍历
-void travLevel(BinTree T)
+void travLevel(BinTree T,void visit(BinNode *e))
 {
     BinTreeQueue Q = binTreeInitQueue();
     binTreeEnqueue(&Q, T.root);
     
     while (Q.size) {
         BinNode *x = binTreeDequeue(&Q);
+        
+        visit(x);
+        
         if (x->lChild != NULL){
-            printf("%s\n","lChild enquque");
             binTreeEnqueue(&Q, x->lChild);
         }
         
         if (x->rChild != NULL){
-            printf("%s\n","rChild enquque");
             binTreeEnqueue(&Q, x->rChild);
+        }
+    }
+}
+
+void visitAlongLeftBranch(BinNode *x,void visit(BinNode *e),BinTreeStack *S)
+{
+    while (x!= NULL) {
+        visit(x);
+        binTreePush(S,x->rChild);
+        x = x->lChild;
+    }
+}
+
+//先序遍历
+void travPre(BinTree T,void visit(BinNode *e))
+{
+    BinTreeStack S = binTreeInitStack();
+    BinNode *x = T.root;
+    while (1) {
+        visitAlongLeftBranch(x,visit,&S);
+        if (S.size==0) {
+            break;
+        }else{
+            x = binTreePop(&S);
+        }
+    }
+}
+
+void goAloneLeftBranch(BinNode *x,BinTreeStack *S)
+{
+    while (x != NULL) {
+        binTreePush(S,x);
+        x = x->lChild;
+    }
+}
+
+//中序遍历
+void travIn(BinTree T,void visit(BinNode *e))
+{
+    BinTreeStack S = binTreeInitStack();
+    BinNode *x = T.root;
+    while (1) {
+        goAloneLeftBranch(x,&S);
+        if (S.size==0) {
+            break;
+        }else{
+            x = binTreePop(&S);
+            visit(x);
+            x = x->rChild;
         }
     }
 }

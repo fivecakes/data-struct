@@ -208,15 +208,38 @@ static void testQueue()
     }
 }
 
+void visit(BinNode *e)
+{
+    printf("%d",e->data,e->height);
+}
+
+
+
+
 static void testBinTree()
 {
     BinTree T = initBinTree(1);
     
     printf("测试二叉树...\n");
     {
-        travLevel(T);
+        BinNode *n2 = insertAsLC(T.root, 2);
+        BinNode *n3 = insertAsRC(T.root, 3);
+        BinNode *n4 = insertAsLC(n2, 4);
+        BinNode *n5 = insertAsRC(n2, 5);
+        BinNode *n6 = insertAsLC(n3, 6);
+        BinNode *n7 = insertAsRC(n3, 7);
+        
+        travLevel(T,visit);
+        printf("\n");
+        travPre(T,visit);
+        printf("\n");
+        travIn(T,visit);
+        printf("\n");
     }
+    
 }
+
+
 
 int main()
 {
