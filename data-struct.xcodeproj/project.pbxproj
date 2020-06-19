@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD5E7C4D249AFDB600041A72 /* graph.c in Sources */ = {isa = PBXBuildFile; fileRef = FD5E7C4C249AFDB600041A72 /* graph.c */; };
 		FD89E9E22497723800EA93ED /* vector.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9E12497723800EA93ED /* vector.c */; };
 		FD89E9EF2497792C00EA93ED /* list.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9E72497792B00EA93ED /* list.c */; };
 		FD89E9F32497792C00EA93ED /* queue.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9EC2497792B00EA93ED /* queue.c */; };
@@ -28,6 +29,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FD5E7C4B249AFDB600041A72 /* graph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graph.h; sourceTree = "<group>"; };
+		FD5E7C4C249AFDB600041A72 /* graph.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = graph.c; sourceTree = "<group>"; };
 		FD89E9E12497723800EA93ED /* vector.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vector.c; sourceTree = "<group>"; };
 		FD89E9E32497756300EA93ED /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
 		FD89E9E62497792B00EA93ED /* list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = list.h; sourceTree = "<group>"; };
@@ -80,6 +83,8 @@
 				FD89E9EC2497792B00EA93ED /* queue.c */,
 				FD89EA0D249891F800EA93ED /* queue.h */,
 				FD89E9F624986FCF00EA93ED /* binTree.c */,
+				FD5E7C4B249AFDB600041A72 /* graph.h */,
+				FD5E7C4C249AFDB600041A72 /* graph.c */,
 				FD89E9F524986FCF00EA93ED /* binTree.h */,
 				FD89E9EE2497792C00EA93ED /* stack.c */,
 				FD89EA0E2498927800EA93ED /* stack.h */,
@@ -144,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD89E9E22497723800EA93ED /* vector.c in Sources */,
+				FD5E7C4D249AFDB600041A72 /* graph.c in Sources */,
 				FD89E9F42497792C00EA93ED /* stack.c in Sources */,
 				FD8E519724615E0300B23FAB /* main.c in Sources */,
 				FD89E9F32497792C00EA93ED /* queue.c in Sources */,

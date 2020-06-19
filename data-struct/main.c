@@ -3,6 +3,7 @@
 #include "stack.h"
 #include "queue.h"
 #include "binTree.h"
+#include "graph.h"
 
 static void printVector(Vector V)
 {
@@ -241,11 +242,26 @@ static void testBinTree()
 
 
 
+void testGraph()
+{
+    int arr[5][5] = {
+        {0,0,1,0,0},
+        {0,0,1,0,0},
+        {0,0,0,0,1},
+        {0,1,1,0,0},
+        {0,1,0,1,0}
+    };
+    Graph G = initGraph(arr);
+    dfs(&G);
+    printf("\n");
+}
+
 int main()
 {
 //    testVector();
 //    testList();
 //    testStack();
 //    testQueue();
-    testBinTree();
+//    testBinTree();
+    testGraph();
 }
