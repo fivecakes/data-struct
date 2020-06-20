@@ -195,3 +195,42 @@ void travIn(BinTree T,void visit(BinNode *e))
         }
     }
 }
+
+
+//图形化输出二叉树
+void printTG(BinTree T)
+{
+    BinTreeQueue Q = binTreeInitQueue();
+    binTreeEnqueue(&Q, T.root);
+    printf("height=%d\n",T.root->height);
+    int i, j, depth = T.root->height+1;
+    char str[3] = "   ";
+    
+    for (j = 0; j < depth; j++) {
+        int w = 1 << (depth - j);
+        for (i = 0; i < 1 << j; i++)
+        {
+            BinNode *x = binTreeDequeue(&Q);
+            if (x) {
+                sprintf(str, "%d", x->data);
+            }else{
+                str[0] = ' ';
+                str[1] = ' ';
+                str[2] = ' ';
+            }
+            
+            printf("%*s%*c", w, str, w, ' ');
+            
+            if (!x) {
+                binTreeEnqueue(&Q, NULL);
+                binTreeEnqueue(&Q, NULL);
+            }else{
+                binTreeEnqueue(&Q, x->lChild);
+                binTreeEnqueue(&Q, x->rChild);
+            }
+        }
+        printf("\n");
+    }
+
+    printf("\n");
+}

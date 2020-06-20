@@ -231,12 +231,14 @@ static void testBinTree()
         BinNode *n6 = insertAsLC(n3, 6);
         BinNode *n7 = insertAsRC(n3, 7);
         
+        printTG(T);
         travLevel(T,visit);
         printf("\n");
         travPre(T,visit);
         printf("\n");
         travIn(T,visit);
         printf("\n");
+        
     }
     
 }
@@ -275,9 +277,15 @@ static void testBST()
         bst_insert(&T,64);
         bst_insert(&T,69);
         
-        
+        printTG(T);
         travIn(T,visit);
         printf("\n");
+//        bst_delete(&T,69);
+//        travIn(T,visit);
+//        printf("\n");
+//        bst_delete(&T,36);
+//        travIn(T,visit);
+//        printf("\n");
     }
     
 }
