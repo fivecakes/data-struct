@@ -86,7 +86,7 @@ static int updateHeight(BinNode *x)
     return x->height = 1 + max(stature(x->lChild) , stature(x->rChild));
 }
 
-static void updateHeightAbove(BinNode *x)
+void updateHeightAbove(BinNode *x)
 {
     while (x != NULL) {
         updateHeight(x);

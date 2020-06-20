@@ -4,6 +4,7 @@
 #include "queue.h"
 #include "binTree.h"
 #include "graph.h"
+#include "BST.h"
 
 static void printVector(Vector V)
 {
@@ -211,7 +212,7 @@ static void testQueue()
 
 void visit(BinNode *e)
 {
-    printf("%d",e->data,e->height);
+    printf("%d,",e->data,e->height);
 }
 
 
@@ -256,6 +257,31 @@ void testGraph()
     printf("\n");
 }
 
+
+static void testBST()
+{
+    
+    printf("测试BST...\n");
+    {
+        BinTree T;
+        T.root = NULL;
+        bst_insert(&T,6);
+        bst_insert(&T,27);
+        bst_insert(&T,36);
+        bst_insert(&T,40);
+        bst_insert(&T,46);
+        bst_insert(&T,53);
+        bst_insert(&T,58);
+        bst_insert(&T,64);
+        bst_insert(&T,69);
+        
+        
+        travIn(T,visit);
+        printf("\n");
+    }
+    
+}
+
 int main()
 {
 //    testVector();
@@ -263,5 +289,6 @@ int main()
 //    testStack();
 //    testQueue();
 //    testBinTree();
-    testGraph();
+//    testGraph();
+    testBST();
 }

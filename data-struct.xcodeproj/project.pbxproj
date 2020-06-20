@@ -7,12 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FD5E7C4D249AFDB600041A72 /* graph.c in Sources */ = {isa = PBXBuildFile; fileRef = FD5E7C4C249AFDB600041A72 /* graph.c */; };
-		FD89E9E22497723800EA93ED /* vector.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9E12497723800EA93ED /* vector.c */; };
-		FD89E9EF2497792C00EA93ED /* list.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9E72497792B00EA93ED /* list.c */; };
-		FD89E9F32497792C00EA93ED /* queue.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9EC2497792B00EA93ED /* queue.c */; };
-		FD89E9F42497792C00EA93ED /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9EE2497792C00EA93ED /* stack.c */; };
-		FD89E9F824986FCF00EA93ED /* binTree.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89E9F624986FCF00EA93ED /* binTree.c */; };
+		FD89D8F0249C84420055A1C5 /* graph.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89D8ED249C82830055A1C5 /* graph.c */; };
+		FD89D8F1249C84420055A1C5 /* list.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89D8E3249C82830055A1C5 /* list.c */; };
+		FD89D8F2249C84420055A1C5 /* queue.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89D8E6249C82830055A1C5 /* queue.c */; };
+		FD89D8F3249C84420055A1C5 /* binTree.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89D8EC249C82830055A1C5 /* binTree.c */; };
+		FD89D8F4249C84420055A1C5 /* vector.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89D8E5249C82830055A1C5 /* vector.c */; };
+		FD89D8F5249C84420055A1C5 /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89D8E4249C82830055A1C5 /* stack.c */; };
+		FD89D8F8249C84CB0055A1C5 /* BST.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89D8F7249C84CB0055A1C5 /* BST.c */; };
+		FD89D8FB249C85830055A1C5 /* AVL.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89D8FA249C85830055A1C5 /* AVL.c */; };
+		FD89D8FE249C86100055A1C5 /* Splay.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89D8FD249C86100055A1C5 /* Splay.c */; };
+		FD89D901249C86300055A1C5 /* BTree.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89D900249C86300055A1C5 /* BTree.c */; };
+		FD89D904249C86790055A1C5 /* RedBlackTree.c in Sources */ = {isa = PBXBuildFile; fileRef = FD89D903249C86790055A1C5 /* RedBlackTree.c */; };
 		FD8E519724615E0300B23FAB /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = FD8E519624615E0300B23FAB /* main.c */; };
 /* End PBXBuildFile section */
 
@@ -29,18 +34,28 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		FD5E7C4B249AFDB600041A72 /* graph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graph.h; sourceTree = "<group>"; };
-		FD5E7C4C249AFDB600041A72 /* graph.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = graph.c; sourceTree = "<group>"; };
-		FD89E9E12497723800EA93ED /* vector.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vector.c; sourceTree = "<group>"; };
-		FD89E9E32497756300EA93ED /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
-		FD89E9E62497792B00EA93ED /* list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = list.h; sourceTree = "<group>"; };
-		FD89E9E72497792B00EA93ED /* list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = list.c; sourceTree = "<group>"; };
-		FD89E9EC2497792B00EA93ED /* queue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = queue.c; sourceTree = "<group>"; };
-		FD89E9EE2497792C00EA93ED /* stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
-		FD89E9F524986FCF00EA93ED /* binTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = binTree.h; sourceTree = "<group>"; };
-		FD89E9F624986FCF00EA93ED /* binTree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = binTree.c; sourceTree = "<group>"; };
-		FD89EA0D249891F800EA93ED /* queue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = queue.h; sourceTree = "<group>"; };
-		FD89EA0E2498927800EA93ED /* stack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		FD89D8E3249C82830055A1C5 /* list.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = list.c; sourceTree = "<group>"; };
+		FD89D8E4249C82830055A1C5 /* stack.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
+		FD89D8E5249C82830055A1C5 /* vector.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vector.c; sourceTree = "<group>"; };
+		FD89D8E6249C82830055A1C5 /* queue.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = queue.c; sourceTree = "<group>"; };
+		FD89D8E7249C82830055A1C5 /* graph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graph.h; sourceTree = "<group>"; };
+		FD89D8E8249C82830055A1C5 /* binTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = binTree.h; sourceTree = "<group>"; };
+		FD89D8E9249C82830055A1C5 /* list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = list.h; sourceTree = "<group>"; };
+		FD89D8EA249C82830055A1C5 /* stack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		FD89D8EB249C82830055A1C5 /* vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
+		FD89D8EC249C82830055A1C5 /* binTree.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = binTree.c; sourceTree = "<group>"; };
+		FD89D8ED249C82830055A1C5 /* graph.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = graph.c; sourceTree = "<group>"; };
+		FD89D8EE249C82830055A1C5 /* queue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = queue.h; sourceTree = "<group>"; };
+		FD89D8F6249C84CB0055A1C5 /* BST.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BST.h; sourceTree = "<group>"; };
+		FD89D8F7249C84CB0055A1C5 /* BST.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = BST.c; sourceTree = "<group>"; };
+		FD89D8F9249C85830055A1C5 /* AVL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVL.h; sourceTree = "<group>"; };
+		FD89D8FA249C85830055A1C5 /* AVL.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = AVL.c; sourceTree = "<group>"; };
+		FD89D8FC249C86100055A1C5 /* Splay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Splay.h; sourceTree = "<group>"; };
+		FD89D8FD249C86100055A1C5 /* Splay.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Splay.c; sourceTree = "<group>"; };
+		FD89D8FF249C86300055A1C5 /* BTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTree.h; sourceTree = "<group>"; };
+		FD89D900249C86300055A1C5 /* BTree.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = BTree.c; sourceTree = "<group>"; };
+		FD89D902249C86790055A1C5 /* RedBlackTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RedBlackTree.h; sourceTree = "<group>"; };
+		FD89D903249C86790055A1C5 /* RedBlackTree.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = RedBlackTree.c; sourceTree = "<group>"; };
 		FD8E519324615E0300B23FAB /* data-struct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "data-struct"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8E519624615E0300B23FAB /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -56,6 +71,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FD89D8E2249C82830055A1C5 /* elementary */ = {
+			isa = PBXGroup;
+			children = (
+				FD89D8E9249C82830055A1C5 /* list.h */,
+				FD89D8E3249C82830055A1C5 /* list.c */,
+				FD89D8E4249C82830055A1C5 /* stack.c */,
+				FD89D8E5249C82830055A1C5 /* vector.c */,
+				FD89D8E6249C82830055A1C5 /* queue.c */,
+				FD89D8E7249C82830055A1C5 /* graph.h */,
+				FD89D8EA249C82830055A1C5 /* stack.h */,
+				FD89D8EB249C82830055A1C5 /* vector.h */,
+				FD89D8E8249C82830055A1C5 /* binTree.h */,
+				FD89D8EC249C82830055A1C5 /* binTree.c */,
+				FD89D8ED249C82830055A1C5 /* graph.c */,
+				FD89D8EE249C82830055A1C5 /* queue.h */,
+			);
+			path = elementary;
+			sourceTree = "<group>";
+		};
+		FD89D8EF249C829D0055A1C5 /* advance */ = {
+			isa = PBXGroup;
+			children = (
+				FD89D8F6249C84CB0055A1C5 /* BST.h */,
+				FD89D8F7249C84CB0055A1C5 /* BST.c */,
+				FD89D8F9249C85830055A1C5 /* AVL.h */,
+				FD89D8FA249C85830055A1C5 /* AVL.c */,
+				FD89D8FC249C86100055A1C5 /* Splay.h */,
+				FD89D8FD249C86100055A1C5 /* Splay.c */,
+				FD89D8FF249C86300055A1C5 /* BTree.h */,
+				FD89D900249C86300055A1C5 /* BTree.c */,
+				FD89D902249C86790055A1C5 /* RedBlackTree.h */,
+				FD89D903249C86790055A1C5 /* RedBlackTree.c */,
+			);
+			name = advance;
+			path = "data-struct/advance";
+			sourceTree = SOURCE_ROOT;
+		};
 		FD8E518A24615E0300B23FAB = {
 			isa = PBXGroup;
 			children = (
@@ -76,18 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				FD8E519624615E0300B23FAB /* main.c */,
-				FD89E9E12497723800EA93ED /* vector.c */,
-				FD89E9E32497756300EA93ED /* vector.h */,
-				FD89E9E72497792B00EA93ED /* list.c */,
-				FD89E9E62497792B00EA93ED /* list.h */,
-				FD89E9EC2497792B00EA93ED /* queue.c */,
-				FD89EA0D249891F800EA93ED /* queue.h */,
-				FD89E9F624986FCF00EA93ED /* binTree.c */,
-				FD5E7C4B249AFDB600041A72 /* graph.h */,
-				FD5E7C4C249AFDB600041A72 /* graph.c */,
-				FD89E9F524986FCF00EA93ED /* binTree.h */,
-				FD89E9EE2497792C00EA93ED /* stack.c */,
-				FD89EA0E2498927800EA93ED /* stack.h */,
+				FD89D8EF249C829D0055A1C5 /* advance */,
+				FD89D8E2249C82830055A1C5 /* elementary */,
 			);
 			path = "data-struct";
 			sourceTree = "<group>";
@@ -148,13 +190,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD89E9E22497723800EA93ED /* vector.c in Sources */,
-				FD5E7C4D249AFDB600041A72 /* graph.c in Sources */,
-				FD89E9F42497792C00EA93ED /* stack.c in Sources */,
+				FD89D8FB249C85830055A1C5 /* AVL.c in Sources */,
+				FD89D8F1249C84420055A1C5 /* list.c in Sources */,
+				FD89D901249C86300055A1C5 /* BTree.c in Sources */,
+				FD89D8F2249C84420055A1C5 /* queue.c in Sources */,
+				FD89D8F4249C84420055A1C5 /* vector.c in Sources */,
+				FD89D8F3249C84420055A1C5 /* binTree.c in Sources */,
+				FD89D8FE249C86100055A1C5 /* Splay.c in Sources */,
+				FD89D904249C86790055A1C5 /* RedBlackTree.c in Sources */,
+				FD89D8F5249C84420055A1C5 /* stack.c in Sources */,
+				FD89D8F0249C84420055A1C5 /* graph.c in Sources */,
 				FD8E519724615E0300B23FAB /* main.c in Sources */,
-				FD89E9F32497792C00EA93ED /* queue.c in Sources */,
-				FD89E9F824986FCF00EA93ED /* binTree.c in Sources */,
-				FD89E9EF2497792C00EA93ED /* list.c in Sources */,
+				FD89D8F8249C84CB0055A1C5 /* BST.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
