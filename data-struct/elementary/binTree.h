@@ -41,6 +41,8 @@ void updateHeightAbove(BinNode *x);
 void TGprint(BinTree T);
 void travIn(BinTree T,void visit(BinNode *e));
 void travPre(BinTree T,void visit(BinNode *e));
+void visit(BinNode *e);
+
 //栈数据结构
 struct BinTreeStack{
     BinNode **elem;

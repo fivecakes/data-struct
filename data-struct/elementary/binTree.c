@@ -200,6 +200,10 @@ void travIn(BinTree T,void visit(BinNode *e))
     }
 }
 
+void visit(BinNode *e)
+{
+    printf("%d,",e->data,e->height);
+}
 
 //图形化输出二叉树
 void TGprint(BinTree T)
@@ -211,16 +215,18 @@ void TGprint(BinTree T)
     
     
     for (j = 0; j < depth; j++) {
-        int w = 1 << (depth - j);
+        printf("%d|",depth -j-1);
+        //int w = 1 << (depth - j);
+        int w = (depth-1)/(1<<j) +1;
         for (i = 0; i < 1 << j; i++)
         {
             BinNode *x = binTreeDequeue(&Q);
-            char str[5] = "     ";
+            char str[3] = "xxx";
             if (x) {
                 sprintf(str, "%d", x->data);
             }
             
-            printf("%*s%*c", w, str, w, ' ');
+            printf("%*s%*c", w, str, w, '\0');
             
             if (!x) {
                 binTreeEnqueue(&Q, NULL);
@@ -232,6 +238,8 @@ void TGprint(BinTree T)
         }
         printf("\n");
     }
-
-    printf("\n");
+    
+    printf("-----------\n");
+    travIn(T,visit);
+    printf("\n-----------\n");
 }

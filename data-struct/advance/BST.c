@@ -28,7 +28,7 @@ BinNode **bst_search(BinTree *T,int e,BinNode ** xp)
 
 BinNode * bst_insert(BinTree *T,int e)
 {
-    BinNode **xp = &T->root;
+    BinNode **xp = malloc(sizeof(BinNode **));
     BinNode **x = bst_search(T,e,xp);
     
     if (!(*x)) {
@@ -56,7 +56,6 @@ BinNode **bst_succ(BinNode **x)
 {
     x = &((*x)->rChild);
     
-    printf("ppppppppppp%p",(*x));
     while ((*x)->lChild != NULL) {
         x = &((*x)->lChild);
     }
@@ -66,21 +65,22 @@ BinNode **bst_succ(BinNode **x)
 
 void remove_at(BinNode **x)
 {
-    
     if ((*x)->lChild == NULL){
         *x = (*x)->rChild;
     }
-    else if ((*x)->lChild == NULL){
+    else if ((*x)->rChild == NULL){
         *x = (*x)->lChild;
     }
     else{
         //交换x与x的直接后继w
         int tmp;
         BinNode **w = bst_succ(x);//x的直接后继
-        tmp = (*x)->data;
+        //printf("%d直接后继为%d\n",(*x)->data,(*w)->data);
+        tmp = (*w)->data;
         (*w)->data = (*x)->data;
         (*x)->data = tmp;
-
+        
+        //printf("%d直接后继为%d\n",(*x)->data,(*w)->data);
         //删除
         *w = (*w)->rChild;
     }
@@ -89,9 +89,11 @@ void remove_at(BinNode **x)
 
 void bst_delete(BinTree *T,int e)
 {
-    BinNode * xp = NULL;
+    //先找到那个要删除的节点
+    BinNode **xp = malloc(sizeof(BinNode **));
     BinNode **x = bst_search(T,e,xp);
     if (!(*x)) return;
+    //删除这个节点
     remove_at(x);
         
     updateHeightAbove(*x);

@@ -210,10 +210,7 @@ static void testQueue()
     }
 }
 
-void visit(BinNode *e)
-{
-    printf("%d,",e->data,e->height);
-}
+
 
 
 
@@ -266,27 +263,25 @@ static void testBST()
     {
         BinTree T;
         T.root = NULL;
-        
         bst_insert(&T,36);
-        bst_insert(&T,6);
         bst_insert(&T,27);
+        bst_insert(&T,58);
+        bst_insert(&T,6);
+        bst_insert(&T,53);
+        bst_insert(&T,69);
         bst_insert(&T,40);
         bst_insert(&T,46);
-        bst_insert(&T,53);
-        bst_insert(&T,58);
         bst_insert(&T,64);
-        bst_insert(&T,69);
         
         
-        TGprint(T);
         travIn(T,visit);
         printf("\n");
-//        bst_delete(&T,69);
-//        travIn(T,visit);
-//        printf("\n");
-//        bst_delete(&T,36);
-//        travIn(T,visit);
-//        printf("\n");
+        bst_delete(&T,69);
+        travIn(T,visit);
+        printf("\n");
+        bst_delete(&T,36);
+        travIn(T,visit);
+        printf("\n");
     }
     
 }
