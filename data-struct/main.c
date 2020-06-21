@@ -261,9 +261,7 @@ static void testBST()
     
     printf("测试BST...\n");
     {
-        BinTree T;
-        T.root = NULL;
-        bst_insert(&T,36);
+        BinTree T = initBinTree(36);
         bst_insert(&T,27);
         bst_insert(&T,58);
         bst_insert(&T,6);

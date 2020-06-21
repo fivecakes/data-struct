@@ -73,10 +73,19 @@ BinTree initBinTree(int e)
 {
     BinTree T;
     T.root = malloc(sizeof(BinNode));
+    T.header = malloc(sizeof(BinNode));
+    
+    T.root->parent = T.header;
     T.root->lChild = NULL;
     T.root->rChild = NULL;
     T.root->data = e;
     T.root->height = 0;
+    
+    T.header->parent = NULL;
+    T.header->lChild = T.root;
+    T.header->rChild = NULL;
+    T.header->data = INT_MAX;
+    T.header->height = 0;
     
     return T;
 }

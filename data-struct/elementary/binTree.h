@@ -6,7 +6,7 @@
 
 #include <math.h>
 #include <string.h>
-
+#include <limits.h>
 
 #define NULL ((void*)0)
 
@@ -27,6 +27,7 @@ struct BinNode{
 struct BinTree{
     int size;
     struct BinNode *root;
+    struct BinNode *header; //哨兵节点
 };
 
 typedef struct BinNode BinNode;

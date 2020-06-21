@@ -9,16 +9,27 @@
 #include "BST.h"
 
 
-BinNode **searchIn(BinNode **v, int e,BinNode **hot)
+BinNode *searchIn(BinNode *v, int e)
 {
-    if ((*v == NULL) || ((*v)->data == e)) return v;
-    *hot = *v; //父亲的地址给hot
-    return searchIn(((e<(*v)->data?&(*v)->lChild:&(*v)->rChild)), e, hot);
+    if (v->data == e) return v->parent;
+    if (e<v->data) {
+        if (v->lChild != NULL) {
+            return searchIn(v->lChild,e);
+        }else{
+            return v;
+        }
+    }else{
+       if (v->rChild != NULL) {
+            return searchIn(v->rChild,e);
+        }else{
+            return v;
+        }
+    }
 }
 
-BinNode **bst_search(BinTree *T,int e,BinNode ** xp)
+BinNode *bst_search_parent(BinTree *T,int e)
 {
-    return searchIn(&T->root,e,xp);
+    return searchIn(T->root,e);
 }
 
 
@@ -28,75 +39,74 @@ BinNode **bst_search(BinTree *T,int e,BinNode ** xp)
 
 BinNode * bst_insert(BinTree *T,int e)
 {
-    BinNode **xp = malloc(sizeof(BinNode **));
-    BinNode **x = bst_search(T,e,xp);
+    BinNode *xp = bst_search_parent(T,e);
     
-    if (!(*x)) {
-        BinNode *new = malloc(sizeof(BinNode));
-        new->parent = *xp;
-        new->lChild = NULL;
-        new->rChild = NULL;
-        new->data = e;
-        new->height = 0;
+    BinNode *new = malloc(sizeof(BinNode));
+    new->parent = xp;
+    new->lChild = NULL;
+    new->rChild = NULL;
+    new->data = e;
+    new->height = 0;
         
-        //指向null的指针，这个null是新节点的位置
-        *x = new;
-        updateHeightAbove(new);
+    if (e<xp->data) {
+        xp->lChild = new;
+    }else{
+        xp->rChild = new;
     }
+    updateHeightAbove(new);
+    
     T->size++;
-    return *x;
+    return new;
 }
 
-/**
- 1.我需要返回指针的指针
- 2.在局部函数取址返回的是局部变量的地址
- 3.
- */
-BinNode **bst_succ(BinNode **x)
+
+BinNode *bst_succ(BinNode *x)
 {
-    x = &((*x)->rChild);
-    
-    while ((*x)->lChild != NULL) {
-        x = &((*x)->lChild);
+    while (x->lChild != NULL) {
+        x = x->lChild;
     }
     return x;
 }
 
 
-void remove_at(BinNode **x)
+
+void bst_delete(BinTree *T,int e)
 {
-    if ((*x)->lChild == NULL){
-        *x = (*x)->rChild;
+    BinNode *x;
+    BinNode *xp = bst_search_parent(T,e);
+    if (e<xp->data) {
+        x = xp->lChild;
+    }else{
+        x = xp->rChild;
     }
-    else if ((*x)->rChild == NULL){
-        *x = (*x)->lChild;
+    
+    if (x->lChild == NULL){
+        if (e<xp->data) {
+            xp->lChild = x->rChild;
+        }else{
+            xp->rChild = x->rChild;
+        }
+    }
+    else if (x->rChild == NULL){
+        if (e<xp->data) {
+            xp->lChild = x->lChild;
+        }else{
+            xp->rChild = x->lChild;
+        }
     }
     else{
         //交换x与x的直接后继w
         int tmp;
-        BinNode **w = bst_succ(x);//x的直接后继
-        //printf("%d直接后继为%d\n",(*x)->data,(*w)->data);
-        tmp = (*w)->data;
-        (*w)->data = (*x)->data;
-        (*x)->data = tmp;
+        BinNode *w = bst_succ(x);//x的直接后继
+        tmp = w->data;
+        w->data = x->data;
+        x->data = tmp;
         
-        //printf("%d直接后继为%d\n",(*x)->data,(*w)->data);
-        //删除
-        *w = (*w)->rChild;
+        //删除w
+        w->parent->lChild = w->rChild;
     }
-    
-}
-
-void bst_delete(BinTree *T,int e)
-{
-    //先找到那个要删除的节点
-    BinNode **xp = malloc(sizeof(BinNode **));
-    BinNode **x = bst_search(T,e,xp);
-    if (!(*x)) return;
-    //删除这个节点
-    remove_at(x);
         
-    updateHeightAbove(*x);
+    updateHeightAbove(x);
     
     T->size--;
 }
