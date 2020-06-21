@@ -83,11 +83,15 @@ BinTree initBinTree(int e)
 
 static int updateHeight(BinNode *x)
 {
-    return x->height = 1 + max(stature(x->lChild) , stature(x->rChild));
+    //printf("update %d\n",x->data);
+    x->height = 1 + max(stature(x->lChild) , stature(x->rChild));
+    //printf("height=%d\n",x->height);
+    return x->height;
 }
 
 void updateHeightAbove(BinNode *x)
 {
+    //printf("updateHeightAbove %d\n",x->data);
     while (x != NULL) {
         updateHeight(x);
         x = x->parent;
@@ -198,25 +202,22 @@ void travIn(BinTree T,void visit(BinNode *e))
 
 
 //图形化输出二叉树
-void printTG(BinTree T)
+void TGprint(BinTree T)
 {
     BinTreeQueue Q = binTreeInitQueue();
     binTreeEnqueue(&Q, T.root);
     printf("height=%d\n",T.root->height);
     int i, j, depth = T.root->height+1;
-    char str[3] = "   ";
+    
     
     for (j = 0; j < depth; j++) {
         int w = 1 << (depth - j);
         for (i = 0; i < 1 << j; i++)
         {
             BinNode *x = binTreeDequeue(&Q);
+            char str[5] = "     ";
             if (x) {
                 sprintf(str, "%d", x->data);
-            }else{
-                str[0] = ' ';
-                str[1] = ' ';
-                str[2] = ' ';
             }
             
             printf("%*s%*c", w, str, w, ' ');

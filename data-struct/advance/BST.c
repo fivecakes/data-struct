@@ -9,40 +9,42 @@
 #include "BST.h"
 
 
-BinNode **searchIn(BinNode **v, int e,BinNode *hot)
+BinNode **searchIn(BinNode **v, int e,BinNode **hot)
 {
     if ((*v == NULL) || ((*v)->data == e)) return v;
-    hot = *v;
+    *hot = *v; //父亲的地址给hot
     return searchIn(((e<(*v)->data?&(*v)->lChild:&(*v)->rChild)), e, hot);
 }
 
-BinNode **bst_search(BinTree *T,int e)
+BinNode **bst_search(BinTree *T,int e,BinNode ** xp)
 {
-    BinNode *hot = NULL;
-    return searchIn(&T->root,e,hot);
+    return searchIn(&T->root,e,xp);
 }
 
 
 
 
 
-void bst_insert(BinTree *T,int e)
+
+BinNode * bst_insert(BinTree *T,int e)
 {
-    BinNode **x = bst_search(T,e);
+    BinNode **xp = &T->root;
+    BinNode **x = bst_search(T,e,xp);
+    
     if (!(*x)) {
         BinNode *new = malloc(sizeof(BinNode));
-        new->parent = *x;
+        new->parent = *xp;
         new->lChild = NULL;
         new->rChild = NULL;
         new->data = e;
         new->height = 0;
         
+        //指向null的指针，这个null是新节点的位置
         *x = new;
-        
-        updateHeightAbove(*x);
+        updateHeightAbove(new);
     }
     T->size++;
-    
+    return *x;
 }
 
 /**
@@ -87,7 +89,8 @@ void remove_at(BinNode **x)
 
 void bst_delete(BinTree *T,int e)
 {
-    BinNode **x = bst_search(T,e);
+    BinNode * xp = NULL;
+    BinNode **x = bst_search(T,e,xp);
     if (!(*x)) return;
     remove_at(x);
         

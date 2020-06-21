@@ -231,7 +231,7 @@ static void testBinTree()
         BinNode *n6 = insertAsLC(n3, 6);
         BinNode *n7 = insertAsRC(n3, 7);
         
-        printTG(T);
+        TGprint(T);
         travLevel(T,visit);
         printf("\n");
         travPre(T,visit);
@@ -259,7 +259,6 @@ void testGraph()
     printf("\n");
 }
 
-
 static void testBST()
 {
     
@@ -267,9 +266,10 @@ static void testBST()
     {
         BinTree T;
         T.root = NULL;
+        
+        bst_insert(&T,36);
         bst_insert(&T,6);
         bst_insert(&T,27);
-        bst_insert(&T,36);
         bst_insert(&T,40);
         bst_insert(&T,46);
         bst_insert(&T,53);
@@ -277,7 +277,8 @@ static void testBST()
         bst_insert(&T,64);
         bst_insert(&T,69);
         
-        printTG(T);
+        
+        TGprint(T);
         travIn(T,visit);
         printf("\n");
 //        bst_delete(&T,69);
@@ -289,14 +290,14 @@ static void testBST()
     }
     
 }
-
 int main()
 {
 //    testVector();
 //    testList();
 //    testStack();
 //    testQueue();
-//    testBinTree();
+    //testBinTree();
 //    testGraph();
     testBST();
+
 }
