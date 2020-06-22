@@ -93,7 +93,7 @@ BinTree initBinTree(int e)
 int updateHeight(BinNode *x)
 {
     x->height = 1 + max(stature(x->lChild) , stature(x->rChild));
-    printf("updateheight %d,height=%d\n",x->data,x->height);
+    //printf("updateheight %d,height=%d\n",x->data,x->height);
     return x->height;
 }
 

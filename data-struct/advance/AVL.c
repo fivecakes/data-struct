@@ -11,7 +11,10 @@
 static int avl_balanced(BinNode *g)
 {
     int bal_fac = stature(g->lChild) - stature(g->rChild);
-    printf("%d点平衡因子为%d\n",g->data,bal_fac);
+//    printf("%d点平衡因子为%d,左侧高度%d,右侧高度%d\n",
+//           g->data,bal_fac,
+//           stature(g->lChild) , stature(g->rChild));
+    
     if (-2<bal_fac && bal_fac<2) {
         return 1;
     }else{
@@ -61,10 +64,8 @@ BinNode* RightLeftRotate(BinNode* g){
 }
 
 
-static void avl_rotate(BinNode *g)
+static void avl_rotate1(BinNode *g)
 {
-    //参考：https://zhuanlan.zhihu.com/p/34840762
-    //右旋zig  左旋zag
     
     BinNode *gp = g->parent;
     if (!gp) {
@@ -72,7 +73,7 @@ static void avl_rotate(BinNode *g)
         exit(0);
     }
     
-    //zag
+    //zag左旋
     if (stature(g->lChild) < stature(g->rChild) && stature(g->rChild->lChild) < stature(g->rChild->rChild)) {
         if (stature(gp->lChild) < stature(gp->rChild)) {
             gp->rChild = LeftRotate(g);
@@ -80,17 +81,17 @@ static void avl_rotate(BinNode *g)
                 gp->rChild->parent = gp;
             updateHeight(gp->rChild->lChild);
             updateHeight(gp->rChild->rChild);
-            updateHeightAbove(gp);
+            updateHeightAbove(gp->rChild);
         }else{
             gp->lChild = LeftRotate(g);
             if (gp->lChild)
                 gp->lChild->parent = gp;
             updateHeight(gp->lChild->lChild);
             updateHeight(gp->lChild->rChild);
-            updateHeightAbove(gp);
+            updateHeightAbove(gp->lChild);
         }
     }
-    //zig
+    //zig右旋
     if (stature(g->lChild) > stature(g->rChild) && stature(g->lChild->lChild) > stature(g->lChild->rChild)) {
         if (stature(gp->lChild) < stature(gp->rChild)) {
             gp->rChild = RightRotate(g);
@@ -98,17 +99,17 @@ static void avl_rotate(BinNode *g)
                 gp->rChild->parent = gp;
             updateHeight(gp->rChild->lChild);
             updateHeight(gp->rChild->rChild);
-            updateHeightAbove(gp);
+            updateHeightAbove(gp->rChild);
         }else{
             gp->lChild = RightRotate(g);
             if (gp->lChild)
                 gp->lChild->parent = gp;
             updateHeight(gp->lChild->lChild);
             updateHeight(gp->lChild->rChild);
-            updateHeightAbove(gp);
+            updateHeightAbove(gp->lChild);
         }
     }
-    //zig-zag
+    //zig-zag 先右旋再左旋
     if (stature(g->lChild) < stature(g->rChild) && stature(g->rChild->lChild) > stature(g->rChild->rChild)) {
         if (stature(gp->lChild) < stature(gp->rChild)) {
             gp->rChild = RightLeftRotate(g);
@@ -116,17 +117,17 @@ static void avl_rotate(BinNode *g)
                 gp->rChild->parent = gp;
             updateHeight(gp->rChild->lChild);
             updateHeight(gp->rChild->rChild);
-            updateHeightAbove(gp);
+            updateHeightAbove(gp->rChild);
         }else{
             gp->lChild = RightLeftRotate(g);
             if (gp->lChild)
                 gp->lChild->parent = gp;
             updateHeight(gp->lChild->lChild);
             updateHeight(gp->lChild->rChild);
-            updateHeightAbove(gp);
+            updateHeightAbove(gp->lChild);
         }
     }
-    //zag-zig
+    //zag-zig 先左旋再右旋
     if (stature(g->lChild) > stature(g->rChild) && stature(g->lChild->lChild) < stature(g->lChild->rChild)) {
         if (stature(gp->lChild) < stature(gp->rChild)) {
             gp->rChild = LeftRightRotate(g);
@@ -134,14 +135,14 @@ static void avl_rotate(BinNode *g)
                 gp->rChild->parent = gp;
             updateHeight(gp->rChild->lChild);
             updateHeight(gp->rChild->rChild);
-            updateHeightAbove(gp);
+            updateHeightAbove(gp->rChild);
         }else{
             gp->lChild = LeftRightRotate(g);
             if (gp->lChild)
                 gp->lChild->parent = gp;
             updateHeight(gp->lChild->lChild);
             updateHeight(gp->lChild->rChild);
-            updateHeightAbove(gp);
+            updateHeightAbove(gp->lChild);
         }
     }
 }
@@ -164,7 +165,7 @@ BinNode *avl_insert(BinTree *T,int e)
     }
     
     T->size++;
-    
+
     printf("新插入%d,向上检测平衡因子\n",e);
     //以下从从xp出发逐层向上，依次检测各代祖先
     for(BinNode *g = xp; (g && g->parent); g = g->parent){

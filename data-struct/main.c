@@ -315,8 +315,8 @@ static void testAVL()
         avl_insert(&T,46);
         writeToDot(T,"a+","46");
         
-//        avl_insert(&T,41);
-//        writeToDot(T,"a+","41");
+        avl_insert(&T,41);
+        writeToDot(T,"a+","41");
     }
 }
 

@@ -87,21 +87,46 @@ digraph {
 
 //46
 digraph {
- n36h2
- n36h2 -> n27h1
- n27h1 -> n36h2
+ n36h3
+ n36h3 -> n27h1
+ n27h1 -> n36h3
  n27h1 -> n6h0
  n6h0 -> n27h1
  rChild27 [label="Null"][style = dotted]
  n27h1 -> rChild27[style = dotted]
- n36h2 -> n58h1
- n58h1 -> n36h2
- n58h1 -> n46h0
- n46h0 -> n58h1
- n46h0 -> n40h0
- n40h0 -> n46h0
- n46h0 -> n53h0
- n53h0 -> n46h0
+ n36h3 -> n58h2
+ n58h2 -> n36h3
+ n58h2 -> n46h1
+ n46h1 -> n58h2
+ n46h1 -> n40h0
+ n40h0 -> n46h1
+ n46h1 -> n53h0
+ n53h0 -> n46h1
+ n58h2 -> n69h0
+ n69h0 -> n58h2
+}
+
+//41
+digraph {
+ n36h3
+ n36h3 -> n27h1
+ n27h1 -> n36h3
+ n27h1 -> n6h0
+ n6h0 -> n27h1
+ rChild27 [label="Null"][style = dotted]
+ n27h1 -> rChild27[style = dotted]
+ n36h3 -> n46h2
+ n46h2 -> n36h3
+ n46h2 -> n40h1
+ n40h1 -> n46h2
+ lChild40 [label="Null"][style = dotted]
+ n40h1 -> lChild40[style = dotted]
+ n40h1 -> n41h0
+ n41h0 -> n40h1
+ n46h2 -> n58h1
+ n58h1 -> n46h2
+ n58h1 -> n53h0
+ n53h0 -> n58h1
  n58h1 -> n69h0
  n69h0 -> n58h1
 }
