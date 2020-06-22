@@ -68,31 +68,13 @@ BinNode *bst_succ(BinNode *x)
     return x;
 }
 
-
-
-void bst_delete(BinTree *T,int e)
+void bst_remove_at(BinNode **ptc,BinNode *xp,BinNode *x)
 {
-    BinNode *x;
-    BinNode *xp = bst_search_parent(T,e);
-    if (e<xp->data) {
-        x = xp->lChild;
-    }else{
-        x = xp->rChild;
-    }
-    
     if (x->lChild == NULL){
-        if (e<xp->data) {
-            xp->lChild = x->rChild;
-        }else{
-            xp->rChild = x->rChild;
-        }
+        *ptc = x->rChild;
     }
     else if (x->rChild == NULL){
-        if (e<xp->data) {
-            xp->lChild = x->lChild;
-        }else{
-            xp->rChild = x->lChild;
-        }
+        *ptc = x->lChild;
     }
     else{
         //交换x与x的直接后继w
@@ -105,6 +87,22 @@ void bst_delete(BinTree *T,int e)
         //删除w
         w->parent->lChild = w->rChild;
     }
+}
+
+void bst_remove(BinTree *T,int e)
+{
+    BinNode *x;
+    BinNode **ptc; //指向要被删除的孩子的指针的指针
+    BinNode *xp = bst_search_parent(T,e);
+    //确定要删除左孩子还是右孩子
+    if (e<xp->data) {
+        ptc = &xp->lChild;
+        x = xp->lChild;
+    }else{
+        ptc = &xp->rChild;
+        x = xp->rChild;
+    }
+    bst_remove_at(ptc,xp,x);
         
     updateHeightAbove(x);
     

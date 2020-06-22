@@ -101,9 +101,9 @@ BinNode *avl_insert(BinTree *T,int e)
     for(BinNode *g = xp; (g && g->parent); g = g->parent){
         if(!avl_balanced(g)){
             printf("%d不平衡,开始调整\n",g->data);
-            BinNode **ptc = getTallerChildAddress(g->parent);
+            BinNode **ggtg = getTallerChildAddress(g->parent);
             BinNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
-            *ptc = b;
+            *ggtg = b;
             updateHeightAbove(b);
             break;
         }else{
@@ -115,7 +115,32 @@ BinNode *avl_insert(BinTree *T,int e)
 }
 
 
+
 void avl_delete(BinTree *T,int e)
 {
+    BinNode *x;
+    BinNode **ptc; //指向要被删除的孩子的指针的指针
+    BinNode *xp = bst_search_parent(T,e);
+    //确定要删除左孩子还是右孩子
+    if (e<xp->data) {
+        ptc = &xp->lChild;
+        x = xp->lChild;
+    }else{
+        ptc = &xp->rChild;
+        x = xp->rChild;
+    }
+    bst_remove_at(ptc,xp,x);
     
+    //从xp出发逐层向上，依次检查各代祖先
+    for (BinNode *g = xp; g; g = g->parent) {
+         if(!avl_balanced(g)){
+             printf("%d不平衡,开始调整\n",g->data);
+             BinNode **ggtg = getTallerChildAddress(g->parent);
+             BinNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
+             *ggtg = b;
+         }
+        updateHeight(g);
+    }
+    
+    T->size--;
 }

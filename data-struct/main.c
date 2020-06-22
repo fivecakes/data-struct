@@ -275,10 +275,10 @@ static void testBST()
         writeToDot(T,"w+","");
         travIn(T,visit);
         printf("\n");
-//        bst_delete(&T,69);
+//        bst_remove(&T,69);
 //        travIn(T,visit);
 //        printf("\n");
-//        bst_delete(&T,36);
+//        bst_remove(&T,36);
 //        travIn(T,visit);
 //        printf("\n");
 //        writeToDot(T,"a+");
