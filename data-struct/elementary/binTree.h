@@ -38,11 +38,12 @@ BinNode *insertAsLC(BinNode *x, int e);
 BinTree initBinTree(int e);
 void travLevel(BinTree T,void visit(BinNode *e));
 void PrintTree(BinTree T);
+int updateHeight(BinNode *x);
 void updateHeightAbove(BinNode *x);
-void TGprint(BinTree T);
 void travIn(BinTree T,void visit(BinNode *e));
 void travPre(BinTree T,void visit(BinNode *e));
 void visit(BinNode *e);
+void writeToDot(BinTree T,char opt[],char info[]);
 
 //栈数据结构
 struct BinTreeStack{

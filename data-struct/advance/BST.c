@@ -9,18 +9,18 @@
 #include "BST.h"
 
 
-BinNode *searchIn(BinNode *v, int e)
+static BinNode *bst_search_in(BinNode *v, int e)
 {
     if (v->data == e) return v->parent;
     if (e<v->data) {
         if (v->lChild != NULL) {
-            return searchIn(v->lChild,e);
+            return bst_search_in(v->lChild,e);
         }else{
             return v;
         }
     }else{
        if (v->rChild != NULL) {
-            return searchIn(v->rChild,e);
+            return bst_search_in(v->rChild,e);
         }else{
             return v;
         }
@@ -29,7 +29,7 @@ BinNode *searchIn(BinNode *v, int e)
 
 BinNode *bst_search_parent(BinTree *T,int e)
 {
-    return searchIn(T->root,e);
+    return bst_search_in(T->root,e);
 }
 
 
@@ -37,7 +37,7 @@ BinNode *bst_search_parent(BinTree *T,int e)
 
 
 
-BinNode * bst_insert(BinTree *T,int e)
+BinNode *bst_insert(BinTree *T,int e)
 {
     BinNode *xp = bst_search_parent(T,e);
     

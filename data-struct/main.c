@@ -5,6 +5,7 @@
 #include "binTree.h"
 #include "graph.h"
 #include "BST.h"
+#include "AVL.h"
 
 static void printVector(Vector V)
 {
@@ -228,7 +229,7 @@ static void testBinTree()
         BinNode *n6 = insertAsLC(n3, 6);
         BinNode *n7 = insertAsRC(n3, 7);
         
-        TGprint(T);
+        writeToDot(T,"w+","");
         travLevel(T,visit);
         printf("\n");
         travPre(T,visit);
@@ -271,26 +272,63 @@ static void testBST()
         bst_insert(&T,46);
         bst_insert(&T,64);
         
-        
+        writeToDot(T,"w+","");
         travIn(T,visit);
         printf("\n");
-        bst_delete(&T,69);
-        travIn(T,visit);
-        printf("\n");
-        bst_delete(&T,36);
-        travIn(T,visit);
-        printf("\n");
+//        bst_delete(&T,69);
+//        travIn(T,visit);
+//        printf("\n");
+//        bst_delete(&T,36);
+//        travIn(T,visit);
+//        printf("\n");
+//        writeToDot(T,"a+");
     }
     
 }
+
+static void testAVL()
+{
+    
+    printf("测试AVL...\n");
+    {
+        
+        BinTree T = initBinTree(36);
+        
+        avl_insert(&T,27);
+        writeToDot(T,"w+","27");
+        
+        avl_insert(&T,58);
+        writeToDot(T,"a+","58");
+        
+        avl_insert(&T,6);
+        writeToDot(T,"a+","6");
+        
+        avl_insert(&T,53);
+        writeToDot(T,"a+","53");
+        
+        avl_insert(&T,69);
+        writeToDot(T,"a+","69");
+        
+        avl_insert(&T,40);
+        writeToDot(T,"a+","40");
+        
+        avl_insert(&T,46);
+        writeToDot(T,"a+","46");
+        
+//        avl_insert(&T,41);
+//        writeToDot(T,"a+","41");
+    }
+}
+
 int main()
 {
 //    testVector();
 //    testList();
 //    testStack();
 //    testQueue();
-    //testBinTree();
+//    testBinTree();
 //    testGraph();
-    testBST();
+//    testBST();
+    testAVL();
 
 }

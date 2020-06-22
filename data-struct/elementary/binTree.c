@@ -90,11 +90,10 @@ BinTree initBinTree(int e)
     return T;
 }
 
-static int updateHeight(BinNode *x)
+int updateHeight(BinNode *x)
 {
-    //printf("update %d\n",x->data);
     x->height = 1 + max(stature(x->lChild) , stature(x->rChild));
-    //printf("height=%d\n",x->height);
+    printf("updateheight %d,height=%d\n",x->data,x->height);
     return x->height;
 }
 
@@ -214,41 +213,44 @@ void visit(BinNode *e)
     printf("%d,",e->data,e->height);
 }
 
-//图形化输出二叉树
-void TGprint(BinTree T)
+void printDotNode(FILE* fp ,BinNode *e)
 {
-    BinTreeQueue Q = binTreeInitQueue();
-    binTreeEnqueue(&Q, T.root);
-    printf("height=%d\n",T.root->height);
-    int i, j, depth = T.root->height+1;
-    
-    
-    for (j = 0; j < depth; j++) {
-        printf("%d|",depth -j-1);
-        //int w = 1 << (depth - j);
-        int w = (depth-1)/(1<<j) +1;
-        for (i = 0; i < 1 << j; i++)
-        {
-            BinNode *x = binTreeDequeue(&Q);
-            char str[3] = "xxx";
-            if (x) {
-                sprintf(str, "%d", x->data);
-            }
-            
-            printf("%*s%*c", w, str, w, '\0');
-            
-            if (!x) {
-                binTreeEnqueue(&Q, NULL);
-                binTreeEnqueue(&Q, NULL);
-            }else{
-                binTreeEnqueue(&Q, x->lChild);
-                binTreeEnqueue(&Q, x->rChild);
-            }
-        }
-        printf("\n");
+    if (!e->lChild && !e->rChild) {
+        return;
+    }
+    if (e->lChild) {
+        fprintf(fp, " n%dh%d -> n%dh%d\n", e->data,e->height, e->lChild->data,e->lChild->height) ;
+        fprintf(fp, " n%dh%d -> n%dh%d\n",  e->lChild->data,e->lChild->height,e->lChild->parent->data,e->lChild->parent->height) ;
+        printDotNode(fp ,e->lChild);
+    }else{
+        fprintf(fp, " lChild%d [label=\"Null\"][style = dotted]\n", e->data);
+        fprintf(fp, " n%dh%d -> lChild%d[style = dotted]\n", e->data,  e->height,e->data);
     }
     
-    printf("-----------\n");
-    travIn(T,visit);
-    printf("\n-----------\n");
+    if (e->rChild) {
+        fprintf(fp, " n%dh%d -> n%dh%d\n", e->data,e->height, e->rChild->data,e->rChild->height) ;
+        fprintf(fp, " n%dh%d -> n%dh%d\n",  e->rChild->data,e->rChild->height,e->rChild->parent->data,e->rChild->parent->height) ;
+        printDotNode(fp ,e->rChild);
+    }else{
+        fprintf(fp, " rChild%d [label=\"Null\"][style = dotted]\n", e->data);
+        fprintf(fp, " n%dh%d -> rChild%d[style = dotted]\n", e->data, e->height,e->data);
+    }
+}
+
+void writeToDot(BinTree T,char opt[],char info[]){
+    //以追写的方式打开文件
+    FILE* fp = fopen("/Users/book/Codes/data-struct/data-struct/tree.dot", opt);
+    if( NULL == fp)
+    {
+        printf("打开文件描述符失败\n");
+        fprintf(stderr, "打开文件描述符失败\n");
+        return;
+    }
+    fprintf(fp, "\n//");
+    fprintf(fp, info);
+    fprintf(fp, "\ndigraph {\n");
+    fprintf(fp, " n%dh%d\n", T.root->data,T.root->height) ;
+    printDotNode(fp ,T.root);
+    fprintf(fp, "}\n"); // 设置null节点的属性
+    fclose(fp);
 }

@@ -1,0 +1,107 @@
+
+//27
+digraph {
+ n36h1
+ n36h1 -> n27h0
+ n27h0 -> n36h1
+ rChild36 [label="Null"][style = dotted]
+ n36h1 -> rChild36[style = dotted]
+}
+
+//58
+digraph {
+ n36h1
+ n36h1 -> n27h0
+ n27h0 -> n36h1
+ n36h1 -> n58h0
+ n58h0 -> n36h1
+}
+
+//6
+digraph {
+ n36h2
+ n36h2 -> n27h1
+ n27h1 -> n36h2
+ n27h1 -> n6h0
+ n6h0 -> n27h1
+ rChild27 [label="Null"][style = dotted]
+ n27h1 -> rChild27[style = dotted]
+ n36h2 -> n58h0
+ n58h0 -> n36h2
+}
+
+//53
+digraph {
+ n36h2
+ n36h2 -> n27h1
+ n27h1 -> n36h2
+ n27h1 -> n6h0
+ n6h0 -> n27h1
+ rChild27 [label="Null"][style = dotted]
+ n27h1 -> rChild27[style = dotted]
+ n36h2 -> n58h1
+ n58h1 -> n36h2
+ n58h1 -> n53h0
+ n53h0 -> n58h1
+ rChild58 [label="Null"][style = dotted]
+ n58h1 -> rChild58[style = dotted]
+}
+
+//69
+digraph {
+ n36h2
+ n36h2 -> n27h1
+ n27h1 -> n36h2
+ n27h1 -> n6h0
+ n6h0 -> n27h1
+ rChild27 [label="Null"][style = dotted]
+ n27h1 -> rChild27[style = dotted]
+ n36h2 -> n58h1
+ n58h1 -> n36h2
+ n58h1 -> n53h0
+ n53h0 -> n58h1
+ n58h1 -> n69h0
+ n69h0 -> n58h1
+}
+
+//40
+digraph {
+ n36h3
+ n36h3 -> n27h1
+ n27h1 -> n36h3
+ n27h1 -> n6h0
+ n6h0 -> n27h1
+ rChild27 [label="Null"][style = dotted]
+ n27h1 -> rChild27[style = dotted]
+ n36h3 -> n58h2
+ n58h2 -> n36h3
+ n58h2 -> n53h1
+ n53h1 -> n58h2
+ n53h1 -> n40h0
+ n40h0 -> n53h1
+ rChild53 [label="Null"][style = dotted]
+ n53h1 -> rChild53[style = dotted]
+ n58h2 -> n69h0
+ n69h0 -> n58h2
+}
+
+//46
+digraph {
+ n36h2
+ n36h2 -> n27h1
+ n27h1 -> n36h2
+ n27h1 -> n6h0
+ n6h0 -> n27h1
+ rChild27 [label="Null"][style = dotted]
+ n27h1 -> rChild27[style = dotted]
+ n36h2 -> n58h1
+ n58h1 -> n36h2
+ n58h1 -> n46h0
+ n46h0 -> n58h1
+ n46h0 -> n40h0
+ n40h0 -> n46h0
+ n46h0 -> n53h0
+ n53h0 -> n46h0
+ n58h1 -> n69h0
+ n69h0 -> n58h1
+}
