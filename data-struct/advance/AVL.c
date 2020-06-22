@@ -130,7 +130,6 @@ void avl_delete(BinTree *T,int e)
         x = xp->rChild;
     }
     
-    
     bst_remove_at(ptc,xp,x);
     
     //从xp出发逐层向上，依次检查各代祖先
