@@ -317,6 +317,9 @@ static void testAVL()
         
         avl_insert(&T,41);
         writeToDot(T,"a+","41");
+        
+        travIn(T,visit);
+        printf("\n");
     }
 }
 

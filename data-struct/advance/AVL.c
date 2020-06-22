@@ -11,9 +11,9 @@
 static int avl_balanced(BinNode *g)
 {
     int bal_fac = stature(g->lChild) - stature(g->rChild);
-//    printf("%d点平衡因子为%d,左侧高度%d,右侧高度%d\n",
-//           g->data,bal_fac,
-//           stature(g->lChild) , stature(g->rChild));
+    printf("%d点平衡因子为%d,左侧高度%d,右侧高度%d\n",
+           g->data,bal_fac,
+           stature(g->lChild) , stature(g->rChild));
     
     if (-2<bal_fac && bal_fac<2) {
         return 1;
@@ -22,128 +22,58 @@ static int avl_balanced(BinNode *g)
     }
 }
 
-//zag
-BinNode* LeftRotate(BinNode* g){
-    BinNode* temp=g->rChild;
-    
-    g->rChild=temp->lChild;
-    if (temp->lChild)
-        temp->lChild->parent = g;
-    
-    temp->lChild=g;
-    g->parent = temp;
-    
-    return temp;
-}
-
-//zig
-BinNode* RightRotate(BinNode* g){
-    BinNode* temp=g->lChild;
-    g->lChild=temp->rChild;
-    if (temp->rChild)
-        temp->rChild->parent =g;
-    temp->rChild=g;
-    g->parent =temp;
-    return temp;
-}
-
-//zag-zig
-BinNode* LeftRightRotate(BinNode* g){
-    g->lChild=LeftRotate(g->lChild);
-    if (g->lChild)
-        g->lChild->parent = g;
-    return RightRotate(g);
-}
-
-//zig-zag
-BinNode* RightLeftRotate(BinNode* g){
-    g->rChild=RightRotate(g->rChild);
-    if (g->rChild)
-        g->rChild->parent = g;
-    return LeftRotate(g);
-}
-
-
-static void avl_rotate1(BinNode *g)
+static BinNode *connect34(BinNode *a,BinNode *b,BinNode *c,BinNode *T0,BinNode *T1,BinNode *T2,BinNode *T3)
 {
+    a->lChild = T0; if(T0) T0->parent = a;
+    a->rChild = T1; if(T1) T1->parent = a; updateHeight(a);
+    c->lChild = T2; if(T2) T2->parent = c;
+    c->rChild = T3; if(T3) T3->parent = c; updateHeight(c);
+    b->lChild = a; a->parent = b;
+    b->rChild = c; c->parent = b; updateHeight(b);
+    return b;
+}
+
+BinNode *avl_rotate_at(BinNode *v)
+{
+    BinNode *p = v->parent;
+    BinNode *g = p->parent;
     
-    BinNode *gp = g->parent;
-    if (!gp) {
-        printf("gp is null,g is %d\n",g->data);
-        exit(0);
+    if (stature(g->lChild) < stature(g->rChild)) {
+        if(stature(p->lChild) < stature(p->rChild)){ //左旋zag
+            p->parent = g->parent;
+            return connect34(g,p,v,g->lChild,p->lChild,v->lChild,v->rChild);
+        }else{//先右旋再左旋zigzag
+            v->parent = g->parent;
+            return connect34(g,v,p,g->lChild,v->lChild,v->rChild,p->rChild);
+        }
+    }else{
+        if(stature(p->lChild)<stature(p->rChild)){//先左旋再右旋zagzig
+            v->parent = g->parent;
+            return connect34(p,v,g,p->lChild,v->lChild,v->rChild,g->rChild);
+        }else{//右旋zig
+            printf("右旋\n");
+            p->parent = g->parent;
+            return connect34(v,p,g,v->lChild,v->rChild,p->rChild,g->rChild);
+        }
     }
     
-    //zag左旋
-    if (stature(g->lChild) < stature(g->rChild) && stature(g->rChild->lChild) < stature(g->rChild->rChild)) {
-        if (stature(gp->lChild) < stature(gp->rChild)) {
-            gp->rChild = LeftRotate(g);
-            if (gp->rChild)
-                gp->rChild->parent = gp;
-            updateHeight(gp->rChild->lChild);
-            updateHeight(gp->rChild->rChild);
-            updateHeightAbove(gp->rChild);
-        }else{
-            gp->lChild = LeftRotate(g);
-            if (gp->lChild)
-                gp->lChild->parent = gp;
-            updateHeight(gp->lChild->lChild);
-            updateHeight(gp->lChild->rChild);
-            updateHeightAbove(gp->lChild);
-        }
+}
+
+BinNode *tallerChild(BinNode *p)
+{
+    if (stature(p->lChild)<stature(p->rChild)) {
+        return p->rChild;
+    }else{
+        return p->lChild;
     }
-    //zig右旋
-    if (stature(g->lChild) > stature(g->rChild) && stature(g->lChild->lChild) > stature(g->lChild->rChild)) {
-        if (stature(gp->lChild) < stature(gp->rChild)) {
-            gp->rChild = RightRotate(g);
-            if (gp->rChild)
-                gp->rChild->parent = gp;
-            updateHeight(gp->rChild->lChild);
-            updateHeight(gp->rChild->rChild);
-            updateHeightAbove(gp->rChild);
-        }else{
-            gp->lChild = RightRotate(g);
-            if (gp->lChild)
-                gp->lChild->parent = gp;
-            updateHeight(gp->lChild->lChild);
-            updateHeight(gp->lChild->rChild);
-            updateHeightAbove(gp->lChild);
-        }
-    }
-    //zig-zag 先右旋再左旋
-    if (stature(g->lChild) < stature(g->rChild) && stature(g->rChild->lChild) > stature(g->rChild->rChild)) {
-        if (stature(gp->lChild) < stature(gp->rChild)) {
-            gp->rChild = RightLeftRotate(g);
-            if (gp->rChild)
-                gp->rChild->parent = gp;
-            updateHeight(gp->rChild->lChild);
-            updateHeight(gp->rChild->rChild);
-            updateHeightAbove(gp->rChild);
-        }else{
-            gp->lChild = RightLeftRotate(g);
-            if (gp->lChild)
-                gp->lChild->parent = gp;
-            updateHeight(gp->lChild->lChild);
-            updateHeight(gp->lChild->rChild);
-            updateHeightAbove(gp->lChild);
-        }
-    }
-    //zag-zig 先左旋再右旋
-    if (stature(g->lChild) > stature(g->rChild) && stature(g->lChild->lChild) < stature(g->lChild->rChild)) {
-        if (stature(gp->lChild) < stature(gp->rChild)) {
-            gp->rChild = LeftRightRotate(g);
-            if (gp->rChild)
-                gp->rChild->parent = gp;
-            updateHeight(gp->rChild->lChild);
-            updateHeight(gp->rChild->rChild);
-            updateHeightAbove(gp->rChild);
-        }else{
-            gp->lChild = LeftRightRotate(g);
-            if (gp->lChild)
-                gp->lChild->parent = gp;
-            updateHeight(gp->lChild->lChild);
-            updateHeight(gp->lChild->rChild);
-            updateHeightAbove(gp->lChild);
-        }
+}
+
+BinNode **getTallerChildAddress(BinNode *p)
+{
+    if (stature(p->lChild)<stature(p->rChild)) {
+        return &p->rChild;
+    }else{
+        return &p->lChild;
     }
 }
 
@@ -171,7 +101,10 @@ BinNode *avl_insert(BinTree *T,int e)
     for(BinNode *g = xp; (g && g->parent); g = g->parent){
         if(!avl_balanced(g)){
             printf("%d不平衡,开始调整\n",g->data);
-            avl_rotate(g);
+            BinNode **ptc = getTallerChildAddress(g->parent);
+            BinNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
+            *ptc = b;
+            updateHeightAbove(b);
             break;
         }else{
             updateHeightAbove(g);
