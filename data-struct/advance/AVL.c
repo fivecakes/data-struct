@@ -38,25 +38,34 @@ TreeNode *avl_rotate_at(TreeNode *v)
 {
     TreeNode *p = v->parent;
     TreeNode *g = p->parent;
+    TreeNode *gg = g->parent;
+    TreeNode *b;
     
     if (g->rChild == p) {
         if(p->rChild == v){ //左旋zag
             p->parent = g->parent;
-            return connect34(g,p,v,g->lChild,p->lChild,v->lChild,v->rChild);
+            b =  connect34(g,p,v,g->lChild,p->lChild,v->lChild,v->rChild);
         }else{//先右旋再左旋zigzag
             v->parent = g->parent;
-            return connect34(g,v,p,g->lChild,v->lChild,v->rChild,p->rChild);
+            b =  connect34(g,v,p,g->lChild,v->lChild,v->rChild,p->rChild);
         }
     }else{
         if(p->rChild == v){//先左旋再右旋zagzig
             v->parent = g->parent;
-            return connect34(p,v,g,p->lChild,v->lChild,v->rChild,g->rChild);
+            b =  connect34(p,v,g,p->lChild,v->lChild,v->rChild,g->rChild);
         }else{//右旋zig
             p->parent = g->parent;
-            return connect34(v,p,g,v->lChild,v->rChild,p->rChild,g->rChild);
+            b =  connect34(v,p,g,v->lChild,v->rChild,p->rChild,g->rChild);
         }
     }
     
+    //将新子树接回原树
+    if (gg->rChild == g) {
+        gg->rChild = b;
+    }else{
+        gg->lChild = b;
+    }
+    return b;
 }
 
 TreeNode *tallerChild(TreeNode *p)
@@ -101,13 +110,7 @@ TreeNode *avl_insert(Tree *T,int e)
     for(TreeNode *g = xp; (g && g->parent); g = g->parent){
         if(!avl_balanced(g)){
             printf("%d不平衡,开始调整\n",g->data);
-            TreeNode *gg = g->parent;
             TreeNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
-            if (gg->rChild == g) {
-                gg->rChild = b;
-            }else{
-                gg->lChild = b;
-            }
             updateHeightAbove(b);
             break;
         }else{
@@ -141,13 +144,7 @@ void avl_remove(Tree *T,int e)
     for (TreeNode *g = xp; g; g = g->parent) {
          if(!avl_balanced(g)){
              printf("%d不平衡,开始调整\n",g->data);
-             TreeNode *gg = g->parent;
-             TreeNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
-             if (gg->rChild == g) {
-                 gg->rChild = b;
-             }else{
-                 gg->lChild = b;
-             }
+             avl_rotate_at(tallerChild(tallerChild(g)));
          }
         updateHeight(g);
     }

@@ -120,3 +120,29 @@ void testSplay()
         writeTreeToDotFile(T,"a+","remove6");
     }
 }
+
+
+
+void testSpaly()
+{
+    printf("测试BST...\n");
+    {
+        Tree T = initBinTree();
+        splay_insert(&T,36);
+        splay_insert(&T,27);
+        splay_insert(&T,58);
+        splay_insert(&T,6);
+        splay_insert(&T,53);
+        splay_insert(&T,69);
+        splay_insert(&T,40);
+        splay_insert(&T,46);
+        splay_insert(&T,64);
+
+        writeTreeToDotFile(T,"w+","");
+//        bst_remove(&T,69);
+//        writeTreeToDotFile(T,"a+","remove69");
+//        bst_remove(&T,36);
+//        writeTreeToDotFile(T,"a+","remove36");
+    }
+
+}

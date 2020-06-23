@@ -95,7 +95,7 @@ void bst_remove_at(TreeNode **ptc,TreeNode *xp,TreeNode *x)
         x->data = tmp;
         //删除w
         w->parent->lChild = w->rChild;
-        w->rChild->parent = w->parent;
+        if(w->rChild) w->rChild->parent = w->parent;
     }
 }
 

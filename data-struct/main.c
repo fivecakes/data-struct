@@ -7,5 +7,5 @@
 
 int main()
 {
-    testBST();
+    testSpaly();
 }
