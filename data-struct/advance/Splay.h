@@ -8,7 +8,7 @@
 
 #ifndef Splay_h
 #define Splay_h
-
+#include "BST.h"
 #include <stdio.h>
 
 #endif /* Splay_h */

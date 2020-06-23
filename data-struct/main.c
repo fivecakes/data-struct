@@ -7,6 +7,5 @@
 
 int main()
 {
-    testBinTree();
-
+    testBST();
 }

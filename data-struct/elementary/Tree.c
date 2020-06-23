@@ -1,4 +1,4 @@
-#include "binTree.h"
+#include "Tree.h"
 
 static BinTreeQueue binTreeInitQueue()
 {
@@ -68,9 +68,9 @@ static TreeNode *binTreePop(BinTreeStack *S)
     return *(S->elem + S->size);
 }
 
-BinTree initBinTree()
+Tree initBinTree()
 {
-    BinTree T;
+    Tree T;
     T.top = malloc(sizeof(TreeNode));
     T.top->parent = NULL;
     T.top->lChild = NULL;
@@ -130,10 +130,10 @@ TreeNode *insertAsLC(TreeNode *x, int e)
 
 
 //层次遍历
-void travLevel(BinTree T,void visit(TreeNode *e))
+void travLevel(Tree T,void visit(TreeNode *e))
 {
     BinTreeQueue Q = binTreeInitQueue();
-    binTreeEnqueue(&Q, T.top);
+    binTreeEnqueue(&Q, T.top->lChild);
     
     while (Q.size) {
         TreeNode *x = binTreeDequeue(&Q);
@@ -160,10 +160,10 @@ void visitAlongLeftBranch(TreeNode *x,void visit(TreeNode *e),BinTreeStack *S)
 }
 
 //先序遍历
-void travPre(BinTree T,void visit(TreeNode *e))
+void travPre(Tree T,void visit(TreeNode *e))
 {
     BinTreeStack S = binTreeInitStack();
-    TreeNode *x = T.top;
+    TreeNode *x = T.top->lChild;
     while (1) {
         visitAlongLeftBranch(x,visit,&S);
         if (S.size==0) {
@@ -183,10 +183,10 @@ void goAloneLeftBranch(TreeNode *x,BinTreeStack *S)
 }
 
 //中序遍历
-void travIn(BinTree T,void visit(TreeNode *e))
+void travIn(Tree T,void visit(TreeNode *e))
 {
     BinTreeStack S = binTreeInitStack();
-    TreeNode *x = T.top;
+    TreeNode *x = T.top->lChild;
     while (1) {
         goAloneLeftBranch(x,&S);
         if (S.size==0) {
@@ -231,7 +231,7 @@ static void printDotNode(FILE* fp ,TreeNode *e)
 
 
 
-void writeTreeToDotFile(BinTree T,char opt[],char info[])
+void writeTreeToDotFile(Tree T,char opt[],char info[])
 {
     FILE* fp = fopen("/Users/book/Codes/data-struct/data-struct/tree.dot", opt);
     if( NULL == fp)

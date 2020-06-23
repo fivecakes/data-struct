@@ -9,11 +9,11 @@
 #ifndef BST_h
 #define BST_h
 
-#include "binTree.h"
+#include "Tree.h"
 
-TreeNode *bst_search_parent(BinTree *T,int e);
-TreeNode *bst_insert(BinTree *T,int e);
-void bst_remove(BinTree *T,int e);
+TreeNode *bst_search_parent(Tree *T,int e);
+TreeNode *bst_insert(Tree *T,int e);
+void bst_remove(Tree *T,int e);
 void bst_remove_at(TreeNode **ptc,TreeNode *xp,TreeNode *x);
 
 #endif /* BST_h */

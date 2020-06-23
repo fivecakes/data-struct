@@ -21,25 +21,25 @@ struct TreeNode{
     int color;
 };
 
-struct BinTree{
+struct Tree{
     int size;
     struct TreeNode *top; //哨兵节点
 };
 
 typedef struct TreeNode TreeNode;
-typedef struct BinTree BinTree;
+typedef struct Tree Tree;
 
 TreeNode *insertAsRC(TreeNode *x, int e);
 TreeNode *insertAsLC(TreeNode *x, int e);
-BinTree initBinTree(void);
-void travLevel(BinTree T,void visit(TreeNode *e));
-void PrintTree(BinTree T);
+Tree initBinTree(void);
+void travLevel(Tree T,void visit(TreeNode *e));
+void PrintTree(Tree T);
 int updateHeight(TreeNode *x);
 void updateHeightAbove(TreeNode *x);
-void travIn(BinTree T,void visit(TreeNode *e));
-void travPre(BinTree T,void visit(TreeNode *e));
+void travIn(Tree T,void visit(TreeNode *e));
+void travPre(Tree T,void visit(TreeNode *e));
 void visit(TreeNode *e);
-void writeTreeToDotFile(BinTree T,char opt[],char info[]);
+void writeTreeToDotFile(Tree T,char opt[],char info[]);
 
 //栈数据结构
 struct BinTreeStack{

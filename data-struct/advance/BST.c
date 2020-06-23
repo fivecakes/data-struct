@@ -27,7 +27,7 @@ static TreeNode *bst_search_in(TreeNode *v, int e)
     }
 }
 
-TreeNode *bst_search_parent(BinTree *T,int e)
+TreeNode *bst_search_parent(Tree *T,int e)
 {
     return bst_search_in(T->top,e);
 }
@@ -37,7 +37,7 @@ TreeNode *bst_search_parent(BinTree *T,int e)
 
 
 
-TreeNode *bst_insert(BinTree *T,int e)
+TreeNode *bst_insert(Tree *T,int e)
 {
     TreeNode *xp = bst_search_parent(T,e);
     
@@ -99,7 +99,7 @@ void bst_remove_at(TreeNode **ptc,TreeNode *xp,TreeNode *x)
     }
 }
 
-void bst_remove(BinTree *T,int e)
+void bst_remove(Tree *T,int e)
 {
     TreeNode *x;
     TreeNode **ptc; //指向要被删除的孩子的指针的指针

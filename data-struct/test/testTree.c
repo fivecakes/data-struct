@@ -10,7 +10,7 @@
 
 void testBinTree()
 {
-    BinTree T = initBinTree();
+    Tree T = initBinTree();
 
     printf("测试二叉树...\n");
     {
@@ -46,7 +46,7 @@ void testBST()
 
     printf("测试BST...\n");
     {
-        BinTree T = initBinTree();
+        Tree T = initBinTree();
         bst_insert(&T,36);
         bst_insert(&T,27);
         bst_insert(&T,58);
@@ -72,7 +72,35 @@ void testAVL()
     printf("测试AVL...\n");
     {
 
-        BinTree T = initBinTree();
+        Tree T = initBinTree();
+        avl_insert(&T,36);
+        avl_insert(&T,27);
+        avl_insert(&T,58);
+        avl_insert(&T,6);
+        avl_insert(&T,53);
+        avl_insert(&T,69);
+        avl_insert(&T,40);
+        writeTreeToDotFile(T,"w+","40");
+
+        avl_insert(&T,46);
+        writeTreeToDotFile(T,"a+","46");
+
+        avl_insert(&T,41);
+        writeTreeToDotFile(T,"a+","41");
+        avl_remove(&T,6);
+        
+        writeTreeToDotFile(T,"a+","remove6");
+    }
+}
+
+
+void testSplay()
+{
+
+    printf("测试Splay...\n");
+    {
+
+        Tree T = initBinTree();
         avl_insert(&T,36);
         avl_insert(&T,27);
         avl_insert(&T,58);

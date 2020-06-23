@@ -10,9 +10,9 @@
 #define testTree_h
 
 #include <stdio.h>
-#include "binTree.h"
 #include "BST.h"
 #include "AVL.h"
+#include "Splay.h"
 
 void testBinTree(void);
 void testBST(void);

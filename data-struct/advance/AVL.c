@@ -39,8 +39,8 @@ TreeNode *avl_rotate_at(TreeNode *v)
     TreeNode *p = v->parent;
     TreeNode *g = p->parent;
     
-    if (stature(g->lChild) < stature(g->rChild)) {
-        if(stature(p->lChild) < stature(p->rChild)){ //左旋zag
+    if (g->rChild == p) {
+        if(p->rChild == v){ //左旋zag
             p->parent = g->parent;
             return connect34(g,p,v,g->lChild,p->lChild,v->lChild,v->rChild);
         }else{//先右旋再左旋zigzag
@@ -48,7 +48,7 @@ TreeNode *avl_rotate_at(TreeNode *v)
             return connect34(g,v,p,g->lChild,v->lChild,v->rChild,p->rChild);
         }
     }else{
-        if(stature(p->lChild)<stature(p->rChild)){//先左旋再右旋zagzig
+        if(p->rChild == v){//先左旋再右旋zagzig
             v->parent = g->parent;
             return connect34(p,v,g,p->lChild,v->lChild,v->rChild,g->rChild);
         }else{//右旋zig
@@ -68,16 +68,16 @@ TreeNode *tallerChild(TreeNode *p)
     }
 }
 
-TreeNode **getTallerChildAddress(TreeNode *p)
+TreeNode **getTallerChildAddress(TreeNode *p,TreeNode *v)
 {
-    if (stature(p->lChild)<stature(p->rChild)) {
+    if (p->rChild == v) {
         return &p->rChild;
     }else{
         return &p->lChild;
     }
 }
 
-TreeNode *avl_insert(BinTree *T,int e)
+TreeNode *avl_insert(Tree *T,int e)
 {
     TreeNode *xp = bst_search_parent(T,e);
     
@@ -101,9 +101,13 @@ TreeNode *avl_insert(BinTree *T,int e)
     for(TreeNode *g = xp; (g && g->parent); g = g->parent){
         if(!avl_balanced(g)){
             printf("%d不平衡,开始调整\n",g->data);
-            TreeNode **ggtg = getTallerChildAddress(g->parent);
+            TreeNode *gg = g->parent;
             TreeNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
-            *ggtg = b;
+            if (gg->rChild == g) {
+                gg->rChild = b;
+            }else{
+                gg->lChild = b;
+            }
             updateHeightAbove(b);
             break;
         }else{
@@ -116,7 +120,7 @@ TreeNode *avl_insert(BinTree *T,int e)
 
 
 
-void avl_remove(BinTree *T,int e)
+void avl_remove(Tree *T,int e)
 {
     TreeNode *x;
     TreeNode **ptc; //指向要被删除的孩子的指针的指针
@@ -137,9 +141,13 @@ void avl_remove(BinTree *T,int e)
     for (TreeNode *g = xp; g; g = g->parent) {
          if(!avl_balanced(g)){
              printf("%d不平衡,开始调整\n",g->data);
-             TreeNode **ggtg = getTallerChildAddress(g->parent);
+             TreeNode *gg = g->parent;
              TreeNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
-             *ggtg = b;
+             if (gg->rChild == g) {
+                 gg->rChild = b;
+             }else{
+                 gg->lChild = b;
+             }
          }
         updateHeight(g);
     }
