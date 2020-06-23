@@ -14,7 +14,7 @@ void testBinTree()
 
     printf("测试二叉树...\n");
     {
-        TreeNode *n1 = insertAsLC(T.header, 1);
+        TreeNode *n1 = insertAsLC(T.top, 1);
         TreeNode *n2 = insertAsLC(n1, 2);
         TreeNode *n3 = insertAsRC(n1, 3);
         TreeNode *n4 = insertAsLC(n2, 4);

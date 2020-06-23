@@ -29,7 +29,7 @@ static TreeNode *bst_search_in(TreeNode *v, int e)
 
 TreeNode *bst_search_parent(BinTree *T,int e)
 {
-    return bst_search_in(T->header,e);
+    return bst_search_in(T->top,e);
 }
 
 

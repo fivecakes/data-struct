@@ -71,12 +71,12 @@ static TreeNode *binTreePop(BinTreeStack *S)
 BinTree initBinTree()
 {
     BinTree T;
-    T.header = malloc(sizeof(TreeNode));
-    T.header->parent = NULL;
-    T.header->lChild = NULL;
-    T.header->rChild = NULL;
-    T.header->data = INT_MAX;
-    T.header->height = 0;
+    T.top = malloc(sizeof(TreeNode));
+    T.top->parent = NULL;
+    T.top->lChild = NULL;
+    T.top->rChild = NULL;
+    T.top->data = INT_MAX;
+    T.top->height = 0;
     
     return T;
 }
@@ -133,7 +133,7 @@ TreeNode *insertAsLC(TreeNode *x, int e)
 void travLevel(BinTree T,void visit(TreeNode *e))
 {
     BinTreeQueue Q = binTreeInitQueue();
-    binTreeEnqueue(&Q, T.header);
+    binTreeEnqueue(&Q, T.top);
     
     while (Q.size) {
         TreeNode *x = binTreeDequeue(&Q);
@@ -163,7 +163,7 @@ void visitAlongLeftBranch(TreeNode *x,void visit(TreeNode *e),BinTreeStack *S)
 void travPre(BinTree T,void visit(TreeNode *e))
 {
     BinTreeStack S = binTreeInitStack();
-    TreeNode *x = T.header;
+    TreeNode *x = T.top;
     while (1) {
         visitAlongLeftBranch(x,visit,&S);
         if (S.size==0) {
@@ -186,7 +186,7 @@ void goAloneLeftBranch(TreeNode *x,BinTreeStack *S)
 void travIn(BinTree T,void visit(TreeNode *e))
 {
     BinTreeStack S = binTreeInitStack();
-    TreeNode *x = T.header;
+    TreeNode *x = T.top;
     while (1) {
         goAloneLeftBranch(x,&S);
         if (S.size==0) {
@@ -242,13 +242,13 @@ void writeTreeToDotFile(BinTree T,char opt[],char info[])
     }
     fprintf(fp, "\n//%s",info);
     fprintf(fp, "\ndigraph {\n");
-    fprintf(fp, " n%dh%d\n [label=\"header\"][style = dotted]\n", T.header->data,T.header->height);
+    fprintf(fp, " n%dh%d\n [label=\"top\"][style = dotted]\n", T.top->data,T.top->height);
 
-    if (T.header->lChild) {
-        fprintf(fp, " n%dh%d -> n%dh%d\n", T.header->data,T.header->height, T.header->lChild->data,T.header->lChild->height) ;
-        fprintf(fp, " n%dh%d -> n%dh%d\n",  T.header->lChild->data,T.header->lChild->height,T.header->lChild->parent->data,T.header->lChild->parent->height) ;
+    if (T.top->lChild) {
+        fprintf(fp, " n%dh%d -> n%dh%d\n", T.top->data,T.top->height, T.top->lChild->data,T.top->lChild->height) ;
+        fprintf(fp, " n%dh%d -> n%dh%d\n",  T.top->lChild->data,T.top->lChild->height,T.top->lChild->parent->data,T.top->lChild->parent->height) ;
 
-        printDotNode(fp ,T.header->lChild);
+        printDotNode(fp ,T.top->lChild);
     }
     fprintf(fp, "}\n");
     fclose(fp);

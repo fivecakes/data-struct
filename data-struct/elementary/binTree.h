@@ -23,7 +23,7 @@ struct TreeNode{
 
 struct BinTree{
     int size;
-    struct TreeNode *header; //哨兵节点
+    struct TreeNode *top; //哨兵节点
 };
 
 typedef struct TreeNode TreeNode;
