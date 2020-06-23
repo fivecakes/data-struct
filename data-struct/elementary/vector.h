@@ -12,6 +12,7 @@ struct Vector{
 
 typedef struct Vector Vector;
 
+void writeVectorToDotFile(Vector V,char opt[],char info[]);
 //初始化
 Vector initVector(void);
 

@@ -153,3 +153,23 @@ int insertValueSearch(Vector V,int e,int lo,int hi)
 }
 
 
+void writeVectorToDotFile(Vector V,char opt[],char info[])
+{
+    FILE* fp = fopen("/Users/book/Codes/data-struct/data-struct/tree.dot", opt);
+    if( NULL == fp)
+    {
+        printf("打开文件描述符失败\n");
+        fprintf(stderr, "打开文件描述符失败\n");
+        return;
+    }
+    fprintf(fp, "\n//%s",info);
+    fprintf(fp, "\ndigraph {\n");
+    fprintf(fp, " node [shape=\"record\", height=.1]\n");
+    fprintf(fp, " vector [label=\"{秩 | 值}");
+    for (int i = 0; i<V.size; i++) {
+        fprintf(fp, "|{%d | %d}",i,*(V.elem+i));
+    }
+    fprintf(fp, "\"]\n");
+    fprintf(fp, "}\n");
+    fclose(fp);
+}

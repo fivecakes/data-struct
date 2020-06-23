@@ -8,7 +8,7 @@
 
 #include "AVL.h"
 
-static int avl_balanced(BinNode *g)
+static int avl_balanced(TreeNode *g)
 {
     int bal_fac = stature(g->lChild) - stature(g->rChild);
     printf("%d点平衡因子为%d,左侧高度%d,右侧高度%d\n",
@@ -22,7 +22,7 @@ static int avl_balanced(BinNode *g)
     }
 }
 
-static BinNode *connect34(BinNode *a,BinNode *b,BinNode *c,BinNode *T0,BinNode *T1,BinNode *T2,BinNode *T3)
+static TreeNode *connect34(TreeNode *a,TreeNode *b,TreeNode *c,TreeNode *T0,TreeNode *T1,TreeNode *T2,TreeNode *T3)
 {
     a->lChild = T0; if(T0) T0->parent = a;
     a->rChild = T1; if(T1) T1->parent = a; updateHeight(a);
@@ -33,10 +33,10 @@ static BinNode *connect34(BinNode *a,BinNode *b,BinNode *c,BinNode *T0,BinNode *
     return b;
 }
 
-BinNode *avl_rotate_at(BinNode *v)
+TreeNode *avl_rotate_at(TreeNode *v)
 {
-    BinNode *p = v->parent;
-    BinNode *g = p->parent;
+    TreeNode *p = v->parent;
+    TreeNode *g = p->parent;
     
     if (stature(g->lChild) < stature(g->rChild)) {
         if(stature(p->lChild) < stature(p->rChild)){ //左旋zag
@@ -59,7 +59,7 @@ BinNode *avl_rotate_at(BinNode *v)
     
 }
 
-BinNode *tallerChild(BinNode *p)
+TreeNode *tallerChild(TreeNode *p)
 {
     if (stature(p->lChild)<stature(p->rChild)) {
         return p->rChild;
@@ -68,7 +68,7 @@ BinNode *tallerChild(BinNode *p)
     }
 }
 
-BinNode **getTallerChildAddress(BinNode *p)
+TreeNode **getTallerChildAddress(TreeNode *p)
 {
     if (stature(p->lChild)<stature(p->rChild)) {
         return &p->rChild;
@@ -77,11 +77,11 @@ BinNode **getTallerChildAddress(BinNode *p)
     }
 }
 
-BinNode *avl_insert(BinTree *T,int e)
+TreeNode *avl_insert(BinTree *T,int e)
 {
-    BinNode *xp = bst_search_parent(T,e);
+    TreeNode *xp = bst_search_parent(T,e);
     
-    BinNode *new = malloc(sizeof(BinNode));
+    TreeNode *new = malloc(sizeof(TreeNode));
     new->parent = xp;
     new->lChild = NULL;
     new->rChild = NULL;
@@ -98,11 +98,11 @@ BinNode *avl_insert(BinTree *T,int e)
 
     printf("新插入%d,向上检测平衡因子\n",e);
     //以下从从xp出发逐层向上，依次检测各代祖先
-    for(BinNode *g = xp; (g && g->parent); g = g->parent){
+    for(TreeNode *g = xp; (g && g->parent); g = g->parent){
         if(!avl_balanced(g)){
             printf("%d不平衡,开始调整\n",g->data);
-            BinNode **ggtg = getTallerChildAddress(g->parent);
-            BinNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
+            TreeNode **ggtg = getTallerChildAddress(g->parent);
+            TreeNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
             *ggtg = b;
             updateHeightAbove(b);
             break;
@@ -118,9 +118,9 @@ BinNode *avl_insert(BinTree *T,int e)
 
 void avl_delete(BinTree *T,int e)
 {
-    BinNode *x;
-    BinNode **ptc; //指向要被删除的孩子的指针的指针
-    BinNode *xp = bst_search_parent(T,e);
+    TreeNode *x;
+    TreeNode **ptc; //指向要被删除的孩子的指针的指针
+    TreeNode *xp = bst_search_parent(T,e);
     //确定要删除左孩子还是右孩子
     if (e<xp->data) {
         ptc = &xp->lChild;
@@ -133,11 +133,11 @@ void avl_delete(BinTree *T,int e)
     bst_remove_at(ptc,xp,x);
     
     //从xp出发逐层向上，依次检查各代祖先
-    for (BinNode *g = xp; g; g = g->parent) {
+    for (TreeNode *g = xp; g; g = g->parent) {
          if(!avl_balanced(g)){
              printf("%d不平衡,开始调整\n",g->data);
-             BinNode **ggtg = getTallerChildAddress(g->parent);
-             BinNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
+             TreeNode **ggtg = getTallerChildAddress(g->parent);
+             TreeNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
              *ggtg = b;
          }
         updateHeight(g);

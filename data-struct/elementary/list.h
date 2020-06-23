@@ -20,6 +20,7 @@ struct List{
 typedef struct ListNode ListNode;
 typedef struct List List;
 
+void writeListToDotFile(List L,char opt[],char info[]);
 //初始化
 List initList(void);
 

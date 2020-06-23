@@ -11,7 +11,7 @@
 
 #include "BST.h"
 
-BinNode *avl_insert(BinTree *T,int e);
+TreeNode *avl_insert(BinTree *T,int e);
 void avl_delete(BinTree *T,int e);
 
 #endif /* AVL_h */

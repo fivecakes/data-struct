@@ -12,7 +12,7 @@ static BinTreeQueue binTreeInitQueue()
     return L;
 }
 
-static void binTreeEnqueue(BinTreeQueue *Q, BinNode *e)
+static void binTreeEnqueue(BinTreeQueue *Q, TreeNode *e)
 {
     BinTreeQueueNode *p = Q->trailer;
 
@@ -27,12 +27,12 @@ static void binTreeEnqueue(BinTreeQueue *Q, BinNode *e)
     Q->size++;
 }
 
-static BinNode *binTreeDequeue(BinTreeQueue *Q)
+static TreeNode *binTreeDequeue(BinTreeQueue *Q)
 {
     if (Q->size == 0) {
         return NULL;
     }
-    BinNode *tmp = Q->header->succ->data;
+    TreeNode *tmp = Q->header->succ->data;
     Q->header->succ->succ->pred = Q->header;
     Q->header->succ = Q->header->succ->succ;
     Q->size--;
@@ -56,14 +56,14 @@ static void expand(BinTreeStack *S)
     S->elem = realloc(S->elem,(S->capacity<<=1)*sizeof(int));
 }
 
-static void binTreePush(BinTreeStack *S, BinNode *e)
+static void binTreePush(BinTreeStack *S, TreeNode *e)
 {
     expand(S);
     *(S->elem+S->size) = e;
     S->size++;
 }
 
-static BinNode *binTreePop(BinTreeStack *S)
+static TreeNode *binTreePop(BinTreeStack *S)
 {
     S->size--;
     return *(S->elem + S->size);
@@ -72,8 +72,8 @@ static BinNode *binTreePop(BinTreeStack *S)
 BinTree initBinTree(int e)
 {
     BinTree T;
-    T.root = malloc(sizeof(BinNode));
-    T.header = malloc(sizeof(BinNode));
+    T.root = malloc(sizeof(TreeNode));
+    T.header = malloc(sizeof(TreeNode));
     
     T.root->parent = T.header;
     T.root->lChild = NULL;
@@ -90,14 +90,14 @@ BinTree initBinTree(int e)
     return T;
 }
 
-int updateHeight(BinNode *x)
+int updateHeight(TreeNode *x)
 {
     x->height = 1 + max(stature(x->lChild) , stature(x->rChild));
-    printf("updateheight %d,height=%d\n",x->data,x->height);
+    //printf("updateheight %d,height=%d\n",x->data,x->height);
     return x->height;
 }
 
-void updateHeightAbove(BinNode *x)
+void updateHeightAbove(TreeNode *x)
 {
     //printf("updateHeightAbove %d\n",x->data);
     while (x != NULL) {
@@ -106,9 +106,9 @@ void updateHeightAbove(BinNode *x)
     }
 }
 
-BinNode *insertAsRC(BinNode *x, int e)
+TreeNode *insertAsRC(TreeNode *x, int e)
 {
-    BinNode *new = malloc(sizeof(BinNode));
+    TreeNode *new = malloc(sizeof(TreeNode));
     new->parent = x;
     new->lChild = NULL;
     new->rChild = NULL;
@@ -121,9 +121,9 @@ BinNode *insertAsRC(BinNode *x, int e)
     return new;
 }
 
-BinNode *insertAsLC(BinNode *x, int e)
+TreeNode *insertAsLC(TreeNode *x, int e)
 {
-    BinNode *new = malloc(sizeof(BinNode));
+    TreeNode *new = malloc(sizeof(TreeNode));
     new->parent = x;
     new->lChild = NULL;
     new->rChild = NULL;
@@ -139,13 +139,13 @@ BinNode *insertAsLC(BinNode *x, int e)
 
 
 //层次遍历
-void travLevel(BinTree T,void visit(BinNode *e))
+void travLevel(BinTree T,void visit(TreeNode *e))
 {
     BinTreeQueue Q = binTreeInitQueue();
     binTreeEnqueue(&Q, T.root);
     
     while (Q.size) {
-        BinNode *x = binTreeDequeue(&Q);
+        TreeNode *x = binTreeDequeue(&Q);
         
         visit(x);
         
@@ -159,7 +159,7 @@ void travLevel(BinTree T,void visit(BinNode *e))
     }
 }
 
-void visitAlongLeftBranch(BinNode *x,void visit(BinNode *e),BinTreeStack *S)
+void visitAlongLeftBranch(TreeNode *x,void visit(TreeNode *e),BinTreeStack *S)
 {
     while (x!= NULL) {
         visit(x);
@@ -169,10 +169,10 @@ void visitAlongLeftBranch(BinNode *x,void visit(BinNode *e),BinTreeStack *S)
 }
 
 //先序遍历
-void travPre(BinTree T,void visit(BinNode *e))
+void travPre(BinTree T,void visit(TreeNode *e))
 {
     BinTreeStack S = binTreeInitStack();
-    BinNode *x = T.root;
+    TreeNode *x = T.root;
     while (1) {
         visitAlongLeftBranch(x,visit,&S);
         if (S.size==0) {
@@ -183,7 +183,7 @@ void travPre(BinTree T,void visit(BinNode *e))
     }
 }
 
-void goAloneLeftBranch(BinNode *x,BinTreeStack *S)
+void goAloneLeftBranch(TreeNode *x,BinTreeStack *S)
 {
     while (x != NULL) {
         binTreePush(S,x);
@@ -192,10 +192,10 @@ void goAloneLeftBranch(BinNode *x,BinTreeStack *S)
 }
 
 //中序遍历
-void travIn(BinTree T,void visit(BinNode *e))
+void travIn(BinTree T,void visit(TreeNode *e))
 {
     BinTreeStack S = binTreeInitStack();
-    BinNode *x = T.root;
+    TreeNode *x = T.root;
     while (1) {
         goAloneLeftBranch(x,&S);
         if (S.size==0) {
@@ -208,12 +208,12 @@ void travIn(BinTree T,void visit(BinNode *e))
     }
 }
 
-void visit(BinNode *e)
+void visit(TreeNode *e)
 {
     printf("%d,",e->data,e->height);
 }
 
-void printDotNode(FILE* fp ,BinNode *e)
+static void printDotNode(FILE* fp ,TreeNode *e)
 {
     if (!e->lChild && !e->rChild) {
         return;
@@ -237,8 +237,8 @@ void printDotNode(FILE* fp ,BinNode *e)
     }
 }
 
-void writeToDot(BinTree T,char opt[],char info[]){
-    //以追写的方式打开文件
+void writeTreeToDotFile(BinTree T,char opt[],char info[])
+{
     FILE* fp = fopen("/Users/book/Codes/data-struct/data-struct/tree.dot", opt);
     if( NULL == fp)
     {
@@ -246,11 +246,10 @@ void writeToDot(BinTree T,char opt[],char info[]){
         fprintf(stderr, "打开文件描述符失败\n");
         return;
     }
-    fprintf(fp, "\n//");
-    fprintf(fp, info);
+    fprintf(fp, "\n//%s",info);
     fprintf(fp, "\ndigraph {\n");
     fprintf(fp, " n%dh%d\n", T.root->data,T.root->height) ;
     printDotNode(fp ,T.root);
-    fprintf(fp, "}\n"); // 设置null节点的属性
+    fprintf(fp, "}\n");
     fclose(fp);
 }

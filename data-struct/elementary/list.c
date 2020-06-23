@@ -120,3 +120,32 @@ void insertSort(List *L)
     }
 }
 
+
+void writeListToDotFile(List L,char opt[],char info[])
+{
+    FILE* fp = fopen("/Users/book/Codes/data-struct/data-struct/tree.dot", opt);
+    if( NULL == fp)
+    {
+        printf("打开文件描述符失败\n");
+        fprintf(stderr, "打开文件描述符失败\n");
+        return;
+    }
+    fprintf(fp, "\n//%s",info);
+    fprintf(fp, "\ndigraph {\n");
+    fprintf(fp, " rankdir = LR\n");
+    fprintf(fp, " node0 [label=\"header\"][style = dotted]\n");
+    ListNode *v = L.header->succ;
+    for (int i = 0; i<L.size; i++) {
+        fprintf(fp, " node%d[label=\"%d\"]\n",i+1,v->data);
+        fprintf(fp, " node%d -> node%d\n",i,i+1);
+        fprintf(fp, " node%d -> node%d\n",i+1,i);
+        v = v->succ;
+    }
+    
+    fprintf(fp, " node%d [label=\"trailer\"][style = dotted]\n",L.size+1);
+    fprintf(fp, " node%d -> node%d\n",L.size,L.size+1);
+    fprintf(fp, " node%d -> node%d\n",L.size+1,L.size);
+    
+    fprintf(fp, "}\n");
+    fclose(fp);
+}

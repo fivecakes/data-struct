@@ -14,11 +14,11 @@
 #define stature(p) ((p) ? (p)->height : -1)
 #define max(a,b) ((a)>(b)?(a):(b))
 
-struct BinNode{
+struct TreeNode{
     int data;
-    struct BinNode *parent;
-    struct BinNode *lChild;
-    struct BinNode *rChild;
+    struct TreeNode *parent;
+    struct TreeNode *lChild;
+    struct TreeNode *rChild;
     int height;
     int npl;
     int color;
@@ -26,40 +26,40 @@ struct BinNode{
 
 struct BinTree{
     int size;
-    struct BinNode *root;
-    struct BinNode *header; //哨兵节点
+    struct TreeNode *root;
+    struct TreeNode *header; //哨兵节点
 };
 
-typedef struct BinNode BinNode;
+typedef struct TreeNode TreeNode;
 typedef struct BinTree BinTree;
 
-BinNode *insertAsRC(BinNode *x, int e);
-BinNode *insertAsLC(BinNode *x, int e);
+TreeNode *insertAsRC(TreeNode *x, int e);
+TreeNode *insertAsLC(TreeNode *x, int e);
 BinTree initBinTree(int e);
-void travLevel(BinTree T,void visit(BinNode *e));
+void travLevel(BinTree T,void visit(TreeNode *e));
 void PrintTree(BinTree T);
-int updateHeight(BinNode *x);
-void updateHeightAbove(BinNode *x);
-void travIn(BinTree T,void visit(BinNode *e));
-void travPre(BinTree T,void visit(BinNode *e));
-void visit(BinNode *e);
-void writeToDot(BinTree T,char opt[],char info[]);
+int updateHeight(TreeNode *x);
+void updateHeightAbove(TreeNode *x);
+void travIn(BinTree T,void visit(TreeNode *e));
+void travPre(BinTree T,void visit(TreeNode *e));
+void visit(TreeNode *e);
+void writeTreeToDotFile(BinTree T,char opt[],char info[]);
 
 //栈数据结构
 struct BinTreeStack{
-    BinNode **elem;
+    TreeNode **elem;
     int size;
     int capacity;
 };
 typedef struct BinTreeStack BinTreeStack;
 static BinTreeStack binTreeInitStack(void);
-static void binTreePush(BinTreeStack *S, BinNode *e);
-static BinNode *binTreePop(BinTreeStack *S);
+static void binTreePush(BinTreeStack *S, TreeNode *e);
+static TreeNode *binTreePop(BinTreeStack *S);
 
 
 //队列数据结构
 struct BinTreeQueueNode{
-    BinNode *data;
+    TreeNode *data;
     struct BinTreeQueueNode *pred;
     struct BinTreeQueueNode *succ;
 };
@@ -71,8 +71,8 @@ struct BinTreeQueue{
 typedef struct BinTreeQueueNode BinTreeQueueNode;
 typedef struct BinTreeQueue BinTreeQueue;
 static BinTreeQueue binTreeInitQueue(void);
-static void binTreeEnqueue(BinTreeQueue *Q, BinNode *e);
-static BinNode *binTreeDequeue(BinTreeQueue *Q);
+static void binTreeEnqueue(BinTreeQueue *Q, TreeNode *e);
+static TreeNode *binTreeDequeue(BinTreeQueue *Q);
 
 
 

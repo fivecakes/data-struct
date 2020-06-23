@@ -87,3 +87,4 @@ void DFS(Graph *G,int s)
     G->graphNodes[s].status = VISITED;
 
 }
+
