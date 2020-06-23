@@ -1,5 +1,4 @@
 #include "binTree.h"
-#include "queue.h"
 
 static BinTreeQueue binTreeInitQueue()
 {
@@ -69,20 +68,12 @@ static TreeNode *binTreePop(BinTreeStack *S)
     return *(S->elem + S->size);
 }
 
-BinTree initBinTree(int e)
+BinTree initBinTree()
 {
     BinTree T;
-    T.root = malloc(sizeof(TreeNode));
     T.header = malloc(sizeof(TreeNode));
-    
-    T.root->parent = T.header;
-    T.root->lChild = NULL;
-    T.root->rChild = NULL;
-    T.root->data = e;
-    T.root->height = 0;
-    
     T.header->parent = NULL;
-    T.header->lChild = T.root;
+    T.header->lChild = NULL;
     T.header->rChild = NULL;
     T.header->data = INT_MAX;
     T.header->height = 0;
@@ -142,7 +133,7 @@ TreeNode *insertAsLC(TreeNode *x, int e)
 void travLevel(BinTree T,void visit(TreeNode *e))
 {
     BinTreeQueue Q = binTreeInitQueue();
-    binTreeEnqueue(&Q, T.root);
+    binTreeEnqueue(&Q, T.header);
     
     while (Q.size) {
         TreeNode *x = binTreeDequeue(&Q);
@@ -172,7 +163,7 @@ void visitAlongLeftBranch(TreeNode *x,void visit(TreeNode *e),BinTreeStack *S)
 void travPre(BinTree T,void visit(TreeNode *e))
 {
     BinTreeStack S = binTreeInitStack();
-    TreeNode *x = T.root;
+    TreeNode *x = T.header;
     while (1) {
         visitAlongLeftBranch(x,visit,&S);
         if (S.size==0) {
@@ -195,7 +186,7 @@ void goAloneLeftBranch(TreeNode *x,BinTreeStack *S)
 void travIn(BinTree T,void visit(TreeNode *e))
 {
     BinTreeStack S = binTreeInitStack();
-    TreeNode *x = T.root;
+    TreeNode *x = T.header;
     while (1) {
         goAloneLeftBranch(x,&S);
         if (S.size==0) {
@@ -210,8 +201,9 @@ void travIn(BinTree T,void visit(TreeNode *e))
 
 void visit(TreeNode *e)
 {
-    printf("%d,",e->data,e->height);
+    printf("%d,",e->data);
 }
+
 
 static void printDotNode(FILE* fp ,TreeNode *e)
 {
@@ -237,6 +229,8 @@ static void printDotNode(FILE* fp ,TreeNode *e)
     }
 }
 
+
+
 void writeTreeToDotFile(BinTree T,char opt[],char info[])
 {
     FILE* fp = fopen("/Users/book/Codes/data-struct/data-struct/tree.dot", opt);
@@ -248,8 +242,14 @@ void writeTreeToDotFile(BinTree T,char opt[],char info[])
     }
     fprintf(fp, "\n//%s",info);
     fprintf(fp, "\ndigraph {\n");
-    fprintf(fp, " n%dh%d\n", T.root->data,T.root->height) ;
-    printDotNode(fp ,T.root);
+    fprintf(fp, " n%dh%d\n [label=\"header\"][style = dotted]\n", T.header->data,T.header->height);
+
+    if (T.header->lChild) {
+        fprintf(fp, " n%dh%d -> n%dh%d\n", T.header->data,T.header->height, T.header->lChild->data,T.header->lChild->height) ;
+        fprintf(fp, " n%dh%d -> n%dh%d\n",  T.header->lChild->data,T.header->lChild->height,T.header->lChild->parent->data,T.header->lChild->parent->height) ;
+
+        printDotNode(fp ,T.header->lChild);
+    }
     fprintf(fp, "}\n");
     fclose(fp);
 }

@@ -10,10 +10,11 @@
 
 static int avl_balanced(TreeNode *g)
 {
+    if(g->parent == NULL){
+        return 1;
+    }
     int bal_fac = stature(g->lChild) - stature(g->rChild);
-    printf("%d点平衡因子为%d,左侧高度%d,右侧高度%d\n",
-           g->data,bal_fac,
-           stature(g->lChild) , stature(g->rChild));
+    //printf("%d点平衡因子为%d,左侧高度%d,右侧高度%d\n",g->data,bal_fac,stature(g->lChild) , stature(g->rChild));
     
     if (-2<bal_fac && bal_fac<2) {
         return 1;
@@ -51,7 +52,6 @@ TreeNode *avl_rotate_at(TreeNode *v)
             v->parent = g->parent;
             return connect34(p,v,g,p->lChild,v->lChild,v->rChild,g->rChild);
         }else{//右旋zig
-            printf("右旋\n");
             p->parent = g->parent;
             return connect34(v,p,g,v->lChild,v->rChild,p->rChild,g->rChild);
         }
@@ -96,7 +96,7 @@ TreeNode *avl_insert(BinTree *T,int e)
     
     T->size++;
 
-    printf("新插入%d,向上检测平衡因子\n",e);
+    printf("插入%d,\n",e);
     //以下从从xp出发逐层向上，依次检测各代祖先
     for(TreeNode *g = xp; (g && g->parent); g = g->parent){
         if(!avl_balanced(g)){
@@ -116,7 +116,7 @@ TreeNode *avl_insert(BinTree *T,int e)
 
 
 
-void avl_delete(BinTree *T,int e)
+void avl_remove(BinTree *T,int e)
 {
     TreeNode *x;
     TreeNode **ptc; //指向要被删除的孩子的指针的指针
@@ -132,6 +132,7 @@ void avl_delete(BinTree *T,int e)
     
     bst_remove_at(ptc,xp,x);
     
+    printf("删除%d,\n",e);
     //从xp出发逐层向上，依次检查各代祖先
     for (TreeNode *g = xp; g; g = g->parent) {
          if(!avl_balanced(g)){

@@ -3,9 +3,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#include <math.h>
-#include <string.h>
 #include <limits.h>
 
 #define NULL ((void*)0)
@@ -26,7 +23,6 @@ struct TreeNode{
 
 struct BinTree{
     int size;
-    struct TreeNode *root;
     struct TreeNode *header; //哨兵节点
 };
 
@@ -35,7 +31,7 @@ typedef struct BinTree BinTree;
 
 TreeNode *insertAsRC(TreeNode *x, int e);
 TreeNode *insertAsLC(TreeNode *x, int e);
-BinTree initBinTree(int e);
+BinTree initBinTree(void);
 void travLevel(BinTree T,void visit(TreeNode *e));
 void PrintTree(BinTree T);
 int updateHeight(TreeNode *x);
@@ -52,9 +48,6 @@ struct BinTreeStack{
     int capacity;
 };
 typedef struct BinTreeStack BinTreeStack;
-static BinTreeStack binTreeInitStack(void);
-static void binTreePush(BinTreeStack *S, TreeNode *e);
-static TreeNode *binTreePop(BinTreeStack *S);
 
 
 //队列数据结构
@@ -70,13 +63,6 @@ struct BinTreeQueue{
 };
 typedef struct BinTreeQueueNode BinTreeQueueNode;
 typedef struct BinTreeQueue BinTreeQueue;
-static BinTreeQueue binTreeInitQueue(void);
-static void binTreeEnqueue(BinTreeQueue *Q, TreeNode *e);
-static TreeNode *binTreeDequeue(BinTreeQueue *Q);
-
-
-
-
 
 
 #endif /* binTree_h */

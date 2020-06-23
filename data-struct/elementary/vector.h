@@ -16,9 +16,6 @@ void writeVectorToDotFile(Vector V,char opt[],char info[]);
 //初始化
 Vector initVector(void);
 
-//扩容
-static void expand(Vector *V);
-
 //插入
 void insert(Vector *V, int r, int e);
 

@@ -29,7 +29,7 @@ static TreeNode *bst_search_in(TreeNode *v, int e)
 
 TreeNode *bst_search_parent(BinTree *T,int e)
 {
-    return bst_search_in(T->root,e);
+    return bst_search_in(T->header,e);
 }
 
 
@@ -75,11 +75,15 @@ void bst_remove_at(TreeNode **ptc,TreeNode *xp,TreeNode *x)
 {
     if (x->lChild == NULL){
         *ptc = x->rChild;
-        x->rChild->parent = xp;
+        if (x->rChild) {
+            x->rChild->parent = xp;
+        }
     }
     else if (x->rChild == NULL){
         *ptc = x->lChild;
-        x->lChild->parent = xp;
+        if (x->lChild) {
+            x->lChild->parent = xp;
+        }
     }
     else{
         //交换x与x的直接后继w
@@ -100,7 +104,7 @@ void bst_remove(BinTree *T,int e)
     TreeNode *x;
     TreeNode **ptc; //指向要被删除的孩子的指针的指针
     TreeNode *p = bst_search_parent(T,e);
-    //printf("%d的父亲为%d\n",e,p->data);
+    printf("%d的父亲为%d\n",e,p->data);
     //确定要删除左孩子还是右孩子
     if (e<p->data) {
         ptc = &p->lChild;
@@ -110,7 +114,7 @@ void bst_remove(BinTree *T,int e)
         x = p->rChild;
     }
     
-    //printf("要删除的节点为%d\n",x->data);
+    printf("要删除的节点为%d\n",x->data);
     bst_remove_at(ptc,p,x);
         
     updateHeightAbove(x);

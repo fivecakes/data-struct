@@ -10,12 +10,13 @@
 
 void testBinTree()
 {
-    BinTree T = initBinTree(1);
+    BinTree T = initBinTree();
 
     printf("测试二叉树...\n");
     {
-        TreeNode *n2 = insertAsLC(T.root, 2);
-        TreeNode *n3 = insertAsRC(T.root, 3);
+        TreeNode *n1 = insertAsLC(T.header, 1);
+        TreeNode *n2 = insertAsLC(n1, 2);
+        TreeNode *n3 = insertAsRC(n1, 3);
         TreeNode *n4 = insertAsLC(n2, 4);
         TreeNode *n5 = insertAsRC(n2, 5);
         TreeNode *n6 = insertAsLC(n3, 6);
@@ -45,7 +46,8 @@ void testBST()
 
     printf("测试BST...\n");
     {
-        BinTree T = initBinTree(36);
+        BinTree T = initBinTree();
+        bst_insert(&T,36);
         bst_insert(&T,27);
         bst_insert(&T,58);
         bst_insert(&T,6);
@@ -70,33 +72,23 @@ void testAVL()
     printf("测试AVL...\n");
     {
 
-        BinTree T = initBinTree(36);
-
+        BinTree T = initBinTree();
+        avl_insert(&T,36);
         avl_insert(&T,27);
-        writeTreeToDotFile(T,"w+","27");
-
         avl_insert(&T,58);
-        writeTreeToDotFile(T,"a+","58");
-
         avl_insert(&T,6);
-        writeTreeToDotFile(T,"a+","6");
-
         avl_insert(&T,53);
-        writeTreeToDotFile(T,"a+","53");
-
         avl_insert(&T,69);
-        writeTreeToDotFile(T,"a+","69");
-
         avl_insert(&T,40);
-        writeTreeToDotFile(T,"a+","40");
+        writeTreeToDotFile(T,"w+","40");
 
         avl_insert(&T,46);
         writeTreeToDotFile(T,"a+","46");
 
         avl_insert(&T,41);
         writeTreeToDotFile(T,"a+","41");
-
-        travIn(T,visit);
-        printf("\n");
+        avl_remove(&T,6);
+        
+        writeTreeToDotFile(T,"a+","remove6");
     }
 }

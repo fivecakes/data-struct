@@ -34,16 +34,8 @@ int nextNbr(Graph *G,int i,int j)
     return j;
 }
 
-void bfs(Graph *G)
-{
-    for (int i = 0; i<5; i++) {
-        if (G->graphNodes[i].status == UNDISCOVERED) {
-            BFS(G,i);
-        }
-    }
-}
 
-void BFS(Graph *G,int s)
+static void BFS(Graph *G,int s)
 {
     Queue Q = initQueue();
     G->graphNodes[s].status = DISCOVERED;
@@ -64,16 +56,16 @@ void BFS(Graph *G,int s)
     }
 }
 
-void dfs(Graph *G)
+void bfs(Graph *G)
 {
     for (int i = 0; i<5; i++) {
         if (G->graphNodes[i].status == UNDISCOVERED) {
-            DFS(G,i);
+            BFS(G,i);
         }
     }
 }
 
-void DFS(Graph *G,int s)
+static void DFS(Graph *G,int s)
 {
     G->graphNodes[s].status = DISCOVERED;
 
@@ -86,5 +78,14 @@ void DFS(Graph *G,int s)
     
     G->graphNodes[s].status = VISITED;
 
+}
+
+void dfs(Graph *G)
+{
+    for (int i = 0; i<5; i++) {
+        if (G->graphNodes[i].status == UNDISCOVERED) {
+            DFS(G,i);
+        }
+    }
 }
 

@@ -1,75 +1,100 @@
 
-//
+//40
 digraph {
- n36h4
- n36h4 -> n27h1
- n27h1 -> n36h4
+ n2147483647h4
+ [label="header"][style = dotted]
+ n2147483647h4 -> n36h3
+ n36h3 -> n2147483647h4
+ n36h3 -> n27h1
+ n27h1 -> n36h3
  n27h1 -> n6h0
  n6h0 -> n27h1
  rChild27 [label="Null"][style = dotted]
  n27h1 -> rChild27[style = dotted]
- n36h4 -> n58h3
- n58h3 -> n36h4
- n58h3 -> n53h2
- n53h2 -> n58h3
- n53h2 -> n40h1
- n40h1 -> n53h2
- lChild40 [label="Null"][style = dotted]
- n40h1 -> lChild40[style = dotted]
- n40h1 -> n46h0
- n46h0 -> n40h1
+ n36h3 -> n58h2
+ n58h2 -> n36h3
+ n58h2 -> n53h1
+ n53h1 -> n58h2
+ n53h1 -> n40h0
+ n40h0 -> n53h1
  rChild53 [label="Null"][style = dotted]
- n53h2 -> rChild53[style = dotted]
- n58h3 -> n69h1
- n69h1 -> n58h3
- n69h1 -> n64h0
- n64h0 -> n69h1
- rChild69 [label="Null"][style = dotted]
- n69h1 -> rChild69[style = dotted]
+ n53h1 -> rChild53[style = dotted]
+ n58h2 -> n69h0
+ n69h0 -> n58h2
 }
 
-//remove69
+//46
 digraph {
- n36h4
- n36h4 -> n27h1
- n27h1 -> n36h4
+ n2147483647h4
+ [label="header"][style = dotted]
+ n2147483647h4 -> n36h3
+ n36h3 -> n2147483647h4
+ n36h3 -> n27h1
+ n27h1 -> n36h3
  n27h1 -> n6h0
  n6h0 -> n27h1
  rChild27 [label="Null"][style = dotted]
  n27h1 -> rChild27[style = dotted]
- n36h4 -> n58h3
- n58h3 -> n36h4
- n58h3 -> n53h2
- n53h2 -> n58h3
- n53h2 -> n40h1
- n40h1 -> n53h2
- lChild40 [label="Null"][style = dotted]
- n40h1 -> lChild40[style = dotted]
- n40h1 -> n46h0
- n46h0 -> n40h1
- rChild53 [label="Null"][style = dotted]
- n53h2 -> rChild53[style = dotted]
- n58h3 -> n64h0
- n64h0 -> n58h3
+ n36h3 -> n58h2
+ n58h2 -> n36h3
+ n58h2 -> n46h1
+ n46h1 -> n58h2
+ n46h1 -> n40h0
+ n40h0 -> n46h1
+ n46h1 -> n53h0
+ n53h0 -> n46h1
+ n58h2 -> n69h0
+ n69h0 -> n58h2
 }
 
-//remove36
+//41
 digraph {
- n40h4
- n40h4 -> n27h1
- n27h1 -> n40h4
+ n2147483647h4
+ [label="header"][style = dotted]
+ n2147483647h4 -> n36h3
+ n36h3 -> n2147483647h4
+ n36h3 -> n27h1
+ n27h1 -> n36h3
  n27h1 -> n6h0
  n6h0 -> n27h1
  rChild27 [label="Null"][style = dotted]
  n27h1 -> rChild27[style = dotted]
- n40h4 -> n58h3
- n58h3 -> n40h4
- n58h3 -> n53h2
- n53h2 -> n58h3
- n53h2 -> n46h0
- n46h0 -> n53h2
- rChild53 [label="Null"][style = dotted]
- n53h2 -> rChild53[style = dotted]
- n58h3 -> n64h0
- n64h0 -> n58h3
+ n36h3 -> n46h2
+ n46h2 -> n36h3
+ n46h2 -> n40h1
+ n40h1 -> n46h2
+ lChild40 [label="Null"][style = dotted]
+ n40h1 -> lChild40[style = dotted]
+ n40h1 -> n41h0
+ n41h0 -> n40h1
+ n46h2 -> n58h1
+ n58h1 -> n46h2
+ n58h1 -> n53h0
+ n53h0 -> n58h1
+ n58h1 -> n69h0
+ n69h0 -> n58h1
+}
+
+//remove6
+digraph {
+ n2147483647h4
+ [label="header"][style = dotted]
+ n2147483647h4 -> n40h3
+ n40h3 -> n2147483647h4
+ n40h3 -> n36h1
+ n36h1 -> n40h3
+ n36h1 -> n27h0
+ n27h0 -> n36h1
+ rChild36 [label="Null"][style = dotted]
+ n36h1 -> rChild36[style = dotted]
+ n40h3 -> n46h2
+ n46h2 -> n40h3
+ n46h2 -> n41h0
+ n41h0 -> n46h2
+ n46h2 -> n58h1
+ n58h1 -> n46h2
+ n58h1 -> n53h0
+ n53h0 -> n58h1
+ n58h1 -> n69h0
+ n69h0 -> n58h1
 }
