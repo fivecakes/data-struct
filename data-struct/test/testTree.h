@@ -17,4 +17,5 @@
 void testBinTree(void);
 void testBST(void);
 void testAVL(void);
+void testSpaly(void);
 #endif /* testTree_h */

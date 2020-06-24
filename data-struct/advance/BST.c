@@ -13,13 +13,13 @@ static TreeNode *bst_search_in(TreeNode *v, int e)
 {
     if (v->data == e) return v->parent;
     if (e<v->data) {
-        if (v->lChild != NULL) {
+        if (v->lChild) {
             return bst_search_in(v->lChild,e);
         }else{
             return v;
         }
     }else{
-       if (v->rChild != NULL) {
+       if (v->rChild) {
             return bst_search_in(v->rChild,e);
         }else{
             return v;

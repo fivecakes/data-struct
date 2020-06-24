@@ -10,7 +10,7 @@
 #define BST_h
 
 #include "Tree.h"
-
+TreeNode *bst_succ(TreeNode *x);
 TreeNode *bst_search_parent(Tree *T,int e);
 TreeNode *bst_insert(Tree *T,int e);
 void bst_remove(Tree *T,int e);
