@@ -155,7 +155,7 @@ void testSpaly()
         
         splay_insert(&T,64);
         writeTreeToDotFile(T,"a+","64");
-        bst_remove(&T,69);
+        splay_remove(&T,69);
         writeTreeToDotFile(T,"a+","remove69");
         splay_search(&T,6);
         writeTreeToDotFile(T,"a+","search6");

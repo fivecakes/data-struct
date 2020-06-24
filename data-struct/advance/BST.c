@@ -71,18 +71,27 @@ TreeNode *bst_succ(TreeNode *x)
     return x;
 }
 
-void bst_remove_at(TreeNode **ptc,TreeNode *xp,TreeNode *x)
+void bst_remove_at(TreeNode *x)
 {
-    if (x->lChild == NULL){
-        *ptc = x->rChild;
+    TreeNode *p = x->parent;
+    if (!x->lChild){
+        if (p->lChild == x) {
+            p->lChild = x->rChild;
+        }else{
+            p->rChild = x->rChild;
+        }
         if (x->rChild) {
-            x->rChild->parent = xp;
+            x->rChild->parent = p;
         }
     }
-    else if (x->rChild == NULL){
-        *ptc = x->lChild;
+    else if (!x->rChild){
+        if (p->lChild == x) {
+            p->lChild = x->rChild;
+        }else{
+            p->rChild = x->rChild;
+        }
         if (x->lChild) {
-            x->lChild->parent = xp;
+            x->lChild->parent = p;
         }
     }
     else{
@@ -107,20 +116,17 @@ void bst_remove_at(TreeNode **ptc,TreeNode *xp,TreeNode *x)
 void bst_remove(Tree *T,int e)
 {
     TreeNode *x;
-    TreeNode **ptc; //指向要被删除的孩子的指针的指针
     TreeNode *p = bst_search_parent(T,e);
     printf("%d的父亲为%d\n",e,p->data);
     //确定要删除左孩子还是右孩子
     if (e<p->data) {
-        ptc = &p->lChild;
         x = p->lChild;
     }else{
-        ptc = &p->rChild;
         x = p->rChild;
     }
     
     printf("要删除的节点为%d\n",x->data);
-    bst_remove_at(ptc,p,x);
+    bst_remove_at(x);
         
     updateHeightAbove(x);
     

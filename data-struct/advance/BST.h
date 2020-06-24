@@ -14,6 +14,6 @@ TreeNode *bst_succ(TreeNode *x);
 TreeNode *bst_search_parent(Tree *T,int e);
 TreeNode *bst_insert(Tree *T,int e);
 void bst_remove(Tree *T,int e);
-void bst_remove_at(TreeNode **ptc,TreeNode *xp,TreeNode *x);
+void bst_remove_at(TreeNode *x);
 
 #endif /* BST_h */

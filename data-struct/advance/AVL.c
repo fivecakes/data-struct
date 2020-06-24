@@ -126,18 +126,15 @@ TreeNode *avl_insert(Tree *T,int e)
 void avl_remove(Tree *T,int e)
 {
     TreeNode *x;
-    TreeNode **ptc; //指向要被删除的孩子的指针的指针
     TreeNode *xp = bst_search_parent(T,e);
     //确定要删除左孩子还是右孩子
     if (e<xp->data) {
-        ptc = &xp->lChild;
         x = xp->lChild;
     }else{
-        ptc = &xp->rChild;
         x = xp->rChild;
     }
     
-    bst_remove_at(ptc,xp,x);
+    bst_remove_at(x);
     
     printf("删除%d,\n",e);
     //从xp出发逐层向上，依次检查各代祖先
