@@ -203,36 +203,172 @@ digraph {
 
 //remove69
 digraph {
- n2147483647h9
+ n2147483647h8
  [label="top"][style = dotted]
+ n2147483647h8 -> n64h7
+ n64h7 -> n2147483647h8
+ n64h7 -> n58h6
+ n58h6 -> n64h7
+ n58h6 -> n53h5
+ n53h5 -> n58h6
+ n53h5 -> n46h4
+ n46h4 -> n53h5
+ n46h4 -> n40h3
+ n40h3 -> n46h4
+ n40h3 -> n36h2
+ n36h2 -> n40h3
+ n36h2 -> n27h1
+ n27h1 -> n36h2
+ n27h1 -> n6h0
+ n6h0 -> n27h1
+ rChild27 [label="Null"][style = dotted]
+ n27h1 -> rChild27[style = dotted]
+ rChild36 [label="Null"][style = dotted]
+ n36h2 -> rChild36[style = dotted]
+ rChild40 [label="Null"][style = dotted]
+ n40h3 -> rChild40[style = dotted]
+ rChild46 [label="Null"][style = dotted]
+ n46h4 -> rChild46[style = dotted]
+ rChild53 [label="Null"][style = dotted]
+ n53h5 -> rChild53[style = dotted]
+ rChild58 [label="Null"][style = dotted]
+ n58h6 -> rChild58[style = dotted]
+ rChild64 [label="Null"][style = dotted]
+ n64h7 -> rChild64[style = dotted]
 }
 
 //search6
 digraph {
- n2147483647h9
+ n2147483647h8
  [label="top"][style = dotted]
+ n2147483647h8 -> n6h5
+ n6h5 -> n2147483647h8
+ lChild6 [label="Null"][style = dotted]
+ n6h5 -> lChild6[style = dotted]
+ n6h5 -> n64h4
+ n64h4 -> n6h5
+ n64h4 -> n53h3
+ n53h3 -> n64h4
+ n53h3 -> n40h2
+ n40h2 -> n53h3
+ n40h2 -> n27h1
+ n27h1 -> n40h2
+ lChild27 [label="Null"][style = dotted]
+ n27h1 -> lChild27[style = dotted]
+ n27h1 -> n36h0
+ n36h0 -> n27h1
+ n40h2 -> n46h0
+ n46h0 -> n40h2
+ n53h3 -> n58h0
+ n58h0 -> n53h3
+ rChild64 [label="Null"][style = dotted]
+ n64h4 -> rChild64[style = dotted]
 }
 
 //search36
 digraph {
- n2147483647h9
+ n2147483647h8
  [label="top"][style = dotted]
+ n2147483647h8 -> n36h3
+ n36h3 -> n2147483647h8
+ n36h3 -> n6h1
+ n6h1 -> n36h3
+ lChild6 [label="Null"][style = dotted]
+ n6h1 -> lChild6[style = dotted]
+ n6h1 -> n27h0
+ n27h0 -> n6h1
+ n36h3 -> n53h2
+ n53h2 -> n36h3
+ n53h2 -> n40h1
+ n40h1 -> n53h2
+ lChild40 [label="Null"][style = dotted]
+ n40h1 -> lChild40[style = dotted]
+ n40h1 -> n46h0
+ n46h0 -> n40h1
+ n53h2 -> n64h1
+ n64h1 -> n53h2
+ n64h1 -> n58h0
+ n58h0 -> n64h1
+ rChild64 [label="Null"][style = dotted]
+ n64h1 -> rChild64[style = dotted]
 }
 
 //search46
 digraph {
- n2147483647h9
+ n2147483647h8
  [label="top"][style = dotted]
+ n2147483647h8 -> n46h3
+ n46h3 -> n2147483647h8
+ n46h3 -> n36h2
+ n36h2 -> n46h3
+ n36h2 -> n6h1
+ n6h1 -> n36h2
+ lChild6 [label="Null"][style = dotted]
+ n6h1 -> lChild6[style = dotted]
+ n6h1 -> n27h0
+ n27h0 -> n6h1
+ n36h2 -> n40h0
+ n40h0 -> n36h2
+ n46h3 -> n53h2
+ n53h2 -> n46h3
+ lChild53 [label="Null"][style = dotted]
+ n53h2 -> lChild53[style = dotted]
+ n53h2 -> n64h1
+ n64h1 -> n53h2
+ n64h1 -> n58h0
+ n58h0 -> n64h1
+ rChild64 [label="Null"][style = dotted]
+ n64h1 -> rChild64[style = dotted]
 }
 
 //search27
 digraph {
- n2147483647h9
+ n2147483647h8
  [label="top"][style = dotted]
+ n2147483647h8 -> n27h4
+ n27h4 -> n2147483647h8
+ n27h4 -> n6h0
+ n6h0 -> n27h4
+ n27h4 -> n46h3
+ n46h3 -> n27h4
+ n46h3 -> n36h1
+ n36h1 -> n46h3
+ lChild36 [label="Null"][style = dotted]
+ n36h1 -> lChild36[style = dotted]
+ n36h1 -> n40h0
+ n40h0 -> n36h1
+ n46h3 -> n53h2
+ n53h2 -> n46h3
+ lChild53 [label="Null"][style = dotted]
+ n53h2 -> lChild53[style = dotted]
+ n53h2 -> n64h1
+ n64h1 -> n53h2
+ n64h1 -> n58h0
+ n58h0 -> n64h1
+ rChild64 [label="Null"][style = dotted]
+ n64h1 -> rChild64[style = dotted]
 }
 
 //r58
 digraph {
- n2147483647h9
+ n2147483647h8
  [label="top"][style = dotted]
+ n2147483647h8 -> n58h4
+ n58h4 -> n2147483647h8
+ n58h4 -> n46h3
+ n46h3 -> n58h4
+ n46h3 -> n27h2
+ n27h2 -> n46h3
+ n27h2 -> n6h0
+ n6h0 -> n27h2
+ n27h2 -> n36h1
+ n36h1 -> n27h2
+ lChild36 [label="Null"][style = dotted]
+ n36h1 -> lChild36[style = dotted]
+ n36h1 -> n40h0
+ n40h0 -> n36h1
+ n46h3 -> n53h0
+ n53h0 -> n46h3
+ n58h4 -> n64h0
+ n64h0 -> n58h4
 }

@@ -71,8 +71,9 @@ TreeNode *bst_succ(TreeNode *x)
     return x;
 }
 
-void bst_remove_at(TreeNode *x)
+TreeNode *bst_remove_at(TreeNode *x)
 {
+    printf("删除节点%d\n",x->data);
     TreeNode *p = x->parent;
     if (!x->lChild){
         if (p->lChild == x) {
@@ -83,16 +84,18 @@ void bst_remove_at(TreeNode *x)
         if (x->rChild) {
             x->rChild->parent = p;
         }
+        return p;
     }
     else if (!x->rChild){
         if (p->lChild == x) {
-            p->lChild = x->rChild;
+            p->lChild = x->lChild;
         }else{
-            p->rChild = x->rChild;
+            p->rChild = x->lChild;
         }
         if (x->lChild) {
             x->lChild->parent = p;
         }
+        return p;
     }
     else{
         //交换x与x的直接后继w
@@ -110,6 +113,7 @@ void bst_remove_at(TreeNode *x)
             w->parent->lChild = w->rChild;
             if(w->rChild) w->rChild->parent = w->parent;
         }
+        return w->parent;
     }
 }
 
@@ -117,7 +121,6 @@ void bst_remove(Tree *T,int e)
 {
     TreeNode *x;
     TreeNode *p = bst_search_parent(T,e);
-    printf("%d的父亲为%d\n",e,p->data);
     //确定要删除左孩子还是右孩子
     if (e<p->data) {
         x = p->lChild;
@@ -125,10 +128,8 @@ void bst_remove(Tree *T,int e)
         x = p->rChild;
     }
     
-    printf("要删除的节点为%d\n",x->data);
-    bst_remove_at(x);
-        
-    updateHeightAbove(x);
+    p = bst_remove_at(x);
+    updateHeightAbove(p);
     
     T->size--;
 }
