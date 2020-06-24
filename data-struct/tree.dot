@@ -349,14 +349,14 @@ digraph {
  n64h1 -> rChild64[style = dotted]
 }
 
-//search58
+//r58
 digraph {
  n2147483647h8
  [label="top"][style = dotted]
- n2147483647h8 -> n58h4
- n58h4 -> n2147483647h8
- n58h4 -> n46h3
- n46h3 -> n58h4
+ n2147483647h8 -> n64h4
+ n64h4 -> n2147483647h8
+ n64h4 -> n46h3
+ n46h3 -> n64h4
  n46h3 -> n27h2
  n27h2 -> n46h3
  n27h2 -> n6h0
@@ -369,6 +369,6 @@ digraph {
  n40h0 -> n36h1
  n46h3 -> n53h0
  n53h0 -> n46h3
- n58h4 -> n64h0
- n64h0 -> n58h4
+ rChild64 [label="Null"][style = dotted]
+ n64h4 -> rChild64[style = dotted]
 }

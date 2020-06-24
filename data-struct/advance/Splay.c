@@ -202,11 +202,16 @@ void splay_remove(Tree *T,int e)
     //交换x与x的直接后继w
     int tmp;
     TreeNode *w = bst_succ(x);//x的直接后继
-    //printf("%d的直接后继为%d\n",x->data,w->data);
+    printf("%d的直接后继为%d\n",x->data,w->data);
     tmp = w->data;
     w->data = x->data;
     x->data = tmp;
     //删除w
-    w->parent->lChild = w->rChild;
-    if(w->rChild) w->rChild->parent = w->parent;
+    if (x->rChild == w) {
+        w->parent->rChild = w->rChild;
+        if(w->rChild) w->rChild->parent = w->parent;
+    }else{
+        w->parent->lChild = w->rChild;
+        if(w->rChild) w->rChild->parent = w->parent;
+    }
 }

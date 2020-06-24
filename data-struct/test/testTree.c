@@ -165,8 +165,8 @@ void testSpaly()
         writeTreeToDotFile(T,"a+","search46");
         splay_search(&T,27);
         writeTreeToDotFile(T,"a+","search27");
-        splay_search(&T,58);
-        writeTreeToDotFile(T,"a+","search58");
+        splay_remove(&T,58);
+        writeTreeToDotFile(T,"a+","r58");
     }
 
 }
