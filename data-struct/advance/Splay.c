@@ -59,7 +59,7 @@ static TreeNode *Zag(TreeNode *v,TreeNode *r,TreeNode *X,TreeNode *Y,TreeNode *Z
     r->rChild = Y; if(Y) Y->parent = r; updateHeight(r);
     v->lChild = r; r->parent = v;
     v->rChild = Z; if(Z) Z->parent = v; updateHeight(v);
-    return r;
+    return v;
 }
 
 TreeNode *splay(TreeNode *v)
@@ -107,10 +107,12 @@ TreeNode *splay(TreeNode *v)
             gg->lChild = v;
         }
     }
-    
+
     //如果v的深度是奇数，最后一步，v只有父亲，没有祖父，所以需要额外一次旋转
     if (v->parent->parent && !v->parent->parent->parent) {
+        p = v->parent;
         g = v->parent->parent;
+        
         if (v->parent->lChild == v) {
             printf("最后一步Zig\n");
             TreeNode *st = Zig(v, v->parent, v->lChild, v->rChild, v->parent->rChild);
