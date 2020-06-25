@@ -27,6 +27,7 @@ static TreeNode *bst_search_in(TreeNode *v, int e)
     }
 }
 
+//这个函数可以借助Tree里的hot改掉，留着以后再做
 TreeNode *bst_search_parent(Tree *T,int e)
 {
     return bst_search_in(T->top,e);

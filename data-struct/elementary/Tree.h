@@ -23,7 +23,8 @@ struct TreeNode{
 
 struct Tree{
     int size;
-    struct TreeNode *top; //哨兵节点
+    struct TreeNode *top;
+    struct TreeNode *hot;
 };
 
 typedef struct TreeNode TreeNode;

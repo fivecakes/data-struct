@@ -13,9 +13,11 @@
 #include "BST.h"
 #include "AVL.h"
 #include "Splay.h"
+#include "BTree.h"
 
 void testBinTree(void);
 void testBST(void);
 void testAVL(void);
 void testSpaly(void);
+void testBTree(void);
 #endif /* testTree_h */

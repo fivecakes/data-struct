@@ -31,4 +31,6 @@ int binSearch(Vector V, int e, int lo, int hi);
 //插值查找
 int insertValueSearch(Vector V, int e, int lo, int hi);
 
+int get(Vector *V,int r);
+
 #endif /* vector_h */

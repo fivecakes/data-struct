@@ -18,6 +18,11 @@ static void expand(Vector *V)
     V->elem = realloc(V->elem,(V->capacity<<=1)*sizeof(int));
 }
 
+int get(Vector *V,int r)
+{
+    return *(V->elem + r);
+}
+
 
 //插入
 void insert(Vector *V, int r, int e)

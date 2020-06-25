@@ -10,5 +10,36 @@
 #define BTree_h
 
 #include <stdio.h>
+#include "vector.h"
+struct BTVector{
+    struct BTNode **elem;
+    int size;
+    int capacity;
+};
 
+typedef struct BTVector BTVector;
+
+struct BTNode{
+    struct BTNode *parent;
+    Vector key;
+    BTVector child;
+};
+
+typedef struct BTNode BTNode;
+
+
+struct BTree{
+    int size;
+    int order;
+    struct BTNode *root;
+    struct BTNode *hot;
+};
+
+typedef struct BTree BTree;
+
+BTVector btree_init_vector(void);
+void btree_insert(BTVector *V, int r, BTNode* e);
+void btree_delete_vector(BTVector *V, int r);
+void writeBTreeToDotFile(BTree T,char opt[],char info[]);
+BTNode *btree_get(BTVector *V,int r);
 #endif /* BTree_h */
