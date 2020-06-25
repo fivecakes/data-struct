@@ -7,5 +7,5 @@
 
 int main()
 {
-    testBTree();
+    testAVL();
 }

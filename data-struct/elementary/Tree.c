@@ -207,25 +207,28 @@ void visit(TreeNode *e)
 
 static void printDotNode(FILE* fp ,TreeNode *e)
 {
+    fprintf(fp, " node%p[label=\"%d (h%d)\"]\n", e,e->data,e->height);
+    
     if (!e->lChild && !e->rChild) {
         return;
     }
+    
     if (e->lChild) {
-        fprintf(fp, " n%dh%d -> n%dh%d\n", e->data,e->height, e->lChild->data,e->lChild->height) ;
-        fprintf(fp, " n%dh%d -> n%dh%d\n",  e->lChild->data,e->lChild->height,e->lChild->parent->data,e->lChild->parent->height) ;
+        fprintf(fp, " node%p -> node%p\n", e ,e->lChild) ;
+        fprintf(fp, " node%p -> node%p\n",  e->lChild,e->lChild->parent) ;
         printDotNode(fp ,e->lChild);
     }else{
-        fprintf(fp, " lChild%d [label=\"Null\"][style = dotted]\n", e->data);
-        fprintf(fp, " n%dh%d -> lChild%d[style = dotted]\n", e->data,  e->height,e->data);
+        fprintf(fp, " lChild%p [label=\"Null\"][style = dotted]\n", e);
+        fprintf(fp, " node%p -> lChild%p[style = dotted]\n", e,e);
     }
     
     if (e->rChild) {
-        fprintf(fp, " n%dh%d -> n%dh%d\n", e->data,e->height, e->rChild->data,e->rChild->height) ;
-        fprintf(fp, " n%dh%d -> n%dh%d\n",  e->rChild->data,e->rChild->height,e->rChild->parent->data,e->rChild->parent->height) ;
+        fprintf(fp, " node%p -> node%p\n", e ,e->rChild) ;
+        fprintf(fp, " node%p -> node%p\n",  e->rChild,e->rChild->parent) ;
         printDotNode(fp ,e->rChild);
     }else{
-        fprintf(fp, " rChild%d [label=\"Null\"][style = dotted]\n", e->data);
-        fprintf(fp, " n%dh%d -> rChild%d[style = dotted]\n", e->data, e->height,e->data);
+        fprintf(fp, " rChild%p [label=\"Null\"][style = dotted]\n", e);
+        fprintf(fp, " node%p -> rChild%p[style = dotted]\n", e,e);
     }
 }
 
@@ -242,11 +245,13 @@ void writeTreeToDotFile(Tree T,char opt[],char info[])
     }
     fprintf(fp, "\n//%s",info);
     fprintf(fp, "\ndigraph {\n");
-    fprintf(fp, " n%dh%d\n [label=\"top\"][style = dotted]\n", T.top->data,T.top->height);
+    fprintf(fp, " splines=false;\n");
+    fprintf(fp, " node [style=filled,color=lightblue;];\n\n");
+    fprintf(fp, " node%p [label=\"top\"][style = dotted]\n", T.top);
 
     if (T.top->lChild) {
-        fprintf(fp, " n%dh%d -> n%dh%d\n", T.top->data,T.top->height, T.top->lChild->data,T.top->lChild->height) ;
-        fprintf(fp, " n%dh%d -> n%dh%d\n",  T.top->lChild->data,T.top->lChild->height,T.top->lChild->parent->data,T.top->lChild->parent->height) ;
+        fprintf(fp, " node%p -> node%p\n", T.top, T.top->lChild) ;
+        fprintf(fp, " node%p -> node%p\n",  T.top->lChild,T.top) ;
 
         printDotNode(fp ,T.top->lChild);
     }

@@ -54,7 +54,7 @@ void btree_delete_vector(BTVector *V, int r)
 
 
 
-static void printDotNode(FILE* fp ,BTNode *e)
+static void printDotNode1(FILE* fp ,BTNode *e)
 {
     if (!e || !(e->key.size)) {
         return;
@@ -77,7 +77,7 @@ static void printDotNode(FILE* fp ,BTNode *e)
                 fprintf(fp, " node%p:<node%d>:sw -> node%p\n", e,get(&e->key,i), btree_get(&e->child,i));
             }
             
-            printDotNode(fp,btree_get(&e->child,i));
+            printDotNode1(fp,btree_get(&e->child,i));
         }
     }
 }
@@ -105,7 +105,7 @@ void writeBTreeToDotFile(BTree BT,char opt[],char info[])
 //
 //        printDotNode(fp ,T.top->lChild);
 //    }
-    printDotNode(fp ,BT.root);
+    printDotNode1(fp ,BT.root);
     fprintf(fp, "}\n");
     fclose(fp);
 }
