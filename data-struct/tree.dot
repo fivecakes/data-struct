@@ -1,126 +1,210 @@
 
-//60
+//
 digraph {
  splines=false;
  node [shape = record,height=.1,style=filled,color=lightblue;];
 
- node0x1004072d0 [label = " <node52> 52| <node56> 56"]
- node0x1004072d0:<node52>:sw -> node0x100531df0
- node0x100531df0 [label = " <node50> 50"]
- Null0x100531df00 [label="Null"][style = dotted]
- node0x100531df0:<node50>:sw -> Null0x100531df00[style = dotted]
- Null0x100531df01 [label="Null"][style = dotted]
- node0x100531df0:<node50>:se -> Null0x100531df01[style = dotted]
- node0x1004072d0:<node52>:se -> node0x1004074f0
- node0x1004074f0 [label = " <node54> 54"]
- Null0x1004074f00 [label="Null"][style = dotted]
- node0x1004074f0:<node54>:sw -> Null0x1004074f00[style = dotted]
- Null0x1004074f01 [label="Null"][style = dotted]
- node0x1004074f0:<node54>:se -> Null0x1004074f01[style = dotted]
- node0x1004072d0:<node56>:se -> node0x1006060a0
- node0x1006060a0 [label = " <node58> 58| <node60> 60"]
- Null0x1006060a00 [label="Null"][style = dotted]
- node0x1006060a0:<node58>:sw -> Null0x1006060a00[style = dotted]
- Null0x1006060a01 [label="Null"][style = dotted]
- node0x1006060a0:<node58>:se -> Null0x1006060a01[style = dotted]
- Null0x1006060a02 [label="Null"][style = dotted]
- node0x1006060a0:<node60>:se -> Null0x1006060a02[style = dotted]
+ node0x1004b7c90 [label = " <node80> 80"]
+ node0x1004b7c90:<node80>:sw -> node0x1004b7690
+ node0x1004b7690 [label = " <node60> 60"]
+ node0x1004b7690:<node60>:sw -> node0x1004b7610
+ node0x1004b7610 [label = " <node50> 50"]
+ Null0x1004b76100 [label="Null"][style = dotted]
+ node0x1004b7610:<node50>:sw -> Null0x1004b76100[style = dotted]
+ Null0x1004b76101 [label="Null"][style = dotted]
+ node0x1004b7610:<node50>:se -> Null0x1004b76101[style = dotted]
+ node0x1004b7690:<node60>:se -> node0x1004b7660
+ node0x1004b7660 [label = " <node70> 70"]
+ Null0x1004b76600 [label="Null"][style = dotted]
+ node0x1004b7660:<node70>:sw -> Null0x1004b76600[style = dotted]
+ Null0x1004b76601 [label="Null"][style = dotted]
+ node0x1004b7660:<node70>:se -> Null0x1004b76601[style = dotted]
+ node0x1004b7c90:<node80>:se -> node0x1004b7c60
+ node0x1004b7c60 [label = " <node100> 100"]
+ node0x1004b7c60:<node100>:sw -> node0x1004b76e0
+ node0x1004b76e0 [label = " <node90> 90"]
+ Null0x1004b76e00 [label="Null"][style = dotted]
+ node0x1004b76e0:<node90>:sw -> Null0x1004b76e00[style = dotted]
+ Null0x1004b76e01 [label="Null"][style = dotted]
+ node0x1004b76e0:<node90>:se -> Null0x1004b76e01[style = dotted]
+ node0x1004b7c60:<node100>:se -> node0x1004b7c30
+ node0x1004b7c30 [label = " <node110> 110"]
+ Null0x1004b7c300 [label="Null"][style = dotted]
+ node0x1004b7c30:<node110>:sw -> Null0x1004b7c300[style = dotted]
+ Null0x1004b7c301 [label="Null"][style = dotted]
+ node0x1004b7c30:<node110>:se -> Null0x1004b7c301[style = dotted]
 }
 
-//分裂之前
+//
 digraph {
  splines=false;
  node [shape = record,height=.1,style=filled,color=lightblue;];
 
- node0x1004072d0 [label = " <node52> 52| <node56> 56"]
- node0x1004072d0:<node52>:sw -> node0x100531df0
- node0x100531df0 [label = " <node50> 50"]
- Null0x100531df00 [label="Null"][style = dotted]
- node0x100531df0:<node50>:sw -> Null0x100531df00[style = dotted]
- Null0x100531df01 [label="Null"][style = dotted]
- node0x100531df0:<node50>:se -> Null0x100531df01[style = dotted]
- node0x1004072d0:<node52>:se -> node0x1004074f0
- node0x1004074f0 [label = " <node54> 54"]
- Null0x1004074f00 [label="Null"][style = dotted]
- node0x1004074f0:<node54>:sw -> Null0x1004074f00[style = dotted]
- Null0x1004074f01 [label="Null"][style = dotted]
- node0x1004074f0:<node54>:se -> Null0x1004074f01[style = dotted]
- node0x1004072d0:<node56>:se -> node0x1006060a0
- node0x1006060a0 [label = " <node58> 58| <node60> 60| <node62> 62"]
- Null0x1006060a00 [label="Null"][style = dotted]
- node0x1006060a0:<node58>:sw -> Null0x1006060a00[style = dotted]
- Null0x1006060a01 [label="Null"][style = dotted]
- node0x1006060a0:<node58>:se -> Null0x1006060a01[style = dotted]
- Null0x1006060a02 [label="Null"][style = dotted]
- node0x1006060a0:<node60>:se -> Null0x1006060a02[style = dotted]
- Null0x1006060a03 [label="Null"][style = dotted]
- node0x1006060a0:<node62>:se -> Null0x1006060a03[style = dotted]
+ node0x1004b7c90 [label = " <node80> 80"]
+ node0x1004b7c90:<node80>:sw -> node0x1004b7690
+ node0x1004b7690 [label = " <node60> 60"]
+ node0x1004b7690:<node60>:sw -> node0x1004b7610
+ node0x1004b7610 [label = " <node50> 50"]
+ Null0x1004b76100 [label="Null"][style = dotted]
+ node0x1004b7610:<node50>:sw -> Null0x1004b76100[style = dotted]
+ Null0x1004b76101 [label="Null"][style = dotted]
+ node0x1004b7610:<node50>:se -> Null0x1004b76101[style = dotted]
+ node0x1004b7690:<node60>:se -> node0x1004b7660
+ node0x1004b7660 [label = " <node70> 70| <node71> 71"]
+ Null0x1004b76600 [label="Null"][style = dotted]
+ node0x1004b7660:<node70>:sw -> Null0x1004b76600[style = dotted]
+ Null0x1004b76601 [label="Null"][style = dotted]
+ node0x1004b7660:<node70>:se -> Null0x1004b76601[style = dotted]
+ Null0x1004b76602 [label="Null"][style = dotted]
+ node0x1004b7660:<node71>:se -> Null0x1004b76602[style = dotted]
+ node0x1004b7c90:<node80>:se -> node0x1004b7c60
+ node0x1004b7c60 [label = " <node100> 100"]
+ node0x1004b7c60:<node100>:sw -> node0x1004b76e0
+ node0x1004b76e0 [label = " <node90> 90"]
+ Null0x1004b76e00 [label="Null"][style = dotted]
+ node0x1004b76e0:<node90>:sw -> Null0x1004b76e00[style = dotted]
+ Null0x1004b76e01 [label="Null"][style = dotted]
+ node0x1004b76e0:<node90>:se -> Null0x1004b76e01[style = dotted]
+ node0x1004b7c60:<node100>:se -> node0x1004b7c30
+ node0x1004b7c30 [label = " <node110> 110"]
+ Null0x1004b7c300 [label="Null"][style = dotted]
+ node0x1004b7c30:<node110>:sw -> Null0x1004b7c300[style = dotted]
+ Null0x1004b7c301 [label="Null"][style = dotted]
+ node0x1004b7c30:<node110>:se -> Null0x1004b7c301[style = dotted]
 }
 
-//分裂之前
+//
 digraph {
  splines=false;
  node [shape = record,height=.1,style=filled,color=lightblue;];
 
- node0x1004072d0 [label = " <node52> 52| <node56> 56| <node60> 60"]
- node0x1004072d0:<node52>:sw -> node0x100531df0
- node0x100531df0 [label = " <node50> 50"]
- Null0x100531df00 [label="Null"][style = dotted]
- node0x100531df0:<node50>:sw -> Null0x100531df00[style = dotted]
- Null0x100531df01 [label="Null"][style = dotted]
- node0x100531df0:<node50>:se -> Null0x100531df01[style = dotted]
- node0x1004072d0:<node52>:se -> node0x1004074f0
- node0x1004074f0 [label = " <node54> 54"]
- Null0x1004074f00 [label="Null"][style = dotted]
- node0x1004074f0:<node54>:sw -> Null0x1004074f00[style = dotted]
- Null0x1004074f01 [label="Null"][style = dotted]
- node0x1004074f0:<node54>:se -> Null0x1004074f01[style = dotted]
- node0x1004072d0:<node56>:se -> node0x1006060a0
- node0x1006060a0 [label = " <node58> 58"]
- Null0x1006060a00 [label="Null"][style = dotted]
- node0x1006060a0:<node58>:sw -> Null0x1006060a00[style = dotted]
- Null0x1006060a01 [label="Null"][style = dotted]
- node0x1006060a0:<node58>:se -> Null0x1006060a01[style = dotted]
- node0x1004072d0:<node60>:se -> node0x100606130
- node0x100606130 [label = " <node62> 62"]
- Null0x1006061300 [label="Null"][style = dotted]
- node0x100606130:<node62>:sw -> Null0x1006061300[style = dotted]
- Null0x1006061301 [label="Null"][style = dotted]
- node0x100606130:<node62>:se -> Null0x1006061301[style = dotted]
+ node0x1004b7c90 [label = " <node80> 80"]
+ node0x1004b7c90:<node80>:sw -> node0x1004b7690
+ node0x1004b7690 [label = " <node60> 60| <node71> 71"]
+ node0x1004b7690:<node60>:sw -> node0x1004b7610
+ node0x1004b7610 [label = " <node50> 50"]
+ Null0x1004b76100 [label="Null"][style = dotted]
+ node0x1004b7610:<node50>:sw -> Null0x1004b76100[style = dotted]
+ Null0x1004b76101 [label="Null"][style = dotted]
+ node0x1004b7610:<node50>:se -> Null0x1004b76101[style = dotted]
+ node0x1004b7690:<node60>:se -> node0x1004b7660
+ node0x1004b7660 [label = " <node70> 70"]
+ Null0x1004b76600 [label="Null"][style = dotted]
+ node0x1004b7660:<node70>:sw -> Null0x1004b76600[style = dotted]
+ Null0x1004b76601 [label="Null"][style = dotted]
+ node0x1004b7660:<node70>:se -> Null0x1004b76601[style = dotted]
+ node0x1004b7690:<node71>:se -> node0x1004b7cc0
+ node0x1004b7cc0 [label = " <node72> 72"]
+ Null0x1004b7cc00 [label="Null"][style = dotted]
+ node0x1004b7cc0:<node72>:sw -> Null0x1004b7cc00[style = dotted]
+ Null0x1004b7cc01 [label="Null"][style = dotted]
+ node0x1004b7cc0:<node72>:se -> Null0x1004b7cc01[style = dotted]
+ node0x1004b7c90:<node80>:se -> node0x1004b7c60
+ node0x1004b7c60 [label = " <node100> 100"]
+ node0x1004b7c60:<node100>:sw -> node0x1004b76e0
+ node0x1004b76e0 [label = " <node90> 90"]
+ Null0x1004b76e00 [label="Null"][style = dotted]
+ node0x1004b76e0:<node90>:sw -> Null0x1004b76e00[style = dotted]
+ Null0x1004b76e01 [label="Null"][style = dotted]
+ node0x1004b76e0:<node90>:se -> Null0x1004b76e01[style = dotted]
+ node0x1004b7c60:<node100>:se -> node0x1004b7c30
+ node0x1004b7c30 [label = " <node110> 110"]
+ Null0x1004b7c300 [label="Null"][style = dotted]
+ node0x1004b7c30:<node110>:sw -> Null0x1004b7c300[style = dotted]
+ Null0x1004b7c301 [label="Null"][style = dotted]
+ node0x1004b7c30:<node110>:se -> Null0x1004b7c301[style = dotted]
 }
 
-//62
+//
 digraph {
  splines=false;
  node [shape = record,height=.1,style=filled,color=lightblue;];
 
- node0x100606170 [label = " <node56> 56"]
- node0x100606170:<node56>:sw -> node0x1004072d0
- node0x1004072d0 [label = " <node52> 52"]
- node0x1004072d0:<node52>:sw -> node0x100531df0
- node0x100531df0 [label = " <node50> 50"]
- Null0x100531df00 [label="Null"][style = dotted]
- node0x100531df0:<node50>:sw -> Null0x100531df00[style = dotted]
- Null0x100531df01 [label="Null"][style = dotted]
- node0x100531df0:<node50>:se -> Null0x100531df01[style = dotted]
- node0x1004072d0:<node52>:se -> node0x1004074f0
- node0x1004074f0 [label = " <node54> 54"]
- Null0x1004074f00 [label="Null"][style = dotted]
- node0x1004074f0:<node54>:sw -> Null0x1004074f00[style = dotted]
- Null0x1004074f01 [label="Null"][style = dotted]
- node0x1004074f0:<node54>:se -> Null0x1004074f01[style = dotted]
- node0x100606170:<node56>:se -> node0x100531e40
- node0x100531e40 [label = " <node60> 60"]
- node0x100531e40:<node60>:sw -> node0x1006060a0
- node0x1006060a0 [label = " <node58> 58"]
- Null0x1006060a00 [label="Null"][style = dotted]
- node0x1006060a0:<node58>:sw -> Null0x1006060a00[style = dotted]
- Null0x1006060a01 [label="Null"][style = dotted]
- node0x1006060a0:<node58>:se -> Null0x1006060a01[style = dotted]
- node0x100531e40:<node60>:se -> node0x100606130
- node0x100606130 [label = " <node62> 62"]
- Null0x1006061300 [label="Null"][style = dotted]
- node0x100606130:<node62>:sw -> Null0x1006061300[style = dotted]
- Null0x1006061301 [label="Null"][style = dotted]
- node0x100606130:<node62>:se -> Null0x1006061301[style = dotted]
+ node0x1004b7c90 [label = " <node80> 80"]
+ node0x1004b7c90:<node80>:sw -> node0x1004b7690
+ node0x1004b7690 [label = " <node60> 60| <node71> 71"]
+ node0x1004b7690:<node60>:sw -> node0x1004b7610
+ node0x1004b7610 [label = " <node50> 50"]
+ Null0x1004b76100 [label="Null"][style = dotted]
+ node0x1004b7610:<node50>:sw -> Null0x1004b76100[style = dotted]
+ Null0x1004b76101 [label="Null"][style = dotted]
+ node0x1004b7610:<node50>:se -> Null0x1004b76101[style = dotted]
+ node0x1004b7690:<node60>:se -> node0x1004b7660
+ node0x1004b7660 [label = " <node70> 70"]
+ Null0x1004b76600 [label="Null"][style = dotted]
+ node0x1004b7660:<node70>:sw -> Null0x1004b76600[style = dotted]
+ Null0x1004b76601 [label="Null"][style = dotted]
+ node0x1004b7660:<node70>:se -> Null0x1004b76601[style = dotted]
+ node0x1004b7690:<node71>:se -> node0x1004b7cc0
+ node0x1004b7cc0 [label = " <node72> 72| <node73> 73"]
+ Null0x1004b7cc00 [label="Null"][style = dotted]
+ node0x1004b7cc0:<node72>:sw -> Null0x1004b7cc00[style = dotted]
+ Null0x1004b7cc01 [label="Null"][style = dotted]
+ node0x1004b7cc0:<node72>:se -> Null0x1004b7cc01[style = dotted]
+ Null0x1004b7cc02 [label="Null"][style = dotted]
+ node0x1004b7cc0:<node73>:se -> Null0x1004b7cc02[style = dotted]
+ node0x1004b7c90:<node80>:se -> node0x1004b7c60
+ node0x1004b7c60 [label = " <node100> 100"]
+ node0x1004b7c60:<node100>:sw -> node0x1004b76e0
+ node0x1004b76e0 [label = " <node90> 90"]
+ Null0x1004b76e00 [label="Null"][style = dotted]
+ node0x1004b76e0:<node90>:sw -> Null0x1004b76e00[style = dotted]
+ Null0x1004b76e01 [label="Null"][style = dotted]
+ node0x1004b76e0:<node90>:se -> Null0x1004b76e01[style = dotted]
+ node0x1004b7c60:<node100>:se -> node0x1004b7c30
+ node0x1004b7c30 [label = " <node110> 110"]
+ Null0x1004b7c300 [label="Null"][style = dotted]
+ node0x1004b7c30:<node110>:sw -> Null0x1004b7c300[style = dotted]
+ Null0x1004b7c301 [label="Null"][style = dotted]
+ node0x1004b7c30:<node110>:se -> Null0x1004b7c301[style = dotted]
+}
+
+//
+digraph {
+ splines=false;
+ node [shape = record,height=.1,style=filled,color=lightblue;];
+
+ node0x1004b7c90 [label = " <node71> 71| <node80> 80"]
+ node0x1004b7c90:<node71>:sw -> node0x1004b7690
+ node0x1004b7690 [label = " <node60> 60"]
+ node0x1004b7690:<node60>:sw -> node0x1004b7610
+ node0x1004b7610 [label = " <node50> 50"]
+ Null0x1004b76100 [label="Null"][style = dotted]
+ node0x1004b7610:<node50>:sw -> Null0x1004b76100[style = dotted]
+ Null0x1004b76101 [label="Null"][style = dotted]
+ node0x1004b7610:<node50>:se -> Null0x1004b76101[style = dotted]
+ node0x1004b7690:<node60>:se -> node0x1004b7660
+ node0x1004b7660 [label = " <node70> 70"]
+ Null0x1004b76600 [label="Null"][style = dotted]
+ node0x1004b7660:<node70>:sw -> Null0x1004b76600[style = dotted]
+ Null0x1004b76601 [label="Null"][style = dotted]
+ node0x1004b7660:<node70>:se -> Null0x1004b76601[style = dotted]
+ node0x1004b7c90:<node71>:se -> node0x100704680
+ node0x100704680 [label = " <node73> 73"]
+ node0x100704680:<node73>:sw -> node0x1004b7cc0
+ node0x1004b7cc0 [label = " <node72> 72"]
+ Null0x1004b7cc00 [label="Null"][style = dotted]
+ node0x1004b7cc0:<node72>:sw -> Null0x1004b7cc00[style = dotted]
+ Null0x1004b7cc01 [label="Null"][style = dotted]
+ node0x1004b7cc0:<node72>:se -> Null0x1004b7cc01[style = dotted]
+ node0x100704680:<node73>:se -> node0x100704630
+ node0x100704630 [label = " <node74> 74"]
+ Null0x1007046300 [label="Null"][style = dotted]
+ node0x100704630:<node74>:sw -> Null0x1007046300[style = dotted]
+ Null0x1007046301 [label="Null"][style = dotted]
+ node0x100704630:<node74>:se -> Null0x1007046301[style = dotted]
+ node0x1004b7c90:<node80>:se -> node0x1004b7c60
+ node0x1004b7c60 [label = " <node100> 100"]
+ node0x1004b7c60:<node100>:sw -> node0x1004b76e0
+ node0x1004b76e0 [label = " <node90> 90"]
+ Null0x1004b76e00 [label="Null"][style = dotted]
+ node0x1004b76e0:<node90>:sw -> Null0x1004b76e00[style = dotted]
+ Null0x1004b76e01 [label="Null"][style = dotted]
+ node0x1004b76e0:<node90>:se -> Null0x1004b76e01[style = dotted]
+ node0x1004b7c60:<node100>:se -> node0x1004b7c30
+ node0x1004b7c30 [label = " <node110> 110"]
+ Null0x1004b7c300 [label="Null"][style = dotted]
+ node0x1004b7c30:<node110>:sw -> Null0x1004b7c300[style = dotted]
+ Null0x1004b7c301 [label="Null"][style = dotted]
+ node0x1004b7c30:<node110>:se -> Null0x1004b7c301[style = dotted]
 }

@@ -160,14 +160,21 @@ void testBTree()
         BTree BT = btree_init();
         
         btree_insert(&BT,50);
-        btree_insert(&BT,52);
-        btree_insert(&BT,54);
-        btree_insert(&BT,56);
-        btree_insert(&BT,58);
         btree_insert(&BT,60);
-        writeBTreeToDotFile(&BT,"w+","60");
-        btree_insert(&BT,62);
-        writeBTreeToDotFile(&BT,"a+","62");
+        btree_insert(&BT,70);
+        btree_insert(&BT,80);
+        btree_insert(&BT,90);
+        btree_insert(&BT,100);
+        btree_insert(&BT,110);
+        writeBTreeToDotFile(&BT,"w+","");
+        btree_insert(&BT,71);
+        writeBTreeToDotFile(&BT,"a+","");
+        btree_insert(&BT,72);
+        writeBTreeToDotFile(&BT,"a+","");
+        btree_insert(&BT,73);
+        writeBTreeToDotFile(&BT,"a+","");
+        btree_insert(&BT,74);
+        writeBTreeToDotFile(&BT,"a+","");
     }
 
 }

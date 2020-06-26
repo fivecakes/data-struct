@@ -88,7 +88,7 @@ BTNode *btree_search(BTree *BT,int e)
 void solveOverflow(BTree *BT,BTNode *v)
 {
     if (v->key.size < BT->order) return;
-    writeBTreeToDotFile(BT,"a+","分裂之前");
+    //writeBTreeToDotFile(BT,"a+","分裂之前");
     BTNode *p = v->parent;
     int mid = (int)(v->key.size/2);
     int mid_value = vector_get(&v->key, mid);
