@@ -8,39 +8,6 @@
 
 #include "testTree.h"
 
-void testBinTree()
-{
-    Tree T = initBinTree();
-
-    printf("测试二叉树...\n");
-    {
-        TreeNode *n1 = insertAsLC(T.top, 1);
-        TreeNode *n2 = insertAsLC(n1, 2);
-        TreeNode *n3 = insertAsRC(n1, 3);
-        TreeNode *n4 = insertAsLC(n2, 4);
-        TreeNode *n5 = insertAsRC(n2, 5);
-        TreeNode *n6 = insertAsLC(n3, 6);
-        TreeNode *n7 = insertAsRC(n3, 7);
-
-        writeTreeToDotFile(T,"w+","");
-        printf("层次遍历:");
-        travLevel(T,visit);
-        printf("\n");
-        
-        printf("先序遍历:");
-        travPre(T,visit);
-        printf("\n");
-        
-        printf("中序遍历:");
-        travIn(T,visit);
-        printf("\n");
-
-    }
-
-}
-
-
-
 void testBST()
 {
 
@@ -56,7 +23,20 @@ void testBST()
         bst_insert(&T,40);
         bst_insert(&T,46);
         bst_insert(&T,64);
-
+        
+        writeTreeToDotFile(T,"w+","");
+        printf("层次遍历:");
+        travLevel(T,visit);
+        printf("\n");
+        
+        printf("先序遍历:");
+        travPre(T,visit);
+        printf("\n");
+        
+        printf("中序遍历:");
+        travIn(T,visit);
+        printf("\n");
+        
         writeTreeToDotFile(T,"w+","");
         bst_remove(&T,69);
         writeTreeToDotFile(T,"a+","remove69");
@@ -178,10 +158,16 @@ void testBTree()
     printf("测试B-Tree...\n");
     {
         BTree BT = btree_init();
+        
         btree_insert(&BT,50);
-        btree_insert(&BT,51);
         btree_insert(&BT,52);
-        writeBTreeToDotFile(BT,"w+","");
+        btree_insert(&BT,54);
+        writeBTreeToDotFile(BT,"w+","50,52,54");
+        btree_insert(&BT,56);
+        btree_insert(&BT,58);
+//        btree_insert(&BT,60);
+//        btree_insert(&BT,62);
+        writeBTreeToDotFile(BT,"a+","");
     }
 
 }

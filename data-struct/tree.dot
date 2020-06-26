@@ -1,8 +1,46 @@
 
+//50,52,54
+digraph {
+ splines=false;
+ node [shape = record,height=.1,style=filled,color=lightblue;];
+
+ node0x10044b780 [label = " <node52> 52"]
+ node0x10044b780:<node52>:sw -> node0x10044b700
+ node0x10044b700 [label = " <node50> 50"]
+ Null0x10044b7000 [label="Null0"][style = dotted]
+ node0x10044b700:<node50>:sw -> Null0x10044b7000[style = dotted]
+ Null0x10044b7001 [label="Null1"][style = dotted]
+ node0x10044b700:<node50>:se -> Null0x10044b7001[style = dotted]
+ node0x10044b780:<node52>:se -> node0x10044b750
+ node0x10044b750 [label = " <node54> 54"]
+ Null0x10044b7500 [label="Null0"][style = dotted]
+ node0x10044b750:<node54>:sw -> Null0x10044b7500[style = dotted]
+ Null0x10044b7501 [label="Null1"][style = dotted]
+ node0x10044b750:<node54>:se -> Null0x10044b7501[style = dotted]
+}
+
 //
 digraph {
  splines=false;
  node [shape = record,height=.1,style=filled,color=lightblue;];
 
- node0x10051b070 [label = " <node50> 50| <node51> 51| <node52> 52"]
+ node0x10044b780 [label = " <node52> 52| <node56> 56"]
+ node0x10044b780:<node52>:sw -> node0x10044b700
+ node0x10044b700 [label = " <node50> 50"]
+ Null0x10044b7000 [label="Null0"][style = dotted]
+ node0x10044b700:<node50>:sw -> Null0x10044b7000[style = dotted]
+ Null0x10044b7001 [label="Null1"][style = dotted]
+ node0x10044b700:<node50>:se -> Null0x10044b7001[style = dotted]
+ node0x10044b780:<node52>:se -> node0x10044b750
+ node0x10044b750 [label = " <node54> 54"]
+ Null0x10044b7500 [label="Null0"][style = dotted]
+ node0x10044b750:<node54>:sw -> Null0x10044b7500[style = dotted]
+ Null0x10044b7501 [label="Null1"][style = dotted]
+ node0x10044b750:<node54>:se -> Null0x10044b7501[style = dotted]
+ node0x10044b780:<node56>:se -> node0x10044b7d0
+ node0x10044b7d0 [label = " <node58> 58"]
+ Null0x10044b7d00 [label="Null0"][style = dotted]
+ node0x10044b7d0:<node58>:sw -> Null0x10044b7d00[style = dotted]
+ Null0x10044b7d01 [label="Null1"][style = dotted]
+ node0x10044b7d0:<node58>:se -> Null0x10044b7d01[style = dotted]
 }

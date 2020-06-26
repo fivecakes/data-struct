@@ -53,25 +53,17 @@ void btree_vector_delete(BTVector *V, int r)
 
 BTree btree_init()
 {
-    
-    
-    BTNode *node = malloc(sizeof(BTNode));
-    
-    node->parent = NULL;
-    
-    node->key.elem = malloc(2* sizeof(int));
-    node->key.capacity = 2;
-    node->key.size = 0;
-    
-    node->child.elem = malloc(2* sizeof(BTNode*));
-    node->child.capacity = 2;
-    node->child.size = 0;
+    BTNode *new = malloc(sizeof(BTNode));
+    new->parent = NULL;
+    new->key = vector_init();
+    new->child = btree_vector_init();
+    btree_vector_insert(&new->child, 0, NULL);
     
     BTree BT;
     BT.size = 1;
     BT.hot = NULL;
-    BT.root = node;
-    btree_vector_insert(&BT.root->child, 0, NULL);
+    BT.root = new;
+    BT.order = 3;
     
     return BT;
 }
@@ -93,8 +85,69 @@ BTNode *btree_search(BTree *BT,int e)
     return NULL;
 }
 
-void solveOverflow(BTNode *v)
+void solveOverflow(BTree *BT,BTNode *v)
 {
+    if (v->key.size < BT->order) return;
+    
+    BTNode *p = v->parent;
+    int mid = (int)(v->key.size/2);
+    int mid_value = vector_get(&v->key, mid);
+    
+    //新建一个节点，并将中位数以后的数据移到新节点
+    BTNode *new = malloc(sizeof(BTNode));
+    new->key = vector_init();
+    new->child = btree_vector_init();
+    for (int i = mid+1; i<v->key.size; i++) {
+        int key_value = vector_get(&v->key, i);
+        BTNode *child_value = btree_vector_get(&v->child, i+1);
+        
+        vector_insert(&new->key, new->key.size, key_value);
+        btree_vector_insert(&new->child, new->child.size, child_value);
+        if (child_value) child_value->parent = new;
+    }
+    
+    //child比key多一个，所以多移动一次
+    BTNode *last = btree_vector_get(&v->child, v->key.size+1);
+    btree_vector_insert(&new->child, new->child.size,last);
+    if (last) last->parent = new;
+    
+    if (!p) {
+        printf("根节点分裂\n");
+        
+        //新建一个根节点，并把中位数移到其中
+        BTNode *newroot = malloc(sizeof(BTNode));
+        newroot->parent = NULL;
+        newroot->key = vector_init();
+        newroot->child = btree_vector_init();
+        vector_insert(&newroot->key, 0, mid_value);
+        BT->root = newroot;
+        btree_vector_insert(&newroot->child, 0, v);
+        btree_vector_insert(&newroot->child, 1, new);
+
+        //将中位数移后的数据删除
+        v->key.size = mid;
+        v->child.size = mid+1;
+        //设置父亲
+        v->parent = newroot;
+        new->parent = newroot;
+        
+    }else{
+        printf("分裂\n");
+        
+        //把中位数移插入到父节点
+        int r = vector_search(&p->key, mid_value);
+        vector_insert(&p->key, r+1, mid_value);
+        btree_vector_insert(&p->child, r+2, new);
+        
+        //将中位数移后的数据删除
+        v->key.size = mid;
+        v->child.size = mid+1;
+        
+        //设置新节点父亲
+        new->parent = p;
+        
+        solveOverflow(BT,p);
+    }
     
 }
 
@@ -103,7 +156,7 @@ int btree_insert(BTree *BT,int e)
 {
     BTNode *v = btree_search(BT,e);
     if (v) {
-        printf("%d存在\n",e);
+        printf("%d存在,插入失败\n",e);
         return 1;
     }
     
@@ -112,7 +165,7 @@ int btree_insert(BTree *BT,int e)
     btree_vector_insert(&BT->hot->child, r+2, NULL);
     
     BT->size++;
-    //solveOverflow(BT.hot);
+    solveOverflow(BT,BT->hot);
     
     return 1;
 }
@@ -132,15 +185,23 @@ static void printDotNode1(FILE* fp ,BTNode *e)
     fprintf(fp, "\"]\n");
     
     for (int i=0; i<e->child.size; i++) {
-        
-        if (btree_vector_get(&e->child,i)) {
-            if (i) {
-                fprintf(fp, " node%p:<node%d>:se -> node%p\n", e,vector_get(&e->key,i), btree_vector_get(&e->child,i));
+        BTNode *childnode = btree_vector_get(&e->child,i);
+        if (childnode) {
+            if (!i) {
+                fprintf(fp, " node%p:<node%d>:sw -> node%p\n", e,vector_get(&e->key,i), childnode);
             }else {
-                fprintf(fp, " node%p:<node%d>:sw -> node%p\n", e,vector_get(&e->key,i), btree_vector_get(&e->child,i));
+                fprintf(fp, " node%p:<node%d>:se -> node%p\n", e,vector_get(&e->key,i-1), childnode);
             }
             
-            printDotNode1(fp,btree_vector_get(&e->child,i));
+            printDotNode1(fp,childnode);
+        }else{
+            fprintf(fp, " Null%p%d [label=\"Null%d\"][style = dotted]\n",e, i,i);
+            if (!i) {
+                fprintf(fp, " node%p:<node%d>:sw -> Null%p%d[style = dotted]\n", e,vector_get(&e->key,i),e,i);
+            }else {
+                fprintf(fp, " node%p:<node%d>:se -> Null%p%d[style = dotted]\n", e,vector_get(&e->key,i-1),e,i);
+            }
+            
         }
     }
 }
