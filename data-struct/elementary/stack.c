@@ -1,6 +1,6 @@
 #include "stack.h"
 
-Stack initStack()
+Stack stack_init()
 {
     Stack S;
     S.elem = malloc(2* sizeof(int));
@@ -16,14 +16,14 @@ static void expand(Stack *S)
     S->elem = realloc(S->elem,(S->capacity<<=1)*sizeof(int));
 }
 
-void push(Stack *S, int e)
+void stack_push(Stack *S, int e)
 {
     expand(S);
     *(S->elem+S->size) = e;
     S->size++;
 }
 
-int pop(Stack *S)
+int stack_pop(Stack *S)
 {
     S->size--;
     return *(S->elem + S->size);

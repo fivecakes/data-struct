@@ -177,62 +177,8 @@ void testBTree()
 {
     printf("测试B-Tree...\n");
     {
-        //
-        BTNode BTNode1;
-        Vector key1 = initVector();
-        insert(&key1, key1.size, 28);
-        BTVector child1 = btree_init_vector();
-        btree_insert(&child1, child1.size, NULL);
-        btree_insert(&child1, child1.size, NULL);
-        BTNode1.key = key1;
-        BTNode1.child = child1;
-        //
-        BTNode BTNode2;
-        Vector key2 = initVector();
-        insert(&key2, key2.size, 37);
-        insert(&key2, key2.size, 40);
-        insert(&key2, key2.size, 41);
-        BTVector child2 = btree_init_vector();
-        btree_insert(&child2, child2.size, NULL);
-        btree_insert(&child2, child2.size, NULL);
-        btree_insert(&child2, child2.size, NULL);
-        btree_insert(&child2, child2.size, NULL);
-        BTNode2.key = key2;
-        BTNode2.child = child2;
-        //
-        BTNode BTNode3;
-        Vector key3 = initVector();
-        insert(&key3, key3.size, 46);
-        BTVector child3 = btree_init_vector();
-        btree_insert(&child3, child3.size, NULL);
-        btree_insert(&child3, child3.size, NULL);
-        BTNode3.key = key3;
-        BTNode3.child = child3;
-        //
-        BTNode BTNode4;
-        Vector key4 = initVector();
-        insert(&key4, key4.size, 52);
-        BTVector child4 = btree_init_vector();
-        btree_insert(&child4, child4.size, NULL);
-        btree_insert(&child4, child4.size, NULL);
-        BTNode4.key = key4;
-        BTNode4.child = child4;
-        //
-        BTNode BTNode5;
-        Vector key5 = initVector();
-        insert(&key5, key5.size, 34);
-        insert(&key5, key5.size, 43);
-        insert(&key5, key5.size, 49);
-        BTVector child5 = btree_init_vector();
-        btree_insert(&child5, child5.size, &BTNode1);
-        btree_insert(&child5, child5.size, &BTNode2);
-        btree_insert(&child5, child5.size, &BTNode3);
-        btree_insert(&child5, child5.size, &BTNode4);
-        BTNode5.key = key5;
-        BTNode5.child = child5;
-        
-        BTree BT;
-        BT.root = &BTNode5;
+        BTree BT = btree_init();
+        btree_insert(BT,50);
         writeBTreeToDotFile(BT,"w+","");
     }
 

@@ -37,9 +37,13 @@ struct BTree{
 
 typedef struct BTree BTree;
 
-BTVector btree_init_vector(void);
-void btree_insert(BTVector *V, int r, BTNode* e);
-void btree_delete_vector(BTVector *V, int r);
+BTVector btree_vector_init(void);
+void btree_vector_insert(BTVector *V, int r, BTNode* e);
+void btree_vector_delete(BTVector *V, int r);
+BTNode *btree_vector_get(BTVector *V,int r);
+
+
+BTree btree_init(void);
+int btree_insert(BTree BT,int e);
 void writeBTreeToDotFile(BTree T,char opt[],char info[]);
-BTNode *btree_get(BTVector *V,int r);
 #endif /* BTree_h */

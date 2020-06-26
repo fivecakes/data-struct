@@ -1,6 +1,6 @@
 #include "queue.h"
 
-Queue initQueue()
+Queue queue_init()
 {
     Queue L;
     L.size = 0;
@@ -11,7 +11,7 @@ Queue initQueue()
     return L;
 }
 
-void enqueue(Queue *Q, int e)
+void queue_enqueue(Queue *Q, int e)
 {
     QueueNode *p = Q->trailer;
     
@@ -26,7 +26,7 @@ void enqueue(Queue *Q, int e)
     Q->size++;
 }
 
-int dequeue(Queue *Q)
+int queue_dequeue(Queue *Q)
 {
     int tmp = Q->header->succ->data;
     Q->header->succ->succ->pred = Q->header;

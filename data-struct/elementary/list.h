@@ -20,22 +20,22 @@ struct List{
 typedef struct ListNode ListNode;
 typedef struct List List;
 
-void writeListToDotFile(List L,char opt[],char info[]);
+void list_write2dot(List L,char opt[],char info[]);
 //初始化
-List initList(void);
+List list_init(void);
 
 //获取
-int listGet(List L,int r);
+int list_get(List L,int r);
 
-void insertBefore(ListNode *p,int e);
+void list_insert_before(ListNode *p,int e);
 //插入
-void listInsert(List *L, int n, int e);
+void list_insert(List *L, int n, int e);
 
 //选择排序
-void selectionSort(List *L);
+void list_selection_sort(List *L);
 
 //插入排序
-void insertSort(List *L);
+void list_insert_sort(List *L);
 
 
 #endif /* list_h */

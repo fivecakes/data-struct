@@ -37,8 +37,8 @@ struct Graph{
 
 typedef struct Graph Graph;
 
-Graph initGraph(int (*arr)[5]);
-void bfs(Graph *G);
-void dfs(Graph *G);
+Graph graph_init(int (*arr)[5]);
+void graph_bfs(Graph *G);
+void graph_dfs(Graph *G);
 
 #endif /* graph_h */

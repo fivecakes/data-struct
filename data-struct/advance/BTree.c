@@ -9,7 +9,7 @@
 #include "BTree.h"
 
 
-BTVector btree_init_vector()
+BTVector btree_vector_init()
 {
     BTVector V;
     V.elem = malloc(2* sizeof(BTNode*));
@@ -20,17 +20,15 @@ BTVector btree_init_vector()
 
 
 //扩容
-static void btree_expand(BTVector *V)
+static void btree_vector_expand(BTVector *V)
 {
     if(V->size < V->capacity) return; //尚未满员，不必扩容
     V->elem = realloc(V->elem,(V->capacity<<=1)*sizeof(BTNode*));
 }
 
-
-//插入
-void btree_insert(BTVector *V, int r, BTNode* e)
+void btree_vector_insert(BTVector *V, int r, BTNode* e)
 {
-    btree_expand(V);
+    btree_vector_expand(V);
     for (int i = V->size; i>r; i--) {
         *(V->elem+i) = *(V->elem+i-1);
     }
@@ -38,13 +36,14 @@ void btree_insert(BTVector *V, int r, BTNode* e)
     V->size++;
 }
 
-BTNode *btree_get(BTVector *V,int r)
+
+BTNode *btree_vector_get(BTVector *V,int r)
 {
     return *(V->elem + r);
 }
 
 //删除
-void btree_delete_vector(BTVector *V, int r)
+void btree_vector_delete(BTVector *V, int r)
 {
     for (int i = r; i<V->size -1; i++) {
         *(V->elem+i) = *(V->elem+i+1);
@@ -52,7 +51,59 @@ void btree_delete_vector(BTVector *V, int r)
     V->size--;
 }
 
+BTree btree_init()
+{
+    
+    BTree BT;
+    BT.size = 0;
+    BT.hot = NULL;
+    BT.root = malloc(sizeof(BTNode));
+    
+    BT.root->parent = NULL;
+    BT.root->key = vector_init();
+    BT.root->child = btree_vector_init();
+    btree_vector_insert(&BT.root->child, 0, NULL);
+    
+    return BT;
+}
 
+
+BTNode *btree_search(BTree BT,int e)
+{
+    BTNode *v = BT.root;
+    BT.hot = NULL;
+    
+    while (v) {
+        int r = vector_search(&v->key,e);
+        if (r>=0) return v;
+        BT.hot = v;
+        //此步模拟I/O操作，
+        v= btree_vector_get(&v->child,r+1);
+    }
+    
+    return NULL;
+}
+
+void solveOverflow(BTNode *v)
+{
+    
+}
+
+
+int btree_insert(BTree BT,int e)
+{
+    BTNode *v = btree_search(BT,e);
+    if (v) return -1;
+    
+    int r = vector_search(&BT.hot->key,e);
+    vector_insert(&BT.hot->key, r+1, e);
+    btree_vector_insert(&BT.hot->child, r+2, NULL);
+    
+    BT.size++;
+    //solveOverflow(BT.hot);
+    
+    return 1;
+}
 
 static void printDotNode1(FILE* fp ,BTNode *e)
 {
@@ -64,20 +115,20 @@ static void printDotNode1(FILE* fp ,BTNode *e)
         if (i) {
             fprintf(fp, "|");
         }
-        fprintf(fp, " <node%d> %d", get(&e->key,i),get(&e->key,i));
+        fprintf(fp, " <node%d> %d", vector_get(&e->key,i),vector_get(&e->key,i));
     }
     fprintf(fp, "\"]\n");
     
     for (int i=0; i<e->child.size; i++) {
         
-        if (btree_get(&e->child,i)) {
+        if (btree_vector_get(&e->child,i)) {
             if (i) {
-                fprintf(fp, " node%p:<node%d>:se -> node%p\n", e,get(&e->key,i), btree_get(&e->child,i));
+                fprintf(fp, " node%p:<node%d>:se -> node%p\n", e,vector_get(&e->key,i), btree_vector_get(&e->child,i));
             }else {
-                fprintf(fp, " node%p:<node%d>:sw -> node%p\n", e,get(&e->key,i), btree_get(&e->child,i));
+                fprintf(fp, " node%p:<node%d>:sw -> node%p\n", e,vector_get(&e->key,i), btree_vector_get(&e->child,i));
             }
             
-            printDotNode1(fp,btree_get(&e->child,i));
+            printDotNode1(fp,btree_vector_get(&e->child,i));
         }
     }
 }
@@ -95,16 +146,9 @@ void writeBTreeToDotFile(BTree BT,char opt[],char info[])
     }
     fprintf(fp, "\n//%s",info);
     fprintf(fp, "\ndigraph {\n");
-    //fprintf(fp, " n%dh%d\n [label=\"top\"][style = dotted]\n", T.top->data,T.top->height);
     fprintf(fp, " splines=false;\n");
     fprintf(fp, " node [shape = record,height=.1,style=filled,color=lightblue;];\n\n");
 
-//    if (T.top->lChild) {
-//        fprintf(fp, " n%dh%d -> n%dh%d\n", T.top->data,T.top->height, T.top->lChild->data,T.top->lChild->height) ;
-//        fprintf(fp, " n%dh%d -> n%dh%d\n",  T.top->lChild->data,T.top->lChild->height,T.top->lChild->parent->data,T.top->lChild->parent->height) ;
-//
-//        printDotNode(fp ,T.top->lChild);
-//    }
     printDotNode1(fp ,BT.root);
     fprintf(fp, "}\n");
     fclose(fp);

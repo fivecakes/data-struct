@@ -9,7 +9,7 @@
 #include "graph.h"
 
 
-Graph initGraph(int (*arr)[5])
+Graph graph_init(int (*arr)[5])
 {
     Graph G;
     G.matrix = arr;
@@ -24,7 +24,7 @@ Graph initGraph(int (*arr)[5])
 }
 
 //找节点i的编号为j的邻居的下一个邻居
-int nextNbr(Graph *G,int i,int j)
+static int nextNbr(Graph *G,int i,int j)
 {
     while (-1<j) {
         if (G->matrix[i][--j]) {
@@ -37,18 +37,18 @@ int nextNbr(Graph *G,int i,int j)
 
 static void BFS(Graph *G,int s)
 {
-    Queue Q = initQueue();
+    Queue Q = queue_init();
     G->graphNodes[s].status = DISCOVERED;
-    enqueue(&Q, s);
+    queue_enqueue(&Q, s);
     
     while (Q.size) {
-        int v = dequeue(&Q);
+        int v = queue_dequeue(&Q);
         
         printf("%d",v);
         for (int u = nextNbr(G,v,4+1); -1<u; u=nextNbr(G,v,u)) {
             if (G->graphNodes[u].status == UNDISCOVERED) {
                 G->graphNodes[u].status = DISCOVERED;
-                enqueue(&Q, u);
+                queue_enqueue(&Q, u);
             }
         }
         
@@ -56,7 +56,7 @@ static void BFS(Graph *G,int s)
     }
 }
 
-void bfs(Graph *G)
+void graph_bfs(Graph *G)
 {
     for (int i = 0; i<5; i++) {
         if (G->graphNodes[i].status == UNDISCOVERED) {
@@ -80,7 +80,7 @@ static void DFS(Graph *G,int s)
 
 }
 
-void dfs(Graph *G)
+void graph_dfs(Graph *G)
 {
     for (int i = 0; i<5; i++) {
         if (G->graphNodes[i].status == UNDISCOVERED) {

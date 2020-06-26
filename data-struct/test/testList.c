@@ -13,33 +13,33 @@
 //测试用例
 void testList()
 {
-    List L1 = initList();
-    List L2 = initList();
+    List L1 = list_init();
+    List L2 = list_init();
 
     printf("测试插入...\n");
     {
         srand(123456);
         for(int i = 0; i < 10; i++) {
             int tmp = rand()%10;
-            listInsert(&L1, i, tmp);
-            listInsert(&L2, i, tmp);
+            list_insert(&L1, i, tmp);
+            list_insert(&L2, i, tmp);
         }
-        writeListToDotFile(L1,"w+","");
+        list_write2dot(L1,"w+","");
     }
 
 
     printf("测试选择排序...\n");
     {
-        selectionSort(&L1);
+        list_selection_sort(&L1);
         
-        writeListToDotFile(L1,"a+","选择排序");
+        list_write2dot(L1,"a+","选择排序");
     }
 
     printf("测试插入排序...\n");
     {
-        insertSort(&L2);
+        list_insert_sort(&L2);
         
-        writeListToDotFile(L2,"a+","插入排序");
+        list_write2dot(L2,"a+","插入排序");
     }
 }
 

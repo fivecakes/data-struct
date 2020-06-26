@@ -20,7 +20,7 @@ void testGraph()
         {0,1,1,0,0},
         {0,1,0,1,0}
     };
-    Graph G = initGraph(arr);
-    dfs(&G);
+    Graph G = graph_init(arr);
+    graph_dfs(&G);
     printf("\n");
 }

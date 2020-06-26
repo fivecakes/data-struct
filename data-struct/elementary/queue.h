@@ -18,9 +18,9 @@ typedef struct QueueNode QueueNode;
 typedef struct Queue Queue;
 
 
-Queue initQueue(void);
-void enqueue(Queue *Q, int e);
+Queue queue_init(void);
+void queue_enqueue(Queue *Q, int e);
 
-int dequeue(Queue *Q);
+int queue_dequeue(Queue *Q);
 
 #endif /* queue_h */

@@ -1,7 +1,7 @@
 #include "vector.h"
 
 
-Vector initVector()
+Vector vector_init()
 {
     Vector V;
     V.elem = malloc(2* sizeof(int));
@@ -12,22 +12,22 @@ Vector initVector()
 
 
 //扩容
-static void expand(Vector *V)
+static void vector_expand(Vector *V)
 {
     if(V->size < V->capacity) return; //尚未满员，不必扩容
     V->elem = realloc(V->elem,(V->capacity<<=1)*sizeof(int));
 }
 
-int get(Vector *V,int r)
+int vector_get(Vector *V,int r)
 {
     return *(V->elem + r);
 }
 
 
 //插入
-void insert(Vector *V, int r, int e)
+void vector_insert(Vector *V, int r, int e)
 {
-    expand(V);
+    vector_expand(V);
     for (int i = V->size; i>r; i--) {
         *(V->elem+i) = *(V->elem+i-1);
     }
@@ -35,16 +35,20 @@ void insert(Vector *V, int r, int e)
     V->size++;
 }
 
-//插入
-void insertBottom(Vector *V, int e)
+//遍历搜索
+int vector_search(Vector *V, int e)
 {
-    expand(V);
-    *(V->elem+V->size) = e;
-    V->size++;
+    for (int i = 0; i<V->size; i++) {
+        if (*(V->elem+i) > e) {
+            return i-1;
+        }
+    }
+    return V->size-1;
 }
 
+
 //删除
-void deleteVector(Vector *V, int r)
+void vector_delete(Vector *V, int r)
 {
     for (int i = r; i<V->size -1; i++) {
         *(V->elem+i) = *(V->elem+i+1);
@@ -68,7 +72,7 @@ static int bubble(Vector *V,int lo, int hi)
     return last;
 }
 
-void bubbleSort(Vector *V)
+void vector_bubble_sort(Vector *V)
 {
     int lo = 0;
     int hi = V->size-1;
@@ -109,19 +113,19 @@ static void merge(Vector *V, int lo, int mi, int hi)
     }
 }
 
-void mergeSort(Vector *V, int lo, int hi)
+void vector_merge_sort(Vector *V, int lo, int hi)
 {
     if (hi - lo <2) {
         return;
     }
     int mi = (lo + hi) >> 1;
-    mergeSort(V, lo, mi);
-    mergeSort(V, mi, hi);
+    vector_merge_sort(V, lo, mi);
+    vector_merge_sort(V, mi, hi);
     merge(V,lo, mi, hi);
 }
 
 //二分查找
-int binSearch(Vector V,int e,int lo,int hi)
+int vector_bin_search(Vector V,int e,int lo,int hi)
 {
     while (lo<hi) {
         int mi = (lo+hi)>>1;
@@ -137,7 +141,7 @@ int binSearch(Vector V,int e,int lo,int hi)
 }
 
 //插值查找
-int insertValueSearch(Vector V,int e,int lo,int hi)
+int vector_insert_value_search(Vector V,int e,int lo,int hi)
 {
     hi--;
     while (lo<hi) {
@@ -158,7 +162,7 @@ int insertValueSearch(Vector V,int e,int lo,int hi)
 }
 
 
-void writeVectorToDotFile(Vector V,char opt[],char info[])
+void vector_write2dot(Vector V,char opt[],char info[])
 {
     FILE* fp = fopen("/Users/book/Codes/data-struct/data-struct/tree.dot", opt);
     if( NULL == fp)

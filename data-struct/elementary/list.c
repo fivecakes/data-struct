@@ -2,7 +2,7 @@
 
 
 
-List initList()
+List list_init()
 {
     List L;
     L.size = 0;
@@ -13,7 +13,7 @@ List initList()
     return L;
 }
 
-int listGet(List L,int r)
+int list_get(List L,int r)
 {
     ListNode *p = L.header;
     while (r--) {
@@ -23,7 +23,7 @@ int listGet(List L,int r)
 }
 
 
-void insertBefore(ListNode *p,int e)
+void list_insert_before(ListNode *p,int e)
 {
     ListNode *new = malloc(sizeof(ListNode));
     ListNode *h = p->pred;
@@ -36,14 +36,14 @@ void insertBefore(ListNode *p,int e)
 }
 
 
-void listInsert(List *L, int n, int e)
+void list_insert(List *L, int n, int e)
 {
     ListNode *p = L->header->succ;
     while (n) {
         p=p->succ;
         n--;
     }
-    insertBefore(p,e);
+    list_insert_before(p,e);
     L->size++;
 }
 
@@ -66,7 +66,7 @@ static ListNode* selectMax(List *L, int n)
 
 
 //选择排序
-void selectionSort(List *L)
+void list_selection_sort(List *L)
 {
     ListNode* p;
     ListNode* t = L->trailer->pred;
@@ -107,7 +107,7 @@ static void moveAfter(ListNode *p,ListNode *s)
 }
 
 //插入排序
-void insertSort(List *L)
+void list_insert_sort(List *L)
 {
     ListNode *c = L->header->succ->succ->succ;
     ListNode *s,*p;
@@ -121,7 +121,7 @@ void insertSort(List *L)
 }
 
 
-void writeListToDotFile(List L,char opt[],char info[])
+void list_write2dot(List L,char opt[],char info[])
 {
     FILE* fp = fopen("/Users/book/Codes/data-struct/data-struct/tree.dot", opt);
     if( NULL == fp)
