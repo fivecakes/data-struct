@@ -54,29 +54,38 @@ void btree_vector_delete(BTVector *V, int r)
 BTree btree_init()
 {
     
-    BTree BT;
-    BT.size = 0;
-    BT.hot = NULL;
-    BT.root = malloc(sizeof(BTNode));
     
-    BT.root->parent = NULL;
-    BT.root->key = vector_init();
-    BT.root->child = btree_vector_init();
+    BTNode *node = malloc(sizeof(BTNode));
+    
+    node->parent = NULL;
+    
+    node->key.elem = malloc(2* sizeof(int));
+    node->key.capacity = 2;
+    node->key.size = 0;
+    
+    node->child.elem = malloc(2* sizeof(BTNode*));
+    node->child.capacity = 2;
+    node->child.size = 0;
+    
+    BTree BT;
+    BT.size = 1;
+    BT.hot = NULL;
+    BT.root = node;
     btree_vector_insert(&BT.root->child, 0, NULL);
     
     return BT;
 }
 
 
-BTNode *btree_search(BTree BT,int e)
+BTNode *btree_search(BTree *BT,int e)
 {
-    BTNode *v = BT.root;
-    BT.hot = NULL;
+    BTNode *v = BT->root;
+    BT->hot = NULL;
     
     while (v) {
         int r = vector_search(&v->key,e);
-        if (r>=0) return v;
-        BT.hot = v;
+        if (r>=0 && vector_get(&v->key, r) == e) return v;
+        BT->hot = v;
         //此步模拟I/O操作，
         v= btree_vector_get(&v->child,r+1);
     }
@@ -90,16 +99,19 @@ void solveOverflow(BTNode *v)
 }
 
 
-int btree_insert(BTree BT,int e)
+int btree_insert(BTree *BT,int e)
 {
     BTNode *v = btree_search(BT,e);
-    if (v) return -1;
+    if (v) {
+        printf("%d存在\n",e);
+        return 1;
+    }
     
-    int r = vector_search(&BT.hot->key,e);
-    vector_insert(&BT.hot->key, r+1, e);
-    btree_vector_insert(&BT.hot->child, r+2, NULL);
+    int r = vector_search(&BT->hot->key,e);
+    vector_insert(&BT->hot->key, r+1, e);
+    btree_vector_insert(&BT->hot->child, r+2, NULL);
     
-    BT.size++;
+    BT->size++;
     //solveOverflow(BT.hot);
     
     return 1;

@@ -44,6 +44,6 @@ BTNode *btree_vector_get(BTVector *V,int r);
 
 
 BTree btree_init(void);
-int btree_insert(BTree BT,int e);
+int btree_insert(BTree *BT,int e);
 void writeBTreeToDotFile(BTree T,char opt[],char info[]);
 #endif /* BTree_h */

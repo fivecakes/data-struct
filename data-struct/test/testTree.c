@@ -178,7 +178,9 @@ void testBTree()
     printf("测试B-Tree...\n");
     {
         BTree BT = btree_init();
-        btree_insert(BT,50);
+        btree_insert(&BT,50);
+        btree_insert(&BT,51);
+        btree_insert(&BT,52);
         writeBTreeToDotFile(BT,"w+","");
     }
 
