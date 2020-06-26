@@ -88,7 +88,7 @@ BTNode *btree_search(BTree *BT,int e)
 void solveOverflow(BTree *BT,BTNode *v)
 {
     if (v->key.size < BT->order) return;
-    
+    writeBTreeToDotFile(BT,"a+","分裂之前");
     BTNode *p = v->parent;
     int mid = (int)(v->key.size/2);
     int mid_value = vector_get(&v->key, mid);
@@ -99,7 +99,7 @@ void solveOverflow(BTree *BT,BTNode *v)
     new->child = btree_vector_init();
     for (int i = mid+1; i<v->key.size; i++) {
         int key_value = vector_get(&v->key, i);
-        BTNode *child_value = btree_vector_get(&v->child, i+1);
+        BTNode *child_value = btree_vector_get(&v->child, i);
         
         vector_insert(&new->key, new->key.size, key_value);
         btree_vector_insert(&new->child, new->child.size, child_value);
@@ -107,7 +107,7 @@ void solveOverflow(BTree *BT,BTNode *v)
     }
     
     //child比key多一个，所以多移动一次
-    BTNode *last = btree_vector_get(&v->child, v->key.size+1);
+    BTNode *last = btree_vector_get(&v->child, v->key.size);
     btree_vector_insert(&new->child, new->child.size,last);
     if (last) last->parent = new;
     
@@ -161,10 +161,12 @@ int btree_insert(BTree *BT,int e)
     }
     
     int r = vector_search(&BT->hot->key,e);
+    printf("插入到第%d\n",r+1);
     vector_insert(&BT->hot->key, r+1, e);
     btree_vector_insert(&BT->hot->child, r+2, NULL);
     
     BT->size++;
+    
     solveOverflow(BT,BT->hot);
     
     return 1;
@@ -195,7 +197,7 @@ static void printDotNode1(FILE* fp ,BTNode *e)
             
             printDotNode1(fp,childnode);
         }else{
-            fprintf(fp, " Null%p%d [label=\"Null%d\"][style = dotted]\n",e, i,i);
+            fprintf(fp, " Null%p%d [label=\"Null\"][style = dotted]\n",e, i);
             if (!i) {
                 fprintf(fp, " node%p:<node%d>:sw -> Null%p%d[style = dotted]\n", e,vector_get(&e->key,i),e,i);
             }else {
@@ -208,7 +210,7 @@ static void printDotNode1(FILE* fp ,BTNode *e)
 
 
 
-void writeBTreeToDotFile(BTree BT,char opt[],char info[])
+void writeBTreeToDotFile(BTree *BT,char opt[],char info[])
 {
     FILE* fp = fopen("/Users/book/Codes/data-struct/data-struct/tree.dot", opt);
     if( NULL == fp)
@@ -222,7 +224,7 @@ void writeBTreeToDotFile(BTree BT,char opt[],char info[])
     fprintf(fp, " splines=false;\n");
     fprintf(fp, " node [shape = record,height=.1,style=filled,color=lightblue;];\n\n");
 
-    printDotNode1(fp ,BT.root);
+    printDotNode1(fp ,BT->root);
     fprintf(fp, "}\n");
     fclose(fp);
 }

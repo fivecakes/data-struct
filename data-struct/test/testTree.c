@@ -162,12 +162,12 @@ void testBTree()
         btree_insert(&BT,50);
         btree_insert(&BT,52);
         btree_insert(&BT,54);
-        writeBTreeToDotFile(BT,"w+","50,52,54");
         btree_insert(&BT,56);
         btree_insert(&BT,58);
-//        btree_insert(&BT,60);
-//        btree_insert(&BT,62);
-        writeBTreeToDotFile(BT,"a+","");
+        btree_insert(&BT,60);
+        writeBTreeToDotFile(&BT,"w+","60");
+        btree_insert(&BT,62);
+        writeBTreeToDotFile(&BT,"a+","62");
     }
 
 }
