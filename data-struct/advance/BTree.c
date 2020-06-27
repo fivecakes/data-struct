@@ -163,6 +163,7 @@ void solveOverflow(BTree *BT,BTNode *v)
 
 void solveUnderflow(BTree *BT,BTNode *v)
 {
+    writeBTreeToDotFile(BT,"a+","solveUnderflow");
     //向上取整c = (a + b - 1) / b;
     int under = (BT->order + 2 - 1) / 2;
     
@@ -170,12 +171,12 @@ void solveUnderflow(BTree *BT,BTNode *v)
     
     //r是父节点child的秩，父节点key的秩是r-1
     int r = btree_vector_search(&v->parent->child,v);
-    
+    BTNode *brother;
     if (r>0 && btree_vector_get(&v->parent->child, r-1)->child.size > under) {
         printf("向左兄弟借一个\n");
         
         //三角借债，先向父亲借，然后左兄弟给父亲,注意：父亲和兄弟都分左右
-        BTNode *brother = btree_vector_get(&v->parent->child, r-1);
+        brother = btree_vector_get(&v->parent->child, r-1);
         
         //从父亲拿值
         vector_insert(&v->key,0,vector_get(&v->parent->key,r-1));
@@ -190,7 +191,7 @@ void solveUnderflow(BTree *BT,BTNode *v)
     }else if ((r+1) < v->parent->child.size && btree_vector_get(&v->parent->child, r+1)->child.size > under){
         printf("向右兄弟借一个\n");
         //三角借债，先向父亲借，然后左兄弟给父亲，注意：父亲和兄弟都分左右
-        BTNode *brother = btree_vector_get(&v->parent->child, r+1);
+        brother = btree_vector_get(&v->parent->child, r+1);
         
         //从父亲拿值
         vector_insert(&v->key,v->key.size,vector_get(&v->parent->key,r));
@@ -204,7 +205,7 @@ void solveUnderflow(BTree *BT,BTNode *v)
     }else{
         if (r>0) {
             printf("左兄弟存在，与左兄弟合并\n");
-            BTNode *brother = btree_vector_get(&v->parent->child, r-1);
+            brother = btree_vector_get(&v->parent->child, r-1);
             
             //父亲插入到左兄弟
             vector_insert(&brother->key,brother->key.size,vector_get(&v->parent->key,r-1));
@@ -222,7 +223,7 @@ void solveUnderflow(BTree *BT,BTNode *v)
             btree_vector_delete(&v->parent->child,r);
         }else{
             printf("左兄弟不存在，与右兄弟合并\n");
-            BTNode *brother = btree_vector_get(&v->parent->child, r+1);
+            brother = btree_vector_get(&v->parent->child, r+1);
             
             //父亲插入到左兄弟
             vector_insert(&brother->key,0,vector_get(&v->parent->key,r));
@@ -232,12 +233,18 @@ void solveUnderflow(BTree *BT,BTNode *v)
                 vector_insert(&brother->key,0,vector_get(&v->key,i));
                 btree_vector_insert(&brother->child,0,btree_vector_get(&v->child,i+1));
             }
-            btree_vector_insert(&brother->child,brother->child.size,btree_vector_get(&v->child,0));
+            btree_vector_insert(&brother->child,0,btree_vector_get(&v->child,0));
             //删除父亲
             vector_delete(&v->parent->key,r);
             btree_vector_delete(&v->parent->child,r);
         }
-        solveUnderflow(BT, v->parent);
+        if (!v->parent->parent) {
+            printf("合并根节点！\n");
+            BT->root = brother;
+            brother->parent = NULL;
+        }else{
+            solveUnderflow(BT, v->parent);
+        }
     }
     
     
@@ -314,12 +321,12 @@ static void printDotNode1(FILE* fp ,BTNode *e)
             
             printDotNode1(fp,childnode);
         }else{
-            fprintf(fp, " Null%p%d [label=\"Null\"][style = dotted]\n",e, i);
-            if (!i) {
-                fprintf(fp, " node%p:<node%d>:sw -> Null%p%d[style = dotted]\n", e,vector_get(&e->key,i),e,i);
-            }else {
-                fprintf(fp, " node%p:<node%d>:se -> Null%p%d[style = dotted]\n", e,vector_get(&e->key,i-1),e,i);
-            }
+//            fprintf(fp, " Null%p%d [label=\"Null\"][style = dotted]\n",e, i);
+//            if (!i) {
+//                fprintf(fp, " node%p:<node%d>:sw -> Null%p%d[style = dotted]\n", e,vector_get(&e->key,i),e,i);
+//            }else {
+//                fprintf(fp, " node%p:<node%d>:se -> Null%p%d[style = dotted]\n", e,vector_get(&e->key,i-1),e,i);
+//            }
             
         }
     }
