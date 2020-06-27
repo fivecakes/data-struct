@@ -170,18 +170,10 @@ void testBTree()
         btree_insert(&BT,468);
         btree_insert(&BT,484);
         btree_insert(&BT,528);
-        btree_insert(&BT,619);
-        btree_insert(&BT,644);
-        btree_insert(&BT,703);
-        btree_insert(&BT,758);
-        btree_insert(&BT,771);
-        btree_insert(&BT,850);
-        btree_insert(&BT,865);
-        btree_insert(&BT,882);
-        btree_insert(&BT,936);
-        btree_insert(&BT,984);
+        btree_insert(&BT,300);
+        btree_insert(&BT,310);
         writeBTreeToDotFile(&BT,"w+","");
-        btree_remove(&BT,268);
+        btree_remove(&BT,266);
         writeBTreeToDotFile(&BT,"a+","");
     }
 
