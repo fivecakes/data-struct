@@ -35,6 +35,13 @@ void vector_insert(Vector *V, int r, int e)
     V->size++;
 }
 
+
+//替换
+void vector_replace(Vector *V, int r, int e)
+{
+    *(V->elem+r) = e;
+}
+
 //遍历搜索
 int vector_search(Vector *V, int e)
 {

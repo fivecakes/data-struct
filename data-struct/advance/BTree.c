@@ -36,6 +36,16 @@ void btree_vector_insert(BTVector *V, int r, BTNode* e)
     V->size++;
 }
 
+//特殊的：对于指针类型的遍历搜索
+int btree_vector_search(BTVector *V, BTNode* e)
+{
+    for (int i = 0; i<V->size; i++) {
+        if (*(V->elem+i) == e) {
+            return i;
+        }
+    }
+    return -1;
+}
 
 BTNode *btree_vector_get(BTVector *V,int r)
 {
@@ -63,7 +73,7 @@ BTree btree_init()
     BT.size = 1;
     BT.hot = NULL;
     BT.root = new;
-    BT.order = 3;
+    BT.order = 4;
     
     return BT;
 }
@@ -90,7 +100,7 @@ void solveOverflow(BTree *BT,BTNode *v)
     if (v->key.size < BT->order) return;
     //writeBTreeToDotFile(BT,"a+","分裂之前");
     BTNode *p = v->parent;
-    int mid = (int)(v->key.size/2);
+    int mid = v->key.size/2;//c语言中整数/整数还是整数，自动强制类型转换了
     int mid_value = vector_get(&v->key, mid);
     
     //新建一个节点，并将中位数以后的数据移到新节点
@@ -151,17 +161,59 @@ void solveOverflow(BTree *BT,BTNode *v)
     
 }
 
+void solveUnderflow(BTree *BT,BTNode *v)
+{
+    //向上取整c = (a + b - 1) / b;
+    int under = (BT->order + 2 - 1) / 2;
+    if (v->key.size >= under) return;
+    
+    int r = btree_vector_search(&v->parent->child,v);
+    if (r>0 && btree_vector_get(&v->parent->child, r)->key.size > under) {
+        //三角借债，先向父亲借，然后左兄弟给父亲
+        BTNode *brother = btree_vector_get(&v->parent->child, r);
+        
+        printf("向左兄弟借一个\n");
+        //从父亲拿值
+        vector_insert(&v->key,0,vector_get(&v->parent->key,r));
+        //从兄弟拿指针
+        btree_vector_insert(&v->child,0,btree_vector_get(&brother->child,brother->child.size-1));
+        //兄弟给父亲
+        vector_replace(&v->parent->key,r,vector_get(&brother->key,brother->key.size-1));
+        //删掉兄弟
+        vector_delete(&brother->key,brother->key.size-1);
+        btree_vector_delete(&brother->child,brother->child.size-1);
+        
+    }else if ((r+1) < v->parent->child.size && btree_vector_get(&v->parent->child, r+1)->key.size > under){
+        printf("向右兄弟借一个\n");
+        //三角借债，先向父亲借，然后左兄弟给父亲
+        BTNode *brother = btree_vector_get(&v->parent->child, r+1);
+        
+        //从父亲拿值
+        vector_insert(&v->key,0,vector_get(&v->parent->key,r));
+        //从兄弟拿指针
+        btree_vector_insert(&v->child,v->child.size,btree_vector_get(&brother->child,0));
+        //兄弟给父亲
+        vector_replace(&v->parent->key,r,vector_get(&brother->key,0));
+        //删掉兄弟
+        vector_delete(&brother->key,0);
+        btree_vector_delete(&brother->child,0);
+    }else{
+        printf("合并\n");
+    }
+    
+    
+}
 
-int btree_insert(BTree *BT,int e)
+
+void btree_insert(BTree *BT,int e)
 {
     BTNode *v = btree_search(BT,e);
     if (v) {
         printf("%d存在,插入失败\n",e);
-        return 1;
     }
     
     int r = vector_search(&BT->hot->key,e);
-    printf("插入到第%d\n",r+1);
+    //printf("插入到第%d\n",r+1);
     vector_insert(&BT->hot->key, r+1, e);
     btree_vector_insert(&BT->hot->child, r+2, NULL);
     
@@ -169,7 +221,33 @@ int btree_insert(BTree *BT,int e)
     
     solveOverflow(BT,BT->hot);
     
-    return 1;
+}
+
+
+void btree_remove(BTree *BT,int e)
+{
+    BTNode *v = btree_search(BT,e);
+    if (!v) {
+        printf("%d不存在,删除失败\n",e);
+    }
+    //确定e在v中的秩
+    int r = vector_search(&v->key,e);
+    if(btree_vector_get(&v->child, 0)){
+        //若v非叶节点,找到e的后继，并与之交换
+        BTNode *u = btree_vector_get(&v->child, r+1);//右子树
+        while (btree_vector_get(&u->child, 0)) {
+            u = btree_vector_get(&u->child, 0);
+        }
+        //将e的后继放到e的位置
+        vector_replace(&v->key,r,vector_get(&u->key, 0));
+        //后面要把e的后继删掉，但是u变量不能在if外用，所以v指向u
+        v = u;r=0;
+    }
+    vector_delete(&v->key, r);
+    btree_vector_delete(&v->child, r+1);
+    BT->size--;
+    
+    solveUnderflow(BT,v);
 }
 
 static void printDotNode1(FILE* fp ,BTNode *e)

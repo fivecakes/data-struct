@@ -18,7 +18,8 @@ Vector vector_init(void);
 
 //插入
 void vector_insert(Vector *V, int r, int e);
-
+void vector_delete(Vector *V, int r);
+void vector_replace(Vector *V, int r, int e);
 //冒泡排序
 void vector_bubble_sort(Vector *V);
 

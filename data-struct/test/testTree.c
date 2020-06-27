@@ -166,14 +166,16 @@ void testBTree()
         btree_insert(&BT,90);
         btree_insert(&BT,100);
         btree_insert(&BT,110);
-        writeBTreeToDotFile(&BT,"w+","");
         btree_insert(&BT,71);
-        writeBTreeToDotFile(&BT,"a+","");
         btree_insert(&BT,72);
-        writeBTreeToDotFile(&BT,"a+","");
         btree_insert(&BT,73);
-        writeBTreeToDotFile(&BT,"a+","");
         btree_insert(&BT,74);
+        btree_insert(&BT,49);
+        btree_insert(&BT,48);
+        btree_insert(&BT,47);
+        writeBTreeToDotFile(&BT,"w+","");
+        btree_remove(&BT,48);
+        
         writeBTreeToDotFile(&BT,"a+","");
     }
 
