@@ -73,7 +73,7 @@ BTree btree_init()
     BT.size = 1;
     BT.hot = NULL;
     BT.root = new;
-    BT.order = 4;
+    BT.order = 5;
     
     return BT;
 }
@@ -165,14 +165,17 @@ void solveUnderflow(BTree *BT,BTNode *v)
 {
     //向上取整c = (a + b - 1) / b;
     int under = (BT->order + 2 - 1) / 2;
-    if (v->key.size >= under) return;
+    
+    if (v->child.size >= under) return;
     
     int r = btree_vector_search(&v->parent->child,v);
-    if (r>0 && btree_vector_get(&v->parent->child, r)->key.size > under) {
+    
+    if (r>0 && btree_vector_get(&v->parent->child, r)->child.size > under) {
+        printf("向左兄弟借一个\n");
+        
         //三角借债，先向父亲借，然后左兄弟给父亲
         BTNode *brother = btree_vector_get(&v->parent->child, r);
         
-        printf("向左兄弟借一个\n");
         //从父亲拿值
         vector_insert(&v->key,0,vector_get(&v->parent->key,r));
         //从兄弟拿指针
@@ -183,13 +186,13 @@ void solveUnderflow(BTree *BT,BTNode *v)
         vector_delete(&brother->key,brother->key.size-1);
         btree_vector_delete(&brother->child,brother->child.size-1);
         
-    }else if ((r+1) < v->parent->child.size && btree_vector_get(&v->parent->child, r+1)->key.size > under){
+    }else if ((r+1) < v->parent->child.size && btree_vector_get(&v->parent->child, r+1)->child.size > under){
         printf("向右兄弟借一个\n");
         //三角借债，先向父亲借，然后左兄弟给父亲
         BTNode *brother = btree_vector_get(&v->parent->child, r+1);
         
         //从父亲拿值
-        vector_insert(&v->key,0,vector_get(&v->parent->key,r));
+        vector_insert(&v->key,v->key.size,vector_get(&v->parent->key,r));
         //从兄弟拿指针
         btree_vector_insert(&v->child,v->child.size,btree_vector_get(&brother->child,0));
         //兄弟给父亲
@@ -198,7 +201,39 @@ void solveUnderflow(BTree *BT,BTNode *v)
         vector_delete(&brother->key,0);
         btree_vector_delete(&brother->child,0);
     }else{
-        printf("合并\n");
+        if (r>0) {
+            printf("左兄弟存在，与左兄弟合并\n");
+            BTNode *brother = btree_vector_get(&v->parent->child, r);
+            
+            //父亲插入到左兄弟
+            vector_insert(&brother->key,brother->key.size,vector_get(&v->parent->key,r));
+            
+            //v插入到左兄弟
+            for (int i = 0; i<v->key.size; i++) {
+                vector_insert(&brother->key,brother->key.size,vector_get(&v->key,i));
+                btree_vector_insert(&brother->child,brother->child.size,btree_vector_get(&v->child,i));
+            }
+            btree_vector_insert(&brother->child,brother->child.size,btree_vector_get(&v->child,v->key.size));
+            //删除父亲
+            vector_delete(&v->parent->key,r);
+            btree_vector_delete(&v->parent->child,r);
+        }else{
+            printf("左兄弟不存在，与右兄弟合并\n");
+            BTNode *brother = btree_vector_get(&v->parent->child, r+1);
+            
+            //父亲插入到左兄弟
+            vector_insert(&brother->key,0,vector_get(&v->parent->key,r));
+            
+            //v插入到左兄弟
+            for (int i = v->key.size-1; i>0; i--) {
+                vector_insert(&brother->key,0,vector_get(&v->key,i));
+                btree_vector_insert(&brother->child,0,btree_vector_get(&v->child,i+1));
+            }
+            btree_vector_insert(&brother->child,brother->child.size,btree_vector_get(&v->child,0));
+            //删除父亲
+            vector_delete(&v->parent->key,r);
+            btree_vector_delete(&v->parent->child,r);
+        }
     }
     
     

@@ -159,23 +159,29 @@ void testBTree()
     {
         BTree BT = btree_init();
         
-        btree_insert(&BT,50);
-        btree_insert(&BT,60);
-        btree_insert(&BT,70);
-        btree_insert(&BT,80);
-        btree_insert(&BT,90);
-        btree_insert(&BT,100);
-        btree_insert(&BT,110);
-        btree_insert(&BT,71);
-        btree_insert(&BT,72);
-        btree_insert(&BT,73);
-        btree_insert(&BT,74);
-        btree_insert(&BT,49);
-        btree_insert(&BT,48);
-        btree_insert(&BT,47);
+        btree_insert(&BT,57);
+        btree_insert(&BT,152);
+        btree_insert(&BT,196);
+        btree_insert(&BT,249);
+        btree_insert(&BT,266);
+        btree_insert(&BT,268);
+        btree_insert(&BT,315);
+        btree_insert(&BT,423);
+        btree_insert(&BT,468);
+        btree_insert(&BT,484);
+        btree_insert(&BT,528);
+        btree_insert(&BT,619);
+        btree_insert(&BT,644);
+        btree_insert(&BT,703);
+        btree_insert(&BT,758);
+        btree_insert(&BT,771);
+        btree_insert(&BT,850);
+        btree_insert(&BT,865);
+        btree_insert(&BT,882);
+        btree_insert(&BT,936);
+        btree_insert(&BT,984);
         writeBTreeToDotFile(&BT,"w+","");
-        btree_remove(&BT,48);
-        
+        btree_remove(&BT,268);
         writeBTreeToDotFile(&BT,"a+","");
     }
 
