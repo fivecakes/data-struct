@@ -336,7 +336,7 @@ static void printDotNode1(FILE* fp ,BTNode *e)
 
 void writeBTreeToDotFile(BTree *BT,char opt[],char info[])
 {
-    FILE* fp = fopen("/Users/book/Codes/data-struct/data-struct/tree.dot", opt);
+    FILE* fp = fopen(dot_file_path, opt);
     if( NULL == fp)
     {
         printf("打开文件描述符失败\n");

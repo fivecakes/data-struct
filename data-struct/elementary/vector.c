@@ -171,7 +171,7 @@ int vector_insert_value_search(Vector V,int e,int lo,int hi)
 
 void vector_write2dot(Vector V,char opt[],char info[])
 {
-    FILE* fp = fopen("/Users/book/Codes/data-struct/data-struct/tree.dot", opt);
+    FILE* fp = fopen(dot_file_path, opt);
     if( NULL == fp)
     {
         printf("打开文件描述符失败\n");
