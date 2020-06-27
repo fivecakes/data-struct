@@ -8,7 +8,7 @@
 
 #ifndef BST_h
 #define BST_h
-
+#include "commom.h"
 #include "Tree.h"
 TreeNode *bst_succ(TreeNode *x);
 TreeNode *bst_search_parent(Tree *T,int e);

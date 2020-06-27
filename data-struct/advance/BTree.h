@@ -8,8 +8,8 @@
 
 #ifndef BTree_h
 #define BTree_h
+#include "commom.h"
 
-#include <stdio.h>
 #include "vector.h"
 struct BTVector{
     struct BTNode **elem;

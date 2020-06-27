@@ -2,8 +2,7 @@
 #define list_h
 
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "commom.h"
 
 struct ListNode{
     int data;

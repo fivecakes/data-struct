@@ -1,15 +1,7 @@
 #ifndef binTree_h
 #define binTree_h
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-
-#define NULL ((void*)0)
-
-
+#include "commom.h"
 #define stature(p) ((p) ? (p)->height : -1)
-#define max(a,b) ((a)>(b)?(a):(b))
 
 struct TreeNode{
     int data;

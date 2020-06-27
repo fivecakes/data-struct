@@ -8,7 +8,7 @@
 
 #ifndef AVL_h
 #define AVL_h
-
+#include "commom.h"
 #include "BST.h"
 
 TreeNode *avl_insert(Tree *T,int e);

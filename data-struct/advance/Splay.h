@@ -8,8 +8,9 @@
 
 #ifndef Splay_h
 #define Splay_h
+#include "commom.h"
 #include "BST.h"
-#include <stdio.h>
+
 TreeNode *splay_search(Tree *T,int e);
 void splay_insert(Tree *T,int e);
 void splay_remove(Tree *T,int e);

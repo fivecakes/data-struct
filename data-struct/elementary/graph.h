@@ -8,9 +8,7 @@
 
 #ifndef graph_h
 #define graph_h
-
-#include <stdio.h>
-#include <stdlib.h>
+#include "commom.h"
 #include "queue.h"
 
 #define UNDISCOVERED 0
