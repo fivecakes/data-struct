@@ -100,6 +100,7 @@ TreeNode *avl_insert(Tree *T,int e)
     new->rChild = NULL;
     new->data = e;
     new->height = 0;
+    new->color = WHITE;
         
     if (e<p->data) {
         p->lChild = new;

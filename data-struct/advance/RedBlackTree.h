@@ -12,7 +12,6 @@
 #include "commom.h"
 #include "BST.h"
 
-#define RED 0
-#define BLACK 1
+
 
 #endif /* RedBlackTree_h */

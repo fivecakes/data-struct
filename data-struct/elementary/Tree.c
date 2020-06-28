@@ -76,6 +76,7 @@ Tree initBinTree()
     T.top->lChild = NULL;
     T.top->rChild = NULL;
     T.top->data = INT_MAX;
+    T.top->color = WHITE;
     T.top->height = 0;
     
     return T;
@@ -163,7 +164,14 @@ void visit(TreeNode *e)
 
 static void printDotNode(FILE* fp ,TreeNode *e)
 {
-    fprintf(fp, " node%p[label=\"%d (h%d)\"]\n", e,e->data,e->height);
+    if (e->color == RED) {
+        fprintf(fp, " node%p [label=\"%d (h%d)\",color=red,fontcolor=white]\n",e,e->data,e->height);
+    }else if (e->color == BLACK){
+        fprintf(fp, " node%p [label=\"%d (h%d)\",color=black,fontcolor=white]\n",e,e->data,e->height);
+    }else{
+       fprintf(fp, " node%p[label=\"%d (h%d)\"]\n", e,e->data,e->height);
+    }
+    
     
     if (!e->lChild && !e->rChild) {
         return;

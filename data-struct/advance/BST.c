@@ -69,6 +69,7 @@ TreeNode *bst_insert(Tree *T,int e)
     new->lChild = NULL;
     new->rChild = NULL;
     new->data = e;
+    new->color = WHITE;
     new->height = 0;
         
     if (e<p->data) {

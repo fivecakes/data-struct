@@ -168,6 +168,7 @@ void splay_insert(Tree *T,int e)
     TreeNode *new = malloc(sizeof(TreeNode));
     new->data = e;
     new->height = 0;
+    new->color = WHITE;
     new->lChild = NULL;
     new->rChild = NULL;
     
