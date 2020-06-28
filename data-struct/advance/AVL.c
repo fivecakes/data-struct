@@ -26,11 +26,11 @@ static int avl_balanced(TreeNode *g)
 static TreeNode *connect34(TreeNode *a,TreeNode *b,TreeNode *c,TreeNode *T0,TreeNode *T1,TreeNode *T2,TreeNode *T3)
 {
     a->lChild = T0; if(T0) T0->parent = a;
-    a->rChild = T1; if(T1) T1->parent = a; updateHeight(a);
+    a->rChild = T1; if(T1) T1->parent = a; bst_update_height(a);
     c->lChild = T2; if(T2) T2->parent = c;
-    c->rChild = T3; if(T3) T3->parent = c; updateHeight(c);
+    c->rChild = T3; if(T3) T3->parent = c; bst_update_height(c);
     b->lChild = a; a->parent = b;
-    b->rChild = c; c->parent = b; updateHeight(b);
+    b->rChild = c; c->parent = b; bst_update_height(b);
     return b;
 }
 
@@ -115,10 +115,10 @@ TreeNode *avl_insert(Tree *T,int e)
         if(!avl_balanced(g)){
             printf("%d不平衡,开始调整\n",g->data);
             TreeNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
-            updateHeightAbove(b);
+            bst_update_height_above(b);
             break;
         }else{
-            updateHeightAbove(g);
+            bst_update_height_above(g);
         }
     }
     
@@ -143,7 +143,7 @@ void avl_remove(Tree *T,int e)
              printf("%d不平衡,开始调整\n",g->data);
              avl_rotate_at(tallerChild(tallerChild(g)));
          }
-        updateHeight(g);
+        bst_update_height(g);
     }
     
     T->size--;

@@ -11,11 +11,11 @@
 static TreeNode *connect34(TreeNode *a,TreeNode *b,TreeNode *c,TreeNode *T0,TreeNode *T1,TreeNode *T2,TreeNode *T3)
 {
     a->lChild = T0; if(T0) T0->parent = a;
-    a->rChild = T1; if(T1) T1->parent = a; updateHeight(a);
+    a->rChild = T1; if(T1) T1->parent = a; bst_update_height(a);
     c->lChild = T2; if(T2) T2->parent = c;
-    c->rChild = T3; if(T3) T3->parent = c; updateHeight(c);
+    c->rChild = T3; if(T3) T3->parent = c; bst_update_height(c);
     b->lChild = a; a->parent = b;
-    b->rChild = c; c->parent = b; updateHeight(b);
+    b->rChild = c; c->parent = b; bst_update_height(b);
     return b;
 }
 
@@ -23,11 +23,11 @@ static TreeNode *connect34(TreeNode *a,TreeNode *b,TreeNode *c,TreeNode *T0,Tree
 static TreeNode *connectZigZig(TreeNode *g,TreeNode *p,TreeNode *v,TreeNode *T0,TreeNode *T1,TreeNode *T2,TreeNode *T3)
 {
     g->lChild = T2; if(T2) T2->parent = g;
-    g->rChild = T3; if(T3) T3->parent = g; updateHeight(g);
+    g->rChild = T3; if(T3) T3->parent = g; bst_update_height(g);
     p->lChild = T1; if(T1) T1->parent = p;
-    p->rChild = g; g->parent = p; updateHeight(p);
+    p->rChild = g; g->parent = p; bst_update_height(p);
     v->lChild = T0; if(T0) T0->parent = v;
-    v->rChild = p; p->parent = v; updateHeight(v);
+    v->rChild = p; p->parent = v; bst_update_height(v);
     return v;
 }
 
@@ -35,20 +35,20 @@ static TreeNode *connectZigZig(TreeNode *g,TreeNode *p,TreeNode *v,TreeNode *T0,
 static TreeNode *connectZagZag(TreeNode *g,TreeNode *p,TreeNode *v,TreeNode *T0,TreeNode *T1,TreeNode *T2,TreeNode *T3)
 {
     g->lChild = T0; if(T0) T0->parent = g;
-    g->rChild = T1; if(T1) T1->parent = g; updateHeight(g);
+    g->rChild = T1; if(T1) T1->parent = g; bst_update_height(g);
     p->lChild = g; g->parent = p;
-    p->rChild = T2; if(T2) T2->parent = p; updateHeight(p);
+    p->rChild = T2; if(T2) T2->parent = p; bst_update_height(p);
     v->lChild = p; p->parent = v;
-    v->rChild = T3; if(T3) T3->parent = v; updateHeight(v);
+    v->rChild = T3; if(T3) T3->parent = v; bst_update_height(v);
     return v;
 }
 
 static TreeNode *Zig(TreeNode *v,TreeNode *r,TreeNode *X,TreeNode *Y,TreeNode *Z)
 {
     r->lChild = Y; if(Y) Y->parent = r;
-    r->rChild = Z; if(Z) Z->parent = r; updateHeight(r);
+    r->rChild = Z; if(Z) Z->parent = r; bst_update_height(r);
     v->lChild = X; if(X) X->parent = v;
-    v->rChild = r; r->parent = v; updateHeight(v);
+    v->rChild = r; r->parent = v; bst_update_height(v);
     return v;
 }
 
@@ -56,9 +56,9 @@ static TreeNode *Zig(TreeNode *v,TreeNode *r,TreeNode *X,TreeNode *Y,TreeNode *Z
 static TreeNode *Zag(TreeNode *v,TreeNode *r,TreeNode *X,TreeNode *Y,TreeNode *Z)
 {
     r->lChild = X; if(X) X->parent = r;
-    r->rChild = Y; if(Y) Y->parent = r; updateHeight(r);
+    r->rChild = Y; if(Y) Y->parent = r; bst_update_height(r);
     v->lChild = r; r->parent = v;
-    v->rChild = Z; if(Z) Z->parent = v; updateHeight(v);
+    v->rChild = Z; if(Z) Z->parent = v; bst_update_height(v);
     return v;
 }
 
@@ -187,7 +187,7 @@ void splay_insert(Tree *T,int e)
         root->rChild = new;
     }
     
-    updateHeightAbove(new);
+    bst_update_height_above(new);
 }
 
 
@@ -198,6 +198,6 @@ void splay_remove(Tree *T,int e)
         return;
     }
     TreeNode *p = bst_remove_at(x);
-    updateHeightAbove(p);
+    bst_update_height_above(p);
     T->size--;
 }

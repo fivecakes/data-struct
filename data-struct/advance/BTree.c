@@ -73,7 +73,7 @@ BTree btree_init()
     BT.size = 1;
     BT.hot = NULL;
     BT.root = new;
-    BT.order = 5;
+    BT.m = 5;
     
     return BT;
 }
@@ -97,7 +97,9 @@ BTNode *btree_search(BTree *BT,int e)
 
 void solveOverflow(BTree *BT,BTNode *v)
 {
-    if (v->key.size < BT->order) return;
+    //  ⌈m/2⌉ ≤ n+1 < m
+    if (v->child.size < BT->m) return;
+    
     //writeBTreeToDotFile(BT,"a+","分裂之前");
     BTNode *p = v->parent;
     int mid = v->key.size/2;//c语言中整数/整数还是整数，自动强制类型转换了
@@ -163,10 +165,10 @@ void solveOverflow(BTree *BT,BTNode *v)
 
 void solveUnderflow(BTree *BT,BTNode *v)
 {
-    writeBTreeToDotFile(BT,"a+","solveUnderflow");
+    //writeBTreeToDotFile(BT,"a+","solveUnderflow");
     //向上取整c = (a + b - 1) / b;
-    int under = (BT->order + 2 - 1) / 2;
-    
+    int under = (BT->m + 2 - 1) / 2;
+    //  ⌈m/2⌉ ≤ n+1 < m
     if (v->child.size >= under) return;
     
     //r是父节点child的秩，父节点key的秩是r-1

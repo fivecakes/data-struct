@@ -81,51 +81,7 @@ Tree initBinTree()
     return T;
 }
 
-int updateHeight(TreeNode *x)
-{
-    x->height = 1 + max(stature(x->lChild) , stature(x->rChild));
-    //printf("updateheight %d,height=%d\n",x->data,x->height);
-    return x->height;
-}
 
-void updateHeightAbove(TreeNode *x)
-{
-    //printf("updateHeightAbove %d\n",x->data);
-    while (x != NULL) {
-        updateHeight(x);
-        x = x->parent;
-    }
-}
-
-TreeNode *insertAsRC(TreeNode *x, int e)
-{
-    TreeNode *new = malloc(sizeof(TreeNode));
-    new->parent = x;
-    new->lChild = NULL;
-    new->rChild = NULL;
-    new->data = e;
-    new->height = 0;
-    
-    x->rChild = new;
-    
-    updateHeightAbove(x);
-    return new;
-}
-
-TreeNode *insertAsLC(TreeNode *x, int e)
-{
-    TreeNode *new = malloc(sizeof(TreeNode));
-    new->parent = x;
-    new->lChild = NULL;
-    new->rChild = NULL;
-    new->data = e;
-    new->height = 0;
-    
-    x->lChild = new;
-    
-    updateHeightAbove(x);
-    return new;
-}
 
 
 

@@ -16,4 +16,6 @@ TreeNode *bst_insert(Tree *T,int e);
 void bst_remove(Tree *T,int e);
 TreeNode *bst_remove_at(TreeNode *x);
 
+int bst_update_height(TreeNode *x);
+void bst_update_height_above(TreeNode *x);
 #endif /* BST_h */

@@ -30,7 +30,7 @@ typedef struct BTNode BTNode;
 
 struct BTree{
     int size;
-    int order;
+    int m; //  ⌈m/2⌉ ≤ n+1 < m
     struct BTNode *root;
     struct BTNode *hot;
 };

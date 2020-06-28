@@ -9,6 +9,21 @@
 #include "BST.h"
 
 
+int bst_update_height(TreeNode *x)
+{
+    x->height = 1 + max(stature(x->lChild) , stature(x->rChild));
+    //printf("updateheight %d,height=%d\n",x->data,x->height);
+    return x->height;
+}
+
+void bst_update_height_above(TreeNode *x)
+{
+    while (x != NULL) {
+        bst_update_height(x);
+        x = x->parent;
+    }
+}
+
 static TreeNode *bst_search_in(Tree *T,TreeNode *v, int e)
 {
     if (v->data == e) return v;
@@ -61,7 +76,7 @@ TreeNode *bst_insert(Tree *T,int e)
     }else{
         p->rChild = new;
     }
-    updateHeightAbove(new);
+    bst_update_height_above(new);
     
     T->size++;
     return new;
@@ -133,7 +148,7 @@ void bst_remove(Tree *T,int e)
     }
     
     TreeNode *p = bst_remove_at(x);
-    updateHeightAbove(p);
+    bst_update_height_above(p);
     
     T->size--;
 }

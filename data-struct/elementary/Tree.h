@@ -22,13 +22,8 @@ struct Tree{
 typedef struct TreeNode TreeNode;
 typedef struct Tree Tree;
 
-TreeNode *insertAsRC(TreeNode *x, int e);
-TreeNode *insertAsLC(TreeNode *x, int e);
 Tree initBinTree(void);
 void travLevel(Tree T,void visit(TreeNode *e));
-void PrintTree(Tree T);
-int updateHeight(TreeNode *x);
-void updateHeightAbove(TreeNode *x);
 void travIn(Tree T,void visit(TreeNode *e));
 void travPre(Tree T,void visit(TreeNode *e));
 void visit(TreeNode *e);
