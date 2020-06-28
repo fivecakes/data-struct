@@ -15,6 +15,12 @@ void testRedBlack()
     {
         Tree T = initBinTree();
         redblack_insert(&T,36);
+        redblack_insert(&T,27);
+        redblack_insert(&T,58);
+        redblack_insert(&T,6);
+//        redblack_insert(&T,53);
+//        redblack_insert(&T,69);
+//        redblack_insert(&T,40);
         writeTreeToDotFile(T,"w+","");
     }
 }

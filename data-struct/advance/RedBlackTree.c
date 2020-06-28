@@ -46,7 +46,9 @@ static TreeNode *solveRR_1(TreeNode *a,TreeNode *b,TreeNode *c,TreeNode *T0,Tree
 
 static void solveRR_2(TreeNode *x,TreeNode *p,TreeNode *g,TreeNode *u)
 {
-    
+    g->color = RED;
+    p->color = BLACK;
+    u->color = BLACK;
 }
 
 void solveDoubleRed(TreeNode *x)
@@ -57,7 +59,7 @@ void solveDoubleRed(TreeNode *x)
     TreeNode *p = x->parent;
     TreeNode *g = p->parent;
     TreeNode *gg = g->parent;
-    TreeNode *b;
+    TreeNode *b,*u;
     
     if (!g->lChild || !g->rChild || g->lChild->color == BLACK || g->rChild->color == BLACK) {
         printf("双红缺陷,叔父为黑或不存在\n");
@@ -81,6 +83,12 @@ void solveDoubleRed(TreeNode *x)
         }
     }else{
         printf("双红缺陷,叔父为红\n");
+        if (g->lChild == p) {
+            u = g->rChild;
+        }else{
+            u = g->lChild;
+        }
+        solveRR_2(x,p,g,u);
     }
 }
 
@@ -99,6 +107,11 @@ TreeNode *redblack_insert(Tree *T,int e)
     new->data = e;
     new->color = RED;
     new->height = -1;
+    
+    //根节点为黑色
+    if (!p->parent) {
+        new->color = BLACK;
+    }
         
     if (e<p->data) {
         p->lChild = new;
