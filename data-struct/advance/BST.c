@@ -9,28 +9,31 @@
 #include "BST.h"
 
 
-static TreeNode *bst_search_in(TreeNode *v, int e)
+static TreeNode *bst_search_in(Tree *T,TreeNode *v, int e)
 {
-    if (v->data == e) return v->parent;
+    if (v->data == e) return v;
+    //记录刚刚访问过的节点，也就是返回值的父节点
+    T->hot = v;
+    
     if (e<v->data) {
         if (v->lChild) {
-            return bst_search_in(v->lChild,e);
+            return bst_search_in(T,v->lChild,e);
         }else{
-            return v;
+            return NULL;
         }
     }else{
        if (v->rChild) {
-            return bst_search_in(v->rChild,e);
+            return bst_search_in(T,v->rChild,e);
         }else{
-            return v;
+            return NULL;
         }
     }
 }
 
-//这个函数可以借助Tree里的hot改掉，留着以后再做
-TreeNode *bst_search_parent(Tree *T,int e)
+
+TreeNode *bst_search(Tree *T,int e)
 {
-    return bst_search_in(T->top,e);
+    return bst_search_in(T,T->top,e);
 }
 
 
@@ -40,19 +43,23 @@ TreeNode *bst_search_parent(Tree *T,int e)
 
 TreeNode *bst_insert(Tree *T,int e)
 {
-    TreeNode *xp = bst_search_parent(T,e);
+    TreeNode *x = bst_search(T,e);
+    if (x) {
+        printf("%d已存在，插入失败\n",e);
+    }
+    TreeNode *p = T->hot;
     
     TreeNode *new = malloc(sizeof(TreeNode));
-    new->parent = xp;
+    new->parent = p;
     new->lChild = NULL;
     new->rChild = NULL;
     new->data = e;
     new->height = 0;
         
-    if (e<xp->data) {
-        xp->lChild = new;
+    if (e<p->data) {
+        p->lChild = new;
     }else{
-        xp->rChild = new;
+        p->rChild = new;
     }
     updateHeightAbove(new);
     
@@ -120,16 +127,12 @@ TreeNode *bst_remove_at(TreeNode *x)
 
 void bst_remove(Tree *T,int e)
 {
-    TreeNode *x;
-    TreeNode *p = bst_search_parent(T,e);
-    //确定要删除左孩子还是右孩子
-    if (e<p->data) {
-        x = p->lChild;
-    }else{
-        x = p->rChild;
+    TreeNode *x = bst_search(T,e);
+    if (!x) {
+        printf("%d不存在，删除失败\n",e);
     }
     
-    p = bst_remove_at(x);
+    TreeNode *p = bst_remove_at(x);
     updateHeightAbove(p);
     
     T->size--;

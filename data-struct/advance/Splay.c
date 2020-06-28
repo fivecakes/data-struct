@@ -143,13 +143,12 @@ TreeNode *splay(TreeNode *v)
 
 TreeNode *splay_search(Tree *T,int e)
 {
-    TreeNode *v;
-    TreeNode *p = bst_search_parent(T,e);
-    if (e<p->data) {
-        v = p->lChild;
-    }else{
-        v = p->rChild;
+    TreeNode *v = bst_search(T,e);
+    if (v) {
+        printf("%d已存在，插入失败\n",e);
     }
+    TreeNode *p = T->hot;
+    
     printf("搜索%d\n",e);
     TreeNode *root;
     

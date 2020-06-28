@@ -88,26 +88,30 @@ TreeNode **getTallerChildAddress(TreeNode *p,TreeNode *v)
 
 TreeNode *avl_insert(Tree *T,int e)
 {
-    TreeNode *xp = bst_search_parent(T,e);
+    TreeNode *x = bst_search(T,e);
+    if (x) {
+        printf("%d已存在，插入失败\n",e);
+    }
+    TreeNode *p = T->hot;
     
     TreeNode *new = malloc(sizeof(TreeNode));
-    new->parent = xp;
+    new->parent = p;
     new->lChild = NULL;
     new->rChild = NULL;
     new->data = e;
     new->height = 0;
         
-    if (e<xp->data) {
-        xp->lChild = new;
+    if (e<p->data) {
+        p->lChild = new;
     }else{
-        xp->rChild = new;
+        p->rChild = new;
     }
     
     T->size++;
 
     printf("插入%d,\n",e);
     //以下从从xp出发逐层向上，依次检测各代祖先
-    for(TreeNode *g = xp; (g && g->parent); g = g->parent){
+    for(TreeNode *g = p; (g && g->parent); g = g->parent){
         if(!avl_balanced(g)){
             printf("%d不平衡,开始调整\n",g->data);
             TreeNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
@@ -125,20 +129,16 @@ TreeNode *avl_insert(Tree *T,int e)
 
 void avl_remove(Tree *T,int e)
 {
-    TreeNode *x;
-    TreeNode *xp = bst_search_parent(T,e);
-    //确定要删除左孩子还是右孩子
-    if (e<xp->data) {
-        x = xp->lChild;
-    }else{
-        x = xp->rChild;
+    TreeNode *x = bst_search(T,e);
+    if (!x) {
+        printf("%d不存在，删除失败\n",e);
     }
     
-    bst_remove_at(x);
+    TreeNode *p = bst_remove_at(x);
     
     printf("删除%d,\n",e);
-    //从xp出发逐层向上，依次检查各代祖先
-    for (TreeNode *g = xp; g; g = g->parent) {
+    //从p出发逐层向上，依次检查各代祖先
+    for (TreeNode *g = p; g; g = g->parent) {
          if(!avl_balanced(g)){
              printf("%d不平衡,开始调整\n",g->data);
              avl_rotate_at(tallerChild(tallerChild(g)));
