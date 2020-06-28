@@ -14,10 +14,12 @@
 #include "AVL.h"
 #include "Splay.h"
 #include "BTree.h"
+#include "RedBlackTree.h"
 
 void testBinTree(void);
 void testBST(void);
 void testAVL(void);
 void testSpaly(void);
 void testBTree(void);
+void testRedBlack(void);
 #endif /* testTree_h */

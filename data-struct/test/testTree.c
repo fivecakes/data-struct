@@ -8,6 +8,17 @@
 
 #include "testTree.h"
 
+
+void testRedBlack()
+{
+    printf("测试红黑树...\n");
+    {
+        Tree T = initBinTree();
+        redblack_insert(&T,36);
+        writeTreeToDotFile(T,"w+","");
+    }
+}
+
 void testBST()
 {
 
@@ -72,6 +83,7 @@ void testAVL()
         writeTreeToDotFile(T,"a+","remove6");
     }
 }
+
 
 
 void testSplay()

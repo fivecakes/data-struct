@@ -4,10 +4,12 @@
 #define stature(p) ((p) ? (p)->height : -1)
 
 struct TreeNode{
-    int data;
     struct TreeNode *parent;
     struct TreeNode *lChild;
     struct TreeNode *rChild;
+    //数据
+    int data;
+    //其他指标
     int height;
     int npl;
     int color;

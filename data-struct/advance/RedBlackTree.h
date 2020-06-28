@@ -12,6 +12,6 @@
 #include "commom.h"
 #include "BST.h"
 
-
+TreeNode *redblack_insert(Tree *T,int e);
 
 #endif /* RedBlackTree_h */

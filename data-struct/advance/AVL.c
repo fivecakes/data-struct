@@ -43,18 +43,14 @@ TreeNode *avl_rotate_at(TreeNode *v)
     
     if (g->rChild == p) {
         if(p->rChild == v){ //左旋zag
-            p->parent = g->parent;
             b =  connect34(g,p,v,g->lChild,p->lChild,v->lChild,v->rChild);
         }else{//先右旋再左旋zigzag
-            v->parent = g->parent;
             b =  connect34(g,v,p,g->lChild,v->lChild,v->rChild,p->rChild);
         }
     }else{
         if(p->rChild == v){//先左旋再右旋zagzig
-            v->parent = g->parent;
             b =  connect34(p,v,g,p->lChild,v->lChild,v->rChild,g->rChild);
         }else{//右旋zig
-            p->parent = g->parent;
             b =  connect34(v,p,g,v->lChild,v->rChild,p->rChild,g->rChild);
         }
     }
@@ -62,8 +58,10 @@ TreeNode *avl_rotate_at(TreeNode *v)
     //将新子树接回原树
     if (gg->rChild == g) {
         gg->rChild = b;
+        b->parent = gg;
     }else{
         gg->lChild = b;
+        b->parent = gg;
     }
     return b;
 }

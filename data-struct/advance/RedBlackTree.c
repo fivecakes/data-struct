@@ -30,9 +30,58 @@ void redblack_update_height_above(TreeNode *x)
     }
 }
 
+
+static TreeNode *solveRR_1(TreeNode *a,TreeNode *b,TreeNode *c,TreeNode *T0,TreeNode *T1,TreeNode *T2,TreeNode *T3)
+{
+    a->lChild = T0; if(T0) T0->parent = a;
+    a->rChild = T1; if(T1) T1->parent = a; bst_update_height(a);
+    c->lChild = T2; if(T2) T2->parent = c;
+    c->rChild = T3; if(T3) T3->parent = c; bst_update_height(c);
+    b->lChild = a; a->parent = b;
+    b->rChild = c; c->parent = b; bst_update_height(b);
+    a->color = RED;c->color = RED;b->color = BLACK;
+    return b;
+}
+
+
+static void solveRR_2(TreeNode *x,TreeNode *p,TreeNode *g,TreeNode *u)
+{
+    
+}
+
 void solveDoubleRed(TreeNode *x)
 {
-    printf("双红缺陷！\n");
+    if (!x->parent || !x->parent->parent) return;
+    if (x->parent->color != RED) return;
+    
+    TreeNode *p = x->parent;
+    TreeNode *g = p->parent;
+    TreeNode *gg = g->parent;
+    TreeNode *b;
+    
+    if (!g->lChild || !g->rChild || g->lChild->color == BLACK || g->rChild->color == BLACK) {
+        printf("双红缺陷,叔父为黑或不存在\n");
+
+        if (g->lChild == p && p->lChild == x) {
+            b=solveRR_1(x,p,g,x->lChild,x->rChild,p->rChild,g->rChild);
+        }else if (g->lChild == p && p->rChild == x){
+            b=solveRR_1(p,x,g,p->lChild,x->lChild,x->rChild,g->rChild);
+        }else if (g->rChild == p && p->rChild == x){
+            b=solveRR_1(g,p,x,g->lChild,p->lChild,x->lChild,x->rChild);
+        }else{
+            b=solveRR_1(g,x,p,g->lChild,x->lChild,x->rChild,p->rChild);
+        }
+        //将新子树接回原树
+        if (gg->rChild == g) {
+            gg->rChild = b;
+            b->parent = gg;
+        }else{
+            gg->lChild = b;
+            b->parent = gg;
+        }
+    }else{
+        printf("双红缺陷,叔父为红\n");
+    }
 }
 
 TreeNode *redblack_insert(Tree *T,int e)
