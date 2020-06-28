@@ -81,21 +81,17 @@ TreeNode *splay(TreeNode *v)
         if (g->rChild == p) {
             if(p->rChild == v){ //zagzag
                 printf("zagzag\n");
-                v->parent = g->parent;
                 connectZagZag(g,p,v,g->lChild,p->lChild,v->lChild,v->rChild);
             }else{//先右旋再左旋zigzag
                 printf("zigzag\n");
-                v->parent = g->parent;
                 connect34(g,v,p,g->lChild,v->lChild,v->rChild,p->rChild);
             }
         }else{
             if(p->rChild == v){//先左旋再右旋zagzig
                 printf("zagzig\n");
-                v->parent = g->parent;
                 connect34(p,v,g,p->lChild,v->lChild,v->rChild,g->rChild);
             }else{//zigzig
                 printf("zigzig\n");
-                v->parent = g->parent;
                 connectZigZig(g,p,v,v->lChild,v->rChild,p->rChild,g->rChild);
             }
         }
@@ -103,8 +99,10 @@ TreeNode *splay(TreeNode *v)
         //将新子树接回原树;
         if (gg->rChild == g) {
             gg->rChild = v;
+            v->parent = gg;
         }else{
             gg->lChild = v;
+            v->parent = gg;
         }
     }
 
