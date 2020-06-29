@@ -73,7 +73,7 @@ BTree btree_init()
     BT.size = 1;
     BT.hot = NULL;
     BT.root = new;
-    BT.m = 5;
+    BT.m = 4;
     
     return BT;
 }
@@ -165,7 +165,7 @@ void solveOverflow(BTree *BT,BTNode *v)
 
 void solveUnderflow(BTree *BT,BTNode *v)
 {
-    //writeBTreeToDotFile(BT,"a+","solveUnderflow");
+    writeBTreeToDotFile(BT,"a+","solveUnderflow");
     //向上取整c = (a + b - 1) / b;
     int under = (BT->m + 2 - 1) / 2;
     //  ⌈m/2⌉ ≤ n+1 < m

@@ -34,11 +34,11 @@ void redblack_update_height_above(TreeNode *x)
 static TreeNode *solveRR_1(TreeNode *a,TreeNode *b,TreeNode *c,TreeNode *T0,TreeNode *T1,TreeNode *T2,TreeNode *T3)
 {
     a->lChild = T0; if(T0) T0->parent = a;
-    a->rChild = T1; if(T1) T1->parent = a; bst_update_height(a);
+    a->rChild = T1; if(T1) T1->parent = a; redblack_update_height(a);
     c->lChild = T2; if(T2) T2->parent = c;
-    c->rChild = T3; if(T3) T3->parent = c; bst_update_height(c);
+    c->rChild = T3; if(T3) T3->parent = c; redblack_update_height(c);
     b->lChild = a; a->parent = b;
-    b->rChild = c; c->parent = b; bst_update_height(b);
+    b->rChild = c; c->parent = b; redblack_update_height(b);
     a->color = RED;c->color = RED;b->color = BLACK;
     return b;
 }
@@ -49,9 +49,12 @@ static void solveRR_2(TreeNode *x,TreeNode *p,TreeNode *g,TreeNode *u)
     g->color = RED;
     p->color = BLACK;
     u->color = BLACK;
+    redblack_update_height(g);
+    redblack_update_height(p);
+    redblack_update_height(u);
 }
 
-void solveDoubleRed(TreeNode *x)
+void solveDoubleRed(Tree *T,TreeNode *x)
 {
     if (!x->parent || !x->parent->parent) return;
     if (x->parent->color != RED) return;
@@ -74,12 +77,17 @@ void solveDoubleRed(TreeNode *x)
             b=solveRR_1(g,x,p,g->lChild,x->lChild,x->rChild,p->rChild);
         }
         //将新子树接回原树
-        if (gg->rChild == g) {
-            gg->rChild = b;
-            b->parent = gg;
+        if (gg) {
+            if (gg->rChild == g) {
+                gg->rChild = b;
+                b->parent = gg;
+            }else{
+                gg->lChild = b;
+                b->parent = gg;
+            }
         }else{
-            gg->lChild = b;
-            b->parent = gg;
+            b->parent = NULL;
+            T->top = b;
         }
     }else{
         printf("双红缺陷,叔父为红\n");
@@ -89,6 +97,9 @@ void solveDoubleRed(TreeNode *x)
             u = g->lChild;
         }
         solveRR_2(x,p,g,u);
+        if (!gg) {
+            g->color = BLACK;
+        }
     }
 }
 
@@ -108,22 +119,20 @@ TreeNode *redblack_insert(Tree *T,int e)
     new->color = RED;
     new->height = -1;
     
-    //根节点为黑色
-    if (!p->parent) {
-        new->color = BLACK;
-    }
-        
-    if (e<p->data) {
-        p->lChild = new;
+    if (p) {
+        if (e<p->data) {
+            p->lChild = new;
+        }else{
+            p->rChild = new;
+        }
+        solveDoubleRed(T,new);
+        redblack_update_height_above(new);
     }else{
-        p->rChild = new;
+        new->color = BLACK;
+        T->top = new;
     }
-    redblack_update_height_above(new);
     
     T->size++;
-    
-    
-    solveDoubleRed(new);
     
     return new;
 }

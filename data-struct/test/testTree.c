@@ -17,11 +17,14 @@ void testRedBlack()
         redblack_insert(&T,36);
         redblack_insert(&T,27);
         redblack_insert(&T,58);
-        redblack_insert(&T,6);
-//        redblack_insert(&T,53);
-//        redblack_insert(&T,69);
-//        redblack_insert(&T,40);
+        
         writeTreeToDotFile(T,"w+","");
+        redblack_insert(&T,6);
+        redblack_insert(&T,53);
+        redblack_insert(&T,69);
+        redblack_insert(&T,40);
+        
+        writeTreeToDotFile(T,"a+","");
     }
 }
 
@@ -169,7 +172,7 @@ void testBTree()
         writeBTreeToDotFile(&BT,"w+","");
         btree_remove(&BT,484);
         writeBTreeToDotFile(&BT,"a+","484");
-        
+
         btree_remove(&BT,52);
         writeBTreeToDotFile(&BT,"a+","52");
     }

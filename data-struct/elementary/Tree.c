@@ -73,15 +73,6 @@ static TreeNode *binTreePop(BinTreeStack *S)
 Tree initBinTree()
 {
     Tree T;
-    //这里为树设置了一个哨兵节点，为了，为了什么已经忘了，到时候测试一下就知道了
-    //反正这个哨兵节点没有必要，应该删掉，到时候优化
-//    T.top = malloc(sizeof(TreeNode));
-//    T.top->parent = NULL;
-//    T.top->lChild = NULL;
-//    T.top->rChild = NULL;
-//    T.top->data = INT_MAX;
-//    T.top->color = WHITE;
-//    T.top->height = 0;
     T.top = NULL;
     T.size = 0;
     T.hot = NULL;
