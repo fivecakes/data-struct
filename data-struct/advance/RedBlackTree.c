@@ -100,6 +100,7 @@ void solveDoubleRed(Tree *T,TreeNode *x)
         if (!gg) {
             g->color = BLACK;
         }
+        solveDoubleRed(T,g);
     }
 }
 
@@ -108,6 +109,8 @@ TreeNode *redblack_insert(Tree *T,int e)
     TreeNode *x = bst_search(T,e);
     if (x) {
         printf("%d已存在，插入失败\n",e);
+    }else{
+        printf("插入%d\n",e);
     }
     TreeNode *p = T->hot;
     
@@ -136,3 +139,39 @@ TreeNode *redblack_insert(Tree *T,int e)
     
     return new;
 }
+
+
+void solveDoubleBlack(Tree *T,TreeNode *r)
+{
+    TreeNode *x = r->parent;
+    
+    if (<#condition#>) {
+        <#statements#>
+    }else if (<#expression#>){
+        
+    }else if (<#expression#>){
+        
+    }else{
+        
+    }
+}
+
+void redblack_remove(Tree *T,int e)
+{
+    TreeNode *x = bst_search(T,e);
+    if (!x) {
+        printf("%d不存在，删除失败\n",e);
+    }
+    
+    TreeNode *r = bst_remove_at(T,x);
+    
+    //1.x仅有一个后代r
+    //2.当x有两个后代时,会用后继w替换x的值,原x位置不会改变红黑树性质
+    //所以问题转变为删除w,此时w仅有一个后代r
+    solveDoubleBlack(T,r);
+    redblack_update_height_above(T->hot);
+    
+    T->size--;
+}
+
+

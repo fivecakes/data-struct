@@ -133,11 +133,11 @@ void avl_remove(Tree *T,int e)
         printf("%d不存在，删除失败\n",e);
     }
     
-    TreeNode *p = bst_remove_at(T,x);
+    bst_remove_at(T,x);
     
     printf("删除%d,\n",e);
     //从p出发逐层向上，依次检查各代祖先
-    for (TreeNode *g = p; g; g = g->parent) {
+    for (TreeNode *g = T->hot; g; g = g->parent) {
          if(!avl_balanced(g)){
              printf("%d不平衡,开始调整\n",g->data);
              avl_rotate_at(T,tallerChild(tallerChild(g)));

@@ -98,61 +98,66 @@ TreeNode *bst_succ(TreeNode *x)
     return x;
 }
 
+//删除x，返回被删除节点的代替者
 TreeNode *bst_remove_at(Tree *T,TreeNode *x)
 {
     printf("删除节点%d\n",x->data);
     TreeNode *p = x->parent;
-
+    T->hot = p;
     
     if (!x->lChild){
         if (!p) {
             T->top = x->rChild;
             x->rChild->parent = NULL;
             return x->rChild;
-        }
-        if (p->lChild == x) {
-            p->lChild = x->rChild;
         }else{
-            p->rChild = x->rChild;
+            if (p->lChild == x) {
+                p->lChild = x->rChild;
+            }else{
+                p->rChild = x->rChild;
+            }
+            if (x->rChild) {
+                x->rChild->parent = p;
+            }
+            return x->rChild;
         }
-        if (x->rChild) {
-            x->rChild->parent = p;
-        }
-        return p;
     }
     else if (!x->rChild){
         if (!p) {
             T->top = x->lChild;
             x->lChild->parent = NULL;
             return x->rChild;
-        }
-        if (p->lChild == x) {
-            p->lChild = x->lChild;
         }else{
-            p->rChild = x->lChild;
+            if (p->lChild == x) {
+                p->lChild = x->lChild;
+            }else{
+                p->rChild = x->lChild;
+            }
+            if (x->lChild) {
+                x->lChild->parent = p;
+            }
+            return x->lChild;
         }
-        if (x->lChild) {
-            x->lChild->parent = p;
-        }
-        return p;
     }
     else{
         //交换x与x的直接后继w
         int tmp;
         TreeNode *w = bst_succ(x);//x的直接后继
+        T->hot = w->parent;
         //printf("%d的直接后继为%d\n",x->data,w->data);
         tmp = w->data;
         w->data = x->data;
         x->data = tmp;
+        
         //删除w
         if (x->rChild == w) {
             w->parent->rChild = w->rChild;
-            if(w->rChild) w->rChild->parent = w->parent;
         }else{
             w->parent->lChild = w->rChild;
-            if(w->rChild) w->rChild->parent = w->parent;
         }
-        return w->parent;
+
+        if(w->rChild) w->rChild->parent = w->parent;
+        return w->rChild;
     }
 }
 
@@ -163,8 +168,8 @@ void bst_remove(Tree *T,int e)
         printf("%d不存在，删除失败\n",e);
     }
     
-    TreeNode *p = bst_remove_at(T,x);
-    bst_update_height_above(p);
+    bst_remove_at(T,x);
+    bst_update_height_above(T->hot);
     
     T->size--;
 }

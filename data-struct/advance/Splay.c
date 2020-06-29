@@ -192,7 +192,7 @@ void splay_remove(Tree *T,int e)
     if (!x || x->data != e) {
         return;
     }
-    TreeNode *p = bst_remove_at(T,x);
-    bst_update_height_above(p);
+    bst_remove_at(T,x);
+    bst_update_height_above(T->hot);
     T->size--;
 }

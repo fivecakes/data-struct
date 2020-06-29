@@ -17,12 +17,13 @@ void testRedBlack()
         redblack_insert(&T,36);
         redblack_insert(&T,27);
         redblack_insert(&T,58);
-        
-        writeTreeToDotFile(T,"w+","");
         redblack_insert(&T,6);
         redblack_insert(&T,53);
         redblack_insert(&T,69);
         redblack_insert(&T,40);
+        redblack_insert(&T,41);
+        writeTreeToDotFile(T,"w+","");
+        redblack_insert(&T,39);
         
         writeTreeToDotFile(T,"a+","");
     }
