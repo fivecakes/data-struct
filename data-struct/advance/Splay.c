@@ -62,14 +62,10 @@ static TreeNode *Zag(TreeNode *v,TreeNode *r,TreeNode *X,TreeNode *Y,TreeNode *Z
     return v;
 }
 
-TreeNode *splay(TreeNode *v)
+TreeNode *splay(Tree *T,TreeNode *v)
 {
-    //如果伸展锚点，直接返回锚点
+    //如果伸展根节点，直接返回
     if (!v->parent) {
-        return v;
-    }
-    //最顶层节点直接返回
-    if (!v->parent->parent) {
         return v;
     }
     
@@ -77,7 +73,9 @@ TreeNode *splay(TreeNode *v)
     
     TreeNode *p,*g,*gg;
     
-    while ((p = v->parent) && (g = p->parent) && (gg = g->parent)) {
+    while ((p = v->parent) && (g = p->parent)) {
+        gg = g->parent;
+        
         if (g->rChild == p) {
             if(p->rChild == v){ //zagzag
                 printf("zagzag\n");
@@ -95,45 +93,35 @@ TreeNode *splay(TreeNode *v)
                 connectZigZig(g,p,v,v->lChild,v->rChild,p->rChild,g->rChild);
             }
         }
-        
-        //将新子树接回原树;
-        if (gg->rChild == g) {
-            gg->rChild = v;
-            v->parent = gg;
+ 
+        //将新子树接回原树
+        if (gg) {
+            if (gg->rChild == g) {
+                gg->rChild = v;
+                v->parent = gg;
+            }else{
+                gg->lChild = v;
+                v->parent = gg;
+            }
         }else{
-            gg->lChild = v;
-            v->parent = gg;
+            v->parent = NULL;
+            T->top = v;
         }
     }
 
     //如果v的深度是奇数，最后一步，v只有父亲，没有祖父，所以需要额外一次旋转
-    if (v->parent->parent && !v->parent->parent->parent) {
-        p = v->parent;
-        g = v->parent->parent;
-        
+    if (v->parent && !v->parent->parent) {
         if (v->parent->lChild == v) {
             printf("最后一步Zig\n");
-            TreeNode *st = Zig(v, v->parent, v->lChild, v->rChild, v->parent->rChild);
-            if (g->lChild == v->parent) {
-                g->lChild = st;
-                st->parent = g;
-            }else{
-                g->rChild = st;
-                st->parent = g;
-            }
+            Zig(v, v->parent, v->lChild, v->rChild, v->parent->rChild);
         }else{
             printf("最后一步Zag\n");
-            TreeNode *st = Zag(v, v->parent, v->parent->lChild, v->lChild, v->rChild);
-            if (g->lChild == v->parent) {
-                g->lChild = st;
-                st->parent = g;
-            }else{
-                g->rChild = st;
-                st->parent = g;
-            }
+            Zag(v, v->parent, v->parent->lChild, v->lChild, v->rChild);
         }
-    }//伸展完成，v到达树根
-
+        v->parent = NULL;
+        T->top = v;
+    }//伸展完成,v到达树根
+    
     
     return v;
 }
@@ -141,19 +129,20 @@ TreeNode *splay(TreeNode *v)
 
 TreeNode *splay_search(Tree *T,int e)
 {
-    TreeNode *v = bst_search(T,e);
-    if (v) {
-        printf("%d已存在，插入失败\n",e);
-    }
-    TreeNode *p = T->hot;
-    
     printf("搜索%d\n",e);
+    
+    TreeNode *v = bst_search(T,e);
+    TreeNode *p = T->hot;
     TreeNode *root;
     
     if (!v) {
-        printf("未搜到，%d的父亲为%d\n",e,p->data);
+        printf("未搜到%d\n",e);
     }
-    root = splay(v?v:p);
+    
+    //如果是空树，直接返回
+    if (!p) return NULL;
+    
+    root = splay(T,v?v:p);
     //writeTreeToDotFile(*T,"a+","伸展后。");
     return root;
 }
@@ -170,21 +159,28 @@ void splay_insert(Tree *T,int e)
     new->lChild = NULL;
     new->rChild = NULL;
     
-    if (e<root->data) {
-        printf("将%d插入到%d的左端\n",e,root->data);
-        new->lChild = root->lChild;
-        if (root->lChild)
-            root->lChild->parent = new;
-        new->parent = root;
-        root->lChild = new;
+    if (!root) {
+        //空树则
+        new->parent = NULL;
+        T->top = new;
     }else{
-        printf("将%d插入到%d的右端\n",e,root->data);
-        new->rChild = root->rChild;
-        if (root->rChild)
-            root->rChild->parent = new;
-        new->parent = root;
-        root->rChild = new;
+        if (e<root->data) {
+            printf("将%d插入到%d的左端\n",e,root->data);
+            new->lChild = root->lChild;
+            if (root->lChild)
+                root->lChild->parent = new;
+            new->parent = root;
+            root->lChild = new;
+        }else{
+            printf("将%d插入到%d的右端\n",e,root->data);
+            new->rChild = root->rChild;
+            if (root->rChild)
+                root->rChild->parent = new;
+            new->parent = root;
+            root->rChild = new;
+        }
     }
+    
     
     bst_update_height_above(new);
 }
@@ -196,7 +192,7 @@ void splay_remove(Tree *T,int e)
     if (!x || x->data != e) {
         return;
     }
-    TreeNode *p = bst_remove_at(x);
+    TreeNode *p = bst_remove_at(T,x);
     bst_update_height_above(p);
     T->size--;
 }

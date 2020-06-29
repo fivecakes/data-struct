@@ -90,37 +90,6 @@ void testAVL()
     }
 }
 
-
-
-void testSplay()
-{
-
-    printf("测试Splay...\n");
-    {
-
-        Tree T = initBinTree();
-        avl_insert(&T,36);
-        avl_insert(&T,27);
-        avl_insert(&T,58);
-        avl_insert(&T,6);
-        avl_insert(&T,53);
-        avl_insert(&T,69);
-        avl_insert(&T,40);
-        writeTreeToDotFile(T,"w+","40");
-
-        avl_insert(&T,46);
-        writeTreeToDotFile(T,"a+","46");
-
-        avl_insert(&T,41);
-        writeTreeToDotFile(T,"a+","41");
-        avl_remove(&T,6);
-        
-        writeTreeToDotFile(T,"a+","remove6");
-    }
-}
-
-
-
 void testSpaly()
 {
     printf("测试Spaly...\n");

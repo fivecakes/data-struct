@@ -75,13 +75,16 @@ Tree initBinTree()
     Tree T;
     //这里为树设置了一个哨兵节点，为了，为了什么已经忘了，到时候测试一下就知道了
     //反正这个哨兵节点没有必要，应该删掉，到时候优化
-    T.top = malloc(sizeof(TreeNode));
-    T.top->parent = NULL;
-    T.top->lChild = NULL;
-    T.top->rChild = NULL;
-    T.top->data = INT_MAX;
-    T.top->color = WHITE;
-    T.top->height = 0;
+//    T.top = malloc(sizeof(TreeNode));
+//    T.top->parent = NULL;
+//    T.top->lChild = NULL;
+//    T.top->rChild = NULL;
+//    T.top->data = INT_MAX;
+//    T.top->color = WHITE;
+//    T.top->height = 0;
+    T.top = NULL;
+    T.size = 0;
+    T.hot = NULL;
     
     return T;
 }
@@ -168,6 +171,7 @@ void visit(TreeNode *e)
 
 static void printDotNode(FILE* fp ,TreeNode *e)
 {
+    if (!e) return;
     if (e->color == RED) {
         fprintf(fp, " node%p [label=\"%d (h%d)\",color=red,fontcolor=white]\n",e,e->data,e->height);
     }else if (e->color == BLACK){
@@ -215,14 +219,7 @@ void writeTreeToDotFile(Tree T,char opt[],char info[])
     fprintf(fp, "\ndigraph {\n");
     fprintf(fp, " splines=false;\n");
     fprintf(fp, " node [style=filled,color=lightblue;];\n\n");
-    fprintf(fp, " node%p [label=\"top\"][style = dotted]\n", T.top);
-
-    if (T.top->lChild) {
-        fprintf(fp, " node%p -> node%p\n", T.top, T.top->lChild) ;
-        fprintf(fp, " node%p -> node%p\n",  T.top->lChild,T.top) ;
-
-        printDotNode(fp ,T.top->lChild);
-    }
+    printDotNode(fp ,T.top);
     fprintf(fp, "}\n");
     fclose(fp);
 }

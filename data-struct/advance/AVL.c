@@ -10,9 +10,6 @@
 
 static int avl_balanced(TreeNode *g)
 {
-    if(g->parent == NULL){
-        return 1;
-    }
     int bal_fac = stature(g->lChild) - stature(g->rChild);
     //printf("%d点平衡因子为%d,左侧高度%d,右侧高度%d\n",g->data,bal_fac,stature(g->lChild) , stature(g->rChild));
     
@@ -34,7 +31,7 @@ static TreeNode *connect34(TreeNode *a,TreeNode *b,TreeNode *c,TreeNode *T0,Tree
     return b;
 }
 
-TreeNode *avl_rotate_at(TreeNode *v)
+TreeNode *avl_rotate_at(Tree *T,TreeNode *v)
 {
     TreeNode *p = v->parent;
     TreeNode *g = p->parent;
@@ -55,14 +52,21 @@ TreeNode *avl_rotate_at(TreeNode *v)
         }
     }
     
+
     //将新子树接回原树
-    if (gg->rChild == g) {
-        gg->rChild = b;
-        b->parent = gg;
+    if (gg) {
+        if (gg->rChild == g) {
+            gg->rChild = b;
+            b->parent = gg;
+        }else{
+            gg->lChild = b;
+            b->parent = gg;
+        }
     }else{
-        gg->lChild = b;
-        b->parent = gg;
+        b->parent = NULL;
+        T->top = b;
     }
+    
     return b;
 }
 
@@ -75,14 +79,6 @@ TreeNode *tallerChild(TreeNode *p)
     }
 }
 
-TreeNode **getTallerChildAddress(TreeNode *p,TreeNode *v)
-{
-    if (p->rChild == v) {
-        return &p->rChild;
-    }else{
-        return &p->lChild;
-    }
-}
 
 TreeNode *avl_insert(Tree *T,int e)
 {
@@ -100,20 +96,24 @@ TreeNode *avl_insert(Tree *T,int e)
     new->height = 0;
     new->color = WHITE;
         
-    if (e<p->data) {
-        p->lChild = new;
+    if (!p) {
+        T->top = new;
     }else{
-        p->rChild = new;
+        if (e<p->data) {
+            p->lChild = new;
+        }else{
+            p->rChild = new;
+        }
     }
     
     T->size++;
 
     printf("插入%d,\n",e);
     //以下从从xp出发逐层向上，依次检测各代祖先
-    for(TreeNode *g = p; (g && g->parent); g = g->parent){
+    for(TreeNode *g = p; g; g = g->parent){
         if(!avl_balanced(g)){
             printf("%d不平衡,开始调整\n",g->data);
-            TreeNode *b = avl_rotate_at(tallerChild(tallerChild(g)));
+            TreeNode *b = avl_rotate_at(T,tallerChild(tallerChild(g)));
             bst_update_height_above(b);
             break;
         }else{
@@ -133,14 +133,14 @@ void avl_remove(Tree *T,int e)
         printf("%d不存在，删除失败\n",e);
     }
     
-    TreeNode *p = bst_remove_at(x);
+    TreeNode *p = bst_remove_at(T,x);
     
     printf("删除%d,\n",e);
     //从p出发逐层向上，依次检查各代祖先
     for (TreeNode *g = p; g; g = g->parent) {
          if(!avl_balanced(g)){
              printf("%d不平衡,开始调整\n",g->data);
-             avl_rotate_at(tallerChild(tallerChild(g)));
+             avl_rotate_at(T,tallerChild(tallerChild(g)));
          }
         bst_update_height(g);
     }

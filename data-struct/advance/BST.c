@@ -26,6 +26,7 @@ void bst_update_height_above(TreeNode *x)
 
 static TreeNode *bst_search_in(Tree *T,TreeNode *v, int e)
 {
+    if (!v) return v;
     if (v->data == e) return v;
     //记录刚刚访问过的节点，也就是返回值的父节点
     T->hot = v;
@@ -53,9 +54,6 @@ TreeNode *bst_search(Tree *T,int e)
 
 
 
-
-
-
 TreeNode *bst_insert(Tree *T,int e)
 {
     TreeNode *x = bst_search(T,e);
@@ -71,12 +69,17 @@ TreeNode *bst_insert(Tree *T,int e)
     new->data = e;
     new->color = WHITE;
     new->height = 0;
-        
-    if (e<p->data) {
-        p->lChild = new;
+    
+    if (!p) {
+        T->top = new;
     }else{
-        p->rChild = new;
+        if (e<p->data) {
+            p->lChild = new;
+        }else{
+            p->rChild = new;
+        }
     }
+    
     bst_update_height_above(new);
     
     T->size++;
@@ -95,11 +98,18 @@ TreeNode *bst_succ(TreeNode *x)
     return x;
 }
 
-TreeNode *bst_remove_at(TreeNode *x)
+TreeNode *bst_remove_at(Tree *T,TreeNode *x)
 {
     printf("删除节点%d\n",x->data);
     TreeNode *p = x->parent;
+
+    
     if (!x->lChild){
+        if (!p) {
+            T->top = x->rChild;
+            x->rChild->parent = NULL;
+            return x->rChild;
+        }
         if (p->lChild == x) {
             p->lChild = x->rChild;
         }else{
@@ -111,6 +121,11 @@ TreeNode *bst_remove_at(TreeNode *x)
         return p;
     }
     else if (!x->rChild){
+        if (!p) {
+            T->top = x->lChild;
+            x->lChild->parent = NULL;
+            return x->rChild;
+        }
         if (p->lChild == x) {
             p->lChild = x->lChild;
         }else{
@@ -148,7 +163,7 @@ void bst_remove(Tree *T,int e)
         printf("%d不存在，删除失败\n",e);
     }
     
-    TreeNode *p = bst_remove_at(x);
+    TreeNode *p = bst_remove_at(T,x);
     bst_update_height_above(p);
     
     T->size--;
