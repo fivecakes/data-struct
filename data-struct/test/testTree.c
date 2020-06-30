@@ -24,12 +24,12 @@ void testRedBlack()
         redblack_insert(&T,41);
         redblack_insert(&T,39);
         redblack_insert(&T,76);
-        redblack_insert(&T,21);
-        redblack_insert(&T,24);
-        redblack_insert(&T,78);
-        redblack_insert(&T,98);
-        redblack_insert(&T,57);
-        redblack_insert(&T,35);
+//        redblack_insert(&T,21);
+//        redblack_insert(&T,24);
+//        redblack_insert(&T,78);
+//        redblack_insert(&T,98);
+//        redblack_insert(&T,57);
+//        redblack_insert(&T,35);
         writeTreeToDotFile(&T,"w+","");
         //BB-1
 //        redblack_remove(&T,6);
