@@ -22,10 +22,20 @@ void testRedBlack()
         redblack_insert(&T,69);
         redblack_insert(&T,40);
         redblack_insert(&T,41);
-        writeTreeToDotFile(T,"w+","");
         redblack_insert(&T,39);
-        
-        writeTreeToDotFile(T,"a+","");
+        redblack_insert(&T,76);
+        redblack_insert(&T,21);
+        redblack_insert(&T,24);
+        redblack_insert(&T,78);
+        redblack_insert(&T,98);
+        redblack_insert(&T,57);
+        redblack_insert(&T,35);
+        writeTreeToDotFile(&T,"w+","");
+        //BB-1
+        redblack_remove(&T,6);
+        redblack_remove(&T,39);
+        redblack_remove(&T,40);
+        writeTreeToDotFile(&T,"a+","");
     }
 }
 
@@ -45,7 +55,7 @@ void testBST()
         bst_insert(&T,46);
         bst_insert(&T,64);
         
-        writeTreeToDotFile(T,"w+","");
+        writeTreeToDotFile(&T,"w+","");
         printf("层次遍历:");
         travLevel(T,visit);
         printf("\n");
@@ -58,11 +68,11 @@ void testBST()
         travIn(T,visit);
         printf("\n");
         
-        writeTreeToDotFile(T,"w+","");
+        writeTreeToDotFile(&T,"w+","");
         bst_remove(&T,69);
-        writeTreeToDotFile(T,"a+","remove69");
+        writeTreeToDotFile(&T,"a+","remove69");
         bst_remove(&T,36);
-        writeTreeToDotFile(T,"a+","remove36");
+        writeTreeToDotFile(&T,"a+","remove36");
     }
 
 }
@@ -81,16 +91,16 @@ void testAVL()
         avl_insert(&T,53);
         avl_insert(&T,69);
         avl_insert(&T,40);
-        writeTreeToDotFile(T,"w+","40");
+        writeTreeToDotFile(&T,"w+","40");
 
         avl_insert(&T,46);
-        writeTreeToDotFile(T,"a+","46");
+        writeTreeToDotFile(&T,"a+","46");
 
         avl_insert(&T,41);
-        writeTreeToDotFile(T,"a+","41");
+        writeTreeToDotFile(&T,"a+","41");
         avl_remove(&T,6);
         
-        writeTreeToDotFile(T,"a+","remove6");
+        writeTreeToDotFile(&T,"a+","remove6");
     }
 }
 
@@ -99,45 +109,45 @@ void testSpaly()
     printf("测试Spaly...\n");
     {
         Tree T = initBinTree();
-        writeTreeToDotFile(T,"w+","");
+        writeTreeToDotFile(&T,"w+","");
         splay_insert(&T,36);
-        writeTreeToDotFile(T,"a+","36");
+        writeTreeToDotFile(&T,"a+","36");
         
         splay_insert(&T,27);
-        writeTreeToDotFile(T,"a+","27");
+        writeTreeToDotFile(&T,"a+","27");
         
         splay_insert(&T,58);
-        writeTreeToDotFile(T,"a+","58");
+        writeTreeToDotFile(&T,"a+","58");
         
         splay_insert(&T,6);
-        writeTreeToDotFile(T,"a+","6");
+        writeTreeToDotFile(&T,"a+","6");
         
         splay_insert(&T,53);
-        writeTreeToDotFile(T,"a+","53");
+        writeTreeToDotFile(&T,"a+","53");
         
         splay_insert(&T,69);
-        writeTreeToDotFile(T,"a+","69");
+        writeTreeToDotFile(&T,"a+","69");
         
         splay_insert(&T,40);
-        writeTreeToDotFile(T,"a+","40");
+        writeTreeToDotFile(&T,"a+","40");
         
         splay_insert(&T,46);
-        writeTreeToDotFile(T,"a+","46");
+        writeTreeToDotFile(&T,"a+","46");
         
         splay_insert(&T,64);
-        writeTreeToDotFile(T,"a+","64");
+        writeTreeToDotFile(&T,"a+","64");
         splay_remove(&T,69);
-        writeTreeToDotFile(T,"a+","remove69");
+        writeTreeToDotFile(&T,"a+","remove69");
         splay_search(&T,6);
-        writeTreeToDotFile(T,"a+","search6");
+        writeTreeToDotFile(&T,"a+","search6");
         splay_search(&T,36);
-        writeTreeToDotFile(T,"a+","search36");
+        writeTreeToDotFile(&T,"a+","search36");
         splay_search(&T,46);
-        writeTreeToDotFile(T,"a+","search46");
+        writeTreeToDotFile(&T,"a+","search46");
         splay_search(&T,27);
-        writeTreeToDotFile(T,"a+","search27");
+        writeTreeToDotFile(&T,"a+","search27");
         splay_remove(&T,58);
-        writeTreeToDotFile(T,"a+","r58");
+        writeTreeToDotFile(&T,"a+","r58");
     }
 
 }

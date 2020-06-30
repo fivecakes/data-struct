@@ -29,7 +29,7 @@ void travLevel(Tree T,void visit(TreeNode *e));
 void travIn(Tree T,void visit(TreeNode *e));
 void travPre(Tree T,void visit(TreeNode *e));
 void visit(TreeNode *e);
-void writeTreeToDotFile(Tree T,char opt[],char info[]);
+void writeTreeToDotFile(Tree *T,char opt[],char info[]);
 
 //栈数据结构
 struct BinTreeStack{

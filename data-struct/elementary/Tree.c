@@ -197,7 +197,7 @@ static void printDotNode(FILE* fp ,TreeNode *e)
 
 
 
-void writeTreeToDotFile(Tree T,char opt[],char info[])
+void writeTreeToDotFile(Tree *T,char opt[],char info[])
 {
     FILE* fp = fopen(dot_file_path, opt);
     if( NULL == fp)
@@ -210,7 +210,7 @@ void writeTreeToDotFile(Tree T,char opt[],char info[])
     fprintf(fp, "\ndigraph {\n");
     fprintf(fp, " splines=false;\n");
     fprintf(fp, " node [style=filled,color=lightblue;];\n\n");
-    printDotNode(fp ,T.top);
+    printDotNode(fp ,T->top);
     fprintf(fp, "}\n");
     fclose(fp);
 }
