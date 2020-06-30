@@ -300,13 +300,22 @@ void redblack_remove(Tree *T,int e)
     //2.当x有两个后代时,会用后继w替换x的值,原x位置不会改变红黑树性质
     //所以问题转变为删除w,此时w仅有一个后代r
     
-    //现在问题来了，如果r不存在，x还被删掉了，那么怎么知道x的颜色？
-    //所以不应该直接调用bst_remove_at接口喽
-    if ((r && r->color==RED) || x->color == RED) {
-        if(r) r->color = BLACK;
-    }else{
-        solveDoubleBlack(T,T->hot,r);
+    if(!T->hot){
+        printf("删除根节点\n");
+        return;
     }
+    
+    //x为红，无需调整
+    
+    //r为红,仅需将r染成黑色
+    if (r && r->color==RED) {
+        r->color = BLACK;
+        return;
+    }
+    
+    //先放放，可以参考https://github.com/smartjinyu/DSA-djh/blob/master/BST/BST/RedBlack.h
+    
+    solveDoubleBlack(T,T->hot,r);
     
     
     redblack_update_height_above(T->hot);

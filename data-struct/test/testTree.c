@@ -32,10 +32,10 @@ void testRedBlack()
         redblack_insert(&T,35);
         writeTreeToDotFile(&T,"w+","");
         //BB-1
-        redblack_remove(&T,6);
-        redblack_remove(&T,39);
-        redblack_remove(&T,40);
-        writeTreeToDotFile(&T,"a+","");
+//        redblack_remove(&T,6);
+//        redblack_remove(&T,39);
+//        redblack_remove(&T,40);
+//        writeTreeToDotFile(&T,"a+","");
     }
 }
 
