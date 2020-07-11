@@ -3,10 +3,11 @@
 #include "testTree.h"
 #include "testGraph.h"
 #include "testHash.h"
+#include "testHeap.h"
 
 
 
 int main()
 {
-    testHash();
+    testHeap();
 }
