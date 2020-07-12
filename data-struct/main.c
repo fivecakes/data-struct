@@ -4,10 +4,10 @@
 #include "testGraph.h"
 #include "testHash.h"
 #include "testHeap.h"
-
+#include "testString.h"
 
 
 int main()
 {
-    testHeap();
+    testString();
 }
