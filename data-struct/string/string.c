@@ -47,3 +47,38 @@ int string_match(char *P, char *T)
     }
     return i - j;
 }
+
+int *buildNext(char *P)
+{
+    int m = (int)strlen(P), j=0;
+    int *N = malloc(m*sizeof(int));
+    int t = N[0] = -1;
+    
+    while (j < m-1) {
+        if (0>t || P[j] == P[t]) {
+            N[++j] = ++t;
+        }else{
+            t = N[t];
+        }
+    }
+    return N;
+}
+
+
+//KMP算法
+int string_kmp(char *P, char *T)
+{
+    int *next = buildNext(P);
+    int n = (int)strlen(T),i = 0;
+    int m = (int)strlen(P),j = 0;
+    
+    while (j<m && i<n) {
+        if (0>j || T[i] == P[j]) {
+            i++;
+            j++;
+        }else{
+            j = next[j];
+        }
+    }
+    return i - j;
+}

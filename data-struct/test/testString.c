@@ -16,6 +16,9 @@ void testString()
     string_insert(&S,"012345");
     string_insert(&S,"6789");
     
-    int r = string_match("8f9", S.elem);
+    int r = string_match("0123456789", S.elem);
+    printf("%d\n",r);
+    
+    r = string_kmp("0123456789", S.elem);
     printf("%d\n",r);
 }
