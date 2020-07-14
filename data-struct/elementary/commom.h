@@ -7,6 +7,7 @@
 
 #define NULL ((void*)0)
 #define max(a,b) ((a)>(b)?(a):(b))
+#define min(a,b) ((a)>(b)?(b):(a))
 
 #define WHITE 0
 #define RED 1

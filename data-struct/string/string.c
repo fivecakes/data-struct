@@ -82,3 +82,83 @@ int string_kmp(char *P, char *T)
     }
     return i - j;
 }
+
+
+int *buildBC(char *P)
+{
+    int *bc = malloc(256*sizeof(int));
+    
+    for (int j=0; j<256; j++) {
+        bc[j] = -1;
+    }
+    
+    for (int m = (int)strlen(P),j=0; j<m; j++) {
+        bc[P[j]] = j;
+    }
+    
+    return bc;
+}
+
+
+int *buildSS(char *P)
+{
+    int m = (int)strlen(P);
+    int *ss = malloc(m*sizeof(int));
+    ss[m-1] = m;
+    
+    for (int lo = m -1,hi = m-1,j=lo-1; j>=0; j--) {
+        if ((lo<j) && ss[m-hi+j-1] <=j-lo) {
+            ss[j] = ss[m-hi+j-1];
+        }else{
+            hi = j; lo = min(lo,hi);
+            while ((0<=lo)&&(P[lo] == P[m-hi+lo-1])) {
+                lo--;
+            }
+            ss[j] = hi -lo;
+        }
+    }
+    return ss;
+}
+
+
+int *buildGS(char *P)
+{
+    int *ss = buildSS(P);
+    int m = (int)strlen(P);
+    int *gs = malloc(m*sizeof(int));
+    for (int j =0; j<m; j++) {
+        gs[j] = m;
+    }
+    for (int i = 0, j = m-1; j<UINT_MAX; j--) {
+        if (j+1 == ss[j]) {
+            while (i<m-j-1) {
+                gs[i++] = m-j-1;
+            }
+        }
+    }
+    for (int j=0; j<m-1; j++) {
+        gs[m-ss[j]-1] = m-j-1;
+    }
+    return gs;
+}
+
+
+
+int string_bm(char *P,char* T)
+{
+    int* bc = buildBC(P);
+    int* gs = buildGS(P);
+    int i = 0;
+    while (strlen(T)>=i+strlen(P)) {
+        int j = (int)strlen(P) -1;
+        while (P[j]==T[i+j]) {
+            if(0>--j)break;
+        }
+        if (0>j) {
+            break;
+        }else{
+            i+= max(gs[j], j-bc[T[i+j]]);
+        }
+    }
+    return i;
+}
