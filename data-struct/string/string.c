@@ -35,7 +35,7 @@ int string_match(char *P, char *T)
 {
     int n = (int)strlen(T),i = 0;
     int m = (int)strlen(P),j = 0;
-    
+
     while (j<m && i<n) {
         if (T[i] == P[j]) {
             i++;
@@ -45,6 +45,7 @@ int string_match(char *P, char *T)
             j = 0;
         }
     }
+
     return i - j;
 }
 
@@ -56,7 +57,8 @@ int *buildNext(char *P)
     
     while (j < m-1) {
         if (0>t || P[j] == P[t]) {
-            N[++j] = ++t;
+            j++;t++;
+            N[j] = (P[j] != P[t] ? t : N[t]);
         }else{
             t = N[t];
         }
@@ -71,7 +73,7 @@ int string_kmp(char *P, char *T)
     int *next = buildNext(P);
     int n = (int)strlen(T),i = 0;
     int m = (int)strlen(P),j = 0;
-    
+
     while (j<m && i<n) {
         if (0>j || T[i] == P[j]) {
             i++;
@@ -80,6 +82,7 @@ int string_kmp(char *P, char *T)
             j = next[j];
         }
     }
+
     return i - j;
 }
 
@@ -149,16 +152,18 @@ int string_bm(char *P,char* T)
     int* bc = buildBC(P);
     int* gs = buildGS(P);
     int i = 0;
-    while (strlen(T)>=i+strlen(P)) {
-        int j = (int)strlen(P) -1;
-        while (P[j]==T[i+j]) {
+
+    while (strlen(T)>=i+strlen(P)) { //不断右移模式串
+        int j = (int)strlen(P) -1; //从模式串的尾端开始
+        while (P[j]==T[i+j]) { //自右向左对比
             if(0>--j)break;
         }
-        if (0>j) {
+        if (0>j) { //完全匹配
             break;
-        }else{
+        }else{   //否则在gs表与bc表选择最大者
             i+= max(gs[j], j-bc[T[i+j]]);
         }
     }
+
     return i;
 }

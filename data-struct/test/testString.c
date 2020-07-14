@@ -13,15 +13,15 @@
 void testString()
 {
     String S = string_init();
-    string_insert(&S,"012345");
-    string_insert(&S,"6789");
+    string_insert(&S,"dkdfcfcfcfcfcfcfcfcfcfcfcfcfcdmkmfcm");
     
-    int r = string_match("9", S.elem);
-    printf("%d\n",r);
+    char P[] = "fcm";
     
-    r = string_kmp("9", S.elem);
-    printf("%d\n",r);
+    int r1 = string_match(P, S.elem);
+    int r2 = string_kmp(P, S.elem);
+    int r3 = string_bm(P, S.elem);
     
-    r = string_bm("9", S.elem);
-    printf("%d\n",r);
+    printf("manli = %d\n",r1);
+    printf("kmp = %d\n",r2);
+    printf("bm = %d\n",r3);
 }
