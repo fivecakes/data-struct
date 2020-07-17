@@ -1,12 +1,4 @@
-//
-//  testString.c
-//  data-struct
-//
-//  Created by book on 2020/7/12.
-//  Copyright © 2020 book. All rights reserved.
-//
-
-#include "testString.h"
+#include "test_string.h"
 
 
 

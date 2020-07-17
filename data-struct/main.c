@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-
-
-
-#include "test_sector.h"
+#include "test_vector.h"
 #include "test_list.h"
 #include "test_tree.h"
 #include "test_graph.h"

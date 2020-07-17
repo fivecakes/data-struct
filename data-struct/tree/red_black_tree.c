@@ -1,11 +1,3 @@
-//
-//  RedBlackTree.c
-//  data-struct
-//
-//  Created by book on 2020/6/28.
-//  Copyright © 2020 book. All rights reserved.
-//
-
 #include "red_black_tree.h"
 
 

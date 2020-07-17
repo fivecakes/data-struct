@@ -1,12 +1,4 @@
-//
-//  testList.c
-//  data-struct
-//
-//  Created by book on 2020/6/23.
-//  Copyright © 2020 book. All rights reserved.
-//
-
-#include "testList.h"
+#include "test_list.h"
 
 
 

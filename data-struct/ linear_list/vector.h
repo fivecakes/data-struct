@@ -1,6 +1,7 @@
 #ifndef vector_h
 #define vector_h
-#include "commom.h"
+
+#include "common.h"
 struct Vector{
     int *elem;
     int size;

@@ -1,11 +1,3 @@
-//
-//  testHash.c
-//  data-struct
-//
-//  Created by book on 2020/7/7.
-//  Copyright © 2020 book. All rights reserved.
-//
-
 #include "test_hash.h"
 
 

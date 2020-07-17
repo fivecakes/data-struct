@@ -1,13 +1,6 @@
-//
-//  graph.h
-//  data-struct
-//
-//  Created by book on 2020/6/18.
-//  Copyright © 2020 book. All rights reserved.
-//
-
 #ifndef graph_h
 #define graph_h
+#include "common.h"
 #include "queue.h"
 
 #define UNDISCOVERED 0

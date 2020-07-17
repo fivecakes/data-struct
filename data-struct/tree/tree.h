@@ -1,6 +1,6 @@
 #ifndef binTree_h
 #define binTree_h
-#include "commom.h"
+#include "common.h"
 #define stature(p) ((p) ? (p)->height : -1)
 
 struct TreeNode{

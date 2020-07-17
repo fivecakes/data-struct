@@ -1,4 +1,4 @@
-#include "Tree.h"
+#include "tree.h"
 
 static BinTreeQueue binTreeInitQueue()
 {

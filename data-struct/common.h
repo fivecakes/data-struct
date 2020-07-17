@@ -1,6 +1,10 @@
 #ifndef common_h
 #define common_h
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+
 #define NULL ((void*)0)
 #define max(a,b) ((a)>(b)?(a):(b))
 #define min(a,b) ((a)>(b)?(b):(a))

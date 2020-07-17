@@ -1,11 +1,3 @@
-//
-//  testGraph.c
-//  data-struct
-//
-//  Created by book on 2020/6/23.
-//  Copyright © 2020 book. All rights reserved.
-//
-
 #include "test_graph.h"
 
 

@@ -1,12 +1,4 @@
-//
-//  Splay.c
-//  data-struct
-//
-//  Created by book on 2020/6/19.
-//  Copyright © 2020 book. All rights reserved.
-//
-
-#include "Splay.h"
+#include "splay.h"
 
 static TreeNode *connect34(TreeNode *a,TreeNode *b,TreeNode *c,TreeNode *T0,TreeNode *T1,TreeNode *T2,TreeNode *T3)
 {

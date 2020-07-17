@@ -1,14 +1,6 @@
-//
-//  string.h
-//  data-struct
-//
-//  Created by book on 2020/7/12.
-//  Copyright © 2020 book. All rights reserved.
-//
-
 #ifndef string_h
 #define string_h
-
+#include "common.h"
 #include <string.h>
 
 struct String{

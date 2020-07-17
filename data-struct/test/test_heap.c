@@ -1,11 +1,3 @@
-//
-//  testHeap.c
-//  data-struct
-//
-//  Created by book on 2020/7/11.
-//  Copyright © 2020 book. All rights reserved.
-//
-
 #include "test_heap.h"
 
 

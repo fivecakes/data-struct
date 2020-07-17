@@ -1,4 +1,4 @@
-#include "hash.h"
+#include "hash_table.h"
 
 
 //初始化哈希表
