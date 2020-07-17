@@ -2,7 +2,7 @@
 
 
 
-void testString()
+void test_string()
 {
     String S = string_init();
     string_insert(&S,"dkdfcfcfcfcfcfcfcfcfcfcfcfcfcdmkmfcm");

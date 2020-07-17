@@ -9,5 +9,5 @@
 
 int main()
 {
-    testString();
+    test_string();
 }

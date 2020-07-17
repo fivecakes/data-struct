@@ -4,5 +4,5 @@
 #include <stdio.h>
 #include "string.h"
 
-void testString(void);
+void test_string(void);
 #endif /* testString_h */
