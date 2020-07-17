@@ -24,10 +24,10 @@ struct hashTable
 typedef struct hashTable table;
 
 
-char* findValueByKey(table* t , char* key);
-int insertEntry(table* t , char* key , char* value);
+char* find_value_by_key(table* t , char* key);
+int insert_entry(table* t , char* key , char* value);
 int key2index(char* key);
-void initHashTable(table* t);
+void init_hash_table(table* t);
 
 
 

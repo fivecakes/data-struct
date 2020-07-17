@@ -2,10 +2,10 @@
 
 
 //测试用例
-void testVector()
+void test_vector()
 {
-    Vector V = vector_init();
-    Vector V1 = vector_init();
+    struct Vector V = vector_init();
+    struct Vector V1 = vector_init();
     
     printf("测试插入...\n");
     {

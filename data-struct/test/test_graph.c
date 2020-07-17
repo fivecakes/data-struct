@@ -3,7 +3,7 @@
 
 
 
-void testGraph()
+void test_graph()
 {
     int arr[5][5] = {
         {0,0,1,0,0},

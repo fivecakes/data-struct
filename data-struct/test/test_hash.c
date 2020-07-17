@@ -2,7 +2,7 @@
 
 
 
-void printTable(table* t)
+void print_table(table* t)
 {
     int i;
     entry* e;
@@ -22,11 +22,11 @@ void printTable(table* t)
 void testHash()
 {
     table t;
-    initHashTable(&t);
+    init_hash_table(&t);
     
-    insertEntry(&t , "aaaa" , "aaaaaaaaaaaaaaaaaa");
-    insertEntry(&t , "bbbb" , "bbbbbbbbbbbbbbbbbb");
-    insertEntry(&t , "cccc" , "cccccccccccccccccc");
+    insert_entry(&t , "aaaa" , "aaaaaaaaaaaaaaaaaa");
+    insert_entry(&t , "bbbb" , "bbbbbbbbbbbbbbbbbb");
+    insert_entry(&t , "cccc" , "cccccccccccccccccc");
 
-    printTable(&t);
+    print_table(&t);
 }

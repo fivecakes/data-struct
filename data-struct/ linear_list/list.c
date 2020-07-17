@@ -2,20 +2,20 @@
 
 
 
-List list_init()
+struct List list_init()
 {
-    List L;
+    struct List L;
     L.size = 0;
-    L.header = malloc(sizeof(ListNode));
-    L.trailer = malloc(sizeof(ListNode));
+    L.header = malloc(sizeof(struct ListNode));
+    L.trailer = malloc(sizeof(struct ListNode));
     L.trailer->pred = L.header;
     L.header->succ = L.trailer;
     return L;
 }
 
-int list_get(List L,int r)
+int list_get(struct List L,int r)
 {
-    ListNode *p = L.header;
+    struct ListNode *p = L.header;
     while (r--) {
         p = p->succ;
     }
@@ -23,10 +23,10 @@ int list_get(List L,int r)
 }
 
 
-void list_insert_before(ListNode *p,int e)
+void list_insert_before(struct ListNode *p,int e)
 {
-    ListNode *new = malloc(sizeof(ListNode));
-    ListNode *h = p->pred;
+    struct ListNode *new = malloc(sizeof(struct ListNode));
+    struct ListNode *h = p->pred;
     
     new->data = e;
     h->succ =new;
@@ -36,9 +36,9 @@ void list_insert_before(ListNode *p,int e)
 }
 
 
-void list_insert(List *L, int n, int e)
+void list_insert(struct List *L, int n, int e)
 {
-    ListNode *p = L->header->succ;
+    struct ListNode *p = L->header->succ;
     while (n) {
         p=p->succ;
         n--;
@@ -49,10 +49,10 @@ void list_insert(List *L, int n, int e)
 
 
 //取出前n个中最大的
-static ListNode* selectMax(List *L, int n)
+static struct ListNode* selectMax(struct List *L, int n)
 {
-    ListNode *p = L->header->succ;
-    ListNode *max = p;
+    struct ListNode *p = L->header->succ;
+    struct ListNode *max = p;
     
     while (n-1) {
         p=p->succ;
@@ -66,10 +66,10 @@ static ListNode* selectMax(List *L, int n)
 
 
 //选择排序
-void list_selection_sort(List *L)
+void list_selection_sort(struct List *L)
 {
-    ListNode* p;
-    ListNode* t = L->trailer->pred;
+    struct ListNode* p;
+    struct ListNode* t = L->trailer->pred;
     int tmp;
     
     for (int i = L->size; i>0; i--) {
@@ -83,7 +83,7 @@ void list_selection_sort(List *L)
 }
 
 
-static ListNode* search(ListNode *p, int n, int e)
+static struct ListNode* search(struct ListNode *p, int n, int e)
 {
     p = p->pred;
     while (n && (p->data>e)) {
@@ -95,7 +95,7 @@ static ListNode* search(ListNode *p, int n, int e)
 
 
 
-static void moveAfter(ListNode *p,ListNode *s)
+static void moveAfter(struct ListNode *p,struct ListNode *s)
 {
     p->pred->succ = p->succ;
     p->succ->pred = p->pred;
@@ -107,10 +107,10 @@ static void moveAfter(ListNode *p,ListNode *s)
 }
 
 //插入排序
-void list_insert_sort(List *L)
+void list_insert_sort(struct List *L)
 {
-    ListNode *c = L->header->succ->succ->succ;
-    ListNode *s,*p;
+    struct ListNode *c = L->header->succ->succ->succ;
+    struct ListNode *s,*p;
     
     for (int i = 1; i<L->size; i++) {
         p = c->pred;
@@ -121,7 +121,7 @@ void list_insert_sort(List *L)
 }
 
 
-void list_write2dot(List L,char opt[],char info[])
+void list_write2dot(struct List L,char opt[],char info[])
 {
     FILE* fp = fopen(dot_file_path, opt);
     if( NULL == fp)
@@ -134,7 +134,7 @@ void list_write2dot(List L,char opt[],char info[])
     fprintf(fp, "\ndigraph {\n");
     fprintf(fp, " rankdir = LR\n");
     fprintf(fp, " node0 [label=\"header\"][style = dotted]\n");
-    ListNode *v = L.header->succ;
+    struct ListNode *v = L.header->succ;
     for (int i = 0; i<L.size; i++) {
         fprintf(fp, " node%d[label=\"%d\"]\n",i+1,v->data);
         fprintf(fp, " node%d -> node%d\n",i,i+1);

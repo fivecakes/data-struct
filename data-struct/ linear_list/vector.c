@@ -1,9 +1,9 @@
 #include "vector.h"
 
 
-Vector vector_init()
+struct Vector vector_init()
 {
-    Vector V;
+    struct Vector V;
     V.elem = malloc(2* sizeof(int));
     V.capacity =2;
     V.size = 0;
@@ -12,20 +12,20 @@ Vector vector_init()
 
 
 //扩容
-static void vector_expand(Vector *V)
+static void vector_expand(struct Vector *V)
 {
     if(V->size < V->capacity) return; //尚未满员，不必扩容
     V->elem = realloc(V->elem,(V->capacity<<=1)*sizeof(int));
 }
 
-int vector_get(Vector *V,int r)
+int vector_get(struct Vector *V,int r)
 {
     return *(V->elem + r);
 }
 
 
 //插入
-void vector_insert(Vector *V, int r, int e)
+void vector_insert(struct Vector *V, int r, int e)
 {
     vector_expand(V);
     for (int i = V->size; i>r; i--) {
@@ -37,13 +37,13 @@ void vector_insert(Vector *V, int r, int e)
 
 
 //替换
-void vector_replace(Vector *V, int r, int e)
+void vector_replace(struct Vector *V, int r, int e)
 {
     *(V->elem+r) = e;
 }
 
 //遍历搜索
-int vector_search(Vector *V, int e)
+int vector_search(struct Vector *V, int e)
 {
     for (int i = 0; i<V->size; i++) {
         if (*(V->elem+i) > e) {
@@ -55,7 +55,7 @@ int vector_search(Vector *V, int e)
 
 
 //删除
-void vector_delete(Vector *V, int r)
+void vector_delete(struct Vector *V, int r)
 {
     for (int i = r; i<V->size -1; i++) {
         *(V->elem+i) = *(V->elem+i+1);
@@ -63,7 +63,7 @@ void vector_delete(Vector *V, int r)
     V->size--;
 }
 
-static int bubble(Vector *V,int lo, int hi)
+static int bubble(struct Vector *V,int lo, int hi)
 {
     int last = lo;
     int tmp;
@@ -79,7 +79,7 @@ static int bubble(Vector *V,int lo, int hi)
     return last;
 }
 
-void vector_bubble_sort(Vector *V)
+void vector_bubble_sort(struct Vector *V)
 {
     int lo = 0;
     int hi = V->size-1;
@@ -91,7 +91,7 @@ void vector_bubble_sort(Vector *V)
 
 
 
-static void merge(Vector *V, int lo, int mi, int hi)
+static void merge(struct Vector *V, int lo, int mi, int hi)
 {
     int lb = mi - lo;
     int lc = hi - mi;
@@ -120,7 +120,7 @@ static void merge(Vector *V, int lo, int mi, int hi)
     }
 }
 
-void vector_merge_sort(Vector *V, int lo, int hi)
+void vector_merge_sort(struct Vector *V, int lo, int hi)
 {
     if (hi - lo <2) {
         return;
@@ -132,7 +132,7 @@ void vector_merge_sort(Vector *V, int lo, int hi)
 }
 
 //二分查找
-int vector_bin_search(Vector V,int e,int lo,int hi)
+int vector_bin_search(struct Vector V,int e,int lo,int hi)
 {
     while (lo<hi) {
         int mi = (lo+hi)>>1;
@@ -148,7 +148,7 @@ int vector_bin_search(Vector V,int e,int lo,int hi)
 }
 
 //插值查找
-int vector_insert_value_search(Vector V,int e,int lo,int hi)
+int vector_insert_value_search(struct Vector V,int e,int lo,int hi)
 {
     hi--;
     while (lo<hi) {
@@ -169,7 +169,7 @@ int vector_insert_value_search(Vector V,int e,int lo,int hi)
 }
 
 
-void vector_write2dot(Vector V,char opt[],char info[])
+void vector_write2dot(struct Vector V,char opt[],char info[])
 {
     FILE* fp = fopen(dot_file_path, opt);
     if( NULL == fp)

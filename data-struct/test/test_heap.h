@@ -3,5 +3,5 @@
 
 #include <stdio.h>
 #include "heap.h"
-void testHeap(void);
+void test_heap(void);
 #endif /* testHeap_h */

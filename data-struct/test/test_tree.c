@@ -1,7 +1,7 @@
 #include "test_tree.h"
 
 
-void testRedBlack()
+void test_red_black()
 {
     printf("测试红黑树...\n");
     {
@@ -31,7 +31,7 @@ void testRedBlack()
     }
 }
 
-void testBST()
+void test_bst()
 {
 
     printf("测试BST...\n");
@@ -96,7 +96,7 @@ void test_avl()
     }
 }
 
-void testSpaly()
+void test_spaly()
 {
     printf("测试Spaly...\n");
     {
@@ -146,7 +146,7 @@ void testSpaly()
 
 
 
-void testBTree()
+void test_b_tree()
 {
     printf("测试B-Tree...\n");
     {

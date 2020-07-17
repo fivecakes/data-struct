@@ -3,5 +3,5 @@
 
 #include "list.h"
 
-void testList(void);
+void test_list(void);
 #endif /* testList_h */

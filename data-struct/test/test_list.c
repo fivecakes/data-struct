@@ -3,10 +3,10 @@
 
 
 //测试用例
-void testList()
+void test_list()
 {
-    List L1 = list_init();
-    List L2 = list_init();
+    struct List L1 = list_init();
+    struct List L2 = list_init();
 
     printf("测试插入...\n");
     {

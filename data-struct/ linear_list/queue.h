@@ -13,13 +13,11 @@ struct Queue{
     struct QueueNode *trailer;
 };
 
-typedef struct QueueNode QueueNode;
-typedef struct Queue Queue;
 
 
-Queue queue_init(void);
-void queue_enqueue(Queue *Q, int e);
+struct Queue queue_init(void);
+void queue_enqueue(struct Queue *Q, int e);
 
-int queue_dequeue(Queue *Q);
+int queue_dequeue(struct Queue *Q);
 
 #endif /* queue_h */

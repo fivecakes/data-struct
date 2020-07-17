@@ -3,6 +3,6 @@
 
 #include "vector.h"
 
-void testVector(void);
+void test_vector(void);
 
 #endif /* testVector_h */

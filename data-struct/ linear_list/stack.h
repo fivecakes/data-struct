@@ -7,10 +7,9 @@ struct Stack{
     int capacity;
 };
 
-typedef struct Stack Stack;
 
-Stack stack_init(void);
-void stack_push(Stack *S, int e);
+struct Stack stack_init(void);
+void stack_push(struct Stack *S, int e);
 
-int stack_pop(Stack *S);
+int stack_pop(struct Stack *S);
 #endif /* stack_h */

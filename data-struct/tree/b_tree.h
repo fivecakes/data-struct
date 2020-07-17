@@ -14,7 +14,7 @@ typedef struct BTVector BTVector;
 
 struct BTNode{
     struct BTNode *parent;
-    Vector key;
+    struct Vector key;
     BTVector child;
 };
 

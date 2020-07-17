@@ -2,7 +2,7 @@
 
 
 //初始化哈希表
-void initHashTable(table* t)
+void init_hash_table(table* t)
 {
     int i;
     if (t == NULL)return;
@@ -15,7 +15,7 @@ void initHashTable(table* t)
 }
 
 //近似多项式法，将字符串转换为数字
-int hashCode(char* s)
+int hash_code(char* s)
 {
     int h = 0;
     for (size_t n = strlen(s),i = 0; i<n; i++) {
@@ -38,12 +38,12 @@ int mad(int key)
 
 int key2index(char* key)
 {
-    return mad(hashCode(key));
+    return mad(hash_code(key));
 }
 
 
 //向哈希表中插入数据
-int insertEntry(table* t , char* key , char* value)
+int insert_entry(table* t , char* key , char* value)
 {
     int index, vlen1, vlen2;
     entry *e, *ep;
@@ -82,7 +82,7 @@ int insertEntry(table* t , char* key , char* value)
 
 //在哈希表中查找key对应的value
 //找到了返回value的地址，没找到返回NULL
-char* findValueByKey(table* t , char* key)
+char* find_value_by_key(table* t , char* key)
 {
     int index;
     entry* e;

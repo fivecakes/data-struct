@@ -4,5 +4,5 @@
 #include <stdio.h>
 #include "graph.h"
 
-void testGraph(void);
+void test_graph(void);
 #endif /* testGraph_h */

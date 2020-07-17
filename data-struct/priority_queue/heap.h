@@ -10,10 +10,10 @@
 #define RChild(i) ((1+i)<<1)
 
 
-Vector heapfy(int a[],int len);
-void heap_insert(Vector *V, int e);
-int heap_get_max(Vector *V);
-int heap_del_max(Vector *V);
+struct Vector heapfy(int a[],int len);
+void heap_insert(struct Vector *V, int e);
+int heap_get_max(struct Vector *V);
+int heap_del_max(struct Vector *V);
 
-void heap_write2dot(Vector *V,char opt[],char info[]);
+void heap_write2dot(struct Vector *V,char opt[],char info[]);
 #endif

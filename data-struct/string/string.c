@@ -49,7 +49,7 @@ int string_match(char *P, char *T)
     return i - j;
 }
 
-int *buildNext(char *P)
+int *build_next(char *P)
 {
     int m = (int)strlen(P), j=0;
     int *N = malloc(m*sizeof(int));
@@ -70,7 +70,7 @@ int *buildNext(char *P)
 //KMP算法
 int string_kmp(char *P, char *T)
 {
-    int *next = buildNext(P);
+    int *next = build_next(P);
     int n = (int)strlen(T),i = 0;
     int m = (int)strlen(P),j = 0;
 
@@ -87,7 +87,7 @@ int string_kmp(char *P, char *T)
 }
 
 
-int *buildBC(char *P)
+int *build_bc(char *P)
 {
     int *bc = malloc(256*sizeof(int));
     
@@ -103,7 +103,7 @@ int *buildBC(char *P)
 }
 
 
-int *buildSS(char *P)
+int *build_ss(char *P)
 {
     int m = (int)strlen(P);
     int *ss = malloc(m*sizeof(int));
@@ -124,9 +124,9 @@ int *buildSS(char *P)
 }
 
 
-int *buildGS(char *P)
+int *build_gs(char *P)
 {
-    int *ss = buildSS(P);
+    int *ss = build_ss(P);
     int m = (int)strlen(P);
     int *gs = malloc(m*sizeof(int));
     for (int j =0; j<m; j++) {
@@ -149,8 +149,8 @@ int *buildGS(char *P)
 
 int string_bm(char *P,char* T)
 {
-    int* bc = buildBC(P);
-    int* gs = buildGS(P);
+    int* bc = build_bc(P);
+    int* gs = build_gs(P);
     int i = 0;
 
     while (strlen(T)>=i+strlen(P)) { //不断右移模式串
