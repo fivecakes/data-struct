@@ -8,8 +8,7 @@
 
 #ifndef BST_h
 #define BST_h
-#include "commom.h"
-#include "Tree.h"
+#include "tree.h"
 TreeNode *bst_succ(TreeNode *x);
 TreeNode *bst_search(Tree *T,int e);
 TreeNode *bst_insert(Tree *T,int e);

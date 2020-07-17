@@ -6,7 +6,7 @@
 //  Copyright © 2020 book. All rights reserved.
 //
 
-#include "BST.h"
+#include "bst.h"
 
 
 int bst_update_height(TreeNode *x)

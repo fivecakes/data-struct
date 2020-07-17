@@ -9,7 +9,7 @@
 #ifndef AVL_h
 #define AVL_h
 #include "commom.h"
-#include "BST.h"
+#include "bst.h"
 
 TreeNode *avl_insert(Tree *T,int e);
 void avl_remove(Tree *T,int e);

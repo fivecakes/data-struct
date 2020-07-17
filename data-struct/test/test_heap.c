@@ -6,7 +6,7 @@
 //  Copyright © 2020 book. All rights reserved.
 //
 
-#include "testHeap.h"
+#include "test_heap.h"
 
 
 void testHeap()

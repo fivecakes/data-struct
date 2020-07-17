@@ -9,7 +9,6 @@
 #ifndef string_h
 #define string_h
 
-#include "commom.h"
 #include <string.h>
 
 struct String{
