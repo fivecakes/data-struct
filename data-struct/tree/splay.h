@@ -2,7 +2,7 @@
 #define Splay_h
 #include "bst.h"
 
-TreeNode *splay_search(Tree *T,int e);
-void splay_insert(Tree *T,int e);
-void splay_remove(Tree *T,int e);
+struct TreeNode *splay_search(struct Tree *T,int e);
+void splay_insert(struct Tree *T,int e);
+void splay_remove(struct Tree *T,int e);
 #endif /* Splay_h */

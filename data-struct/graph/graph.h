@@ -18,17 +18,15 @@ struct graphNode{
     int priority;
 };
 
-typedef struct graphNode graphNode;
 
 struct Graph{
     int (*matrix)[5];
-    graphNode *graphNodes;
+    struct graphNode *graphNodes;
 };
 
-typedef struct Graph Graph;
 
-Graph graph_init(int (*arr)[5]);
-void graph_bfs(Graph *G);
-void graph_dfs(Graph *G);
+struct Graph graph_init(int (*arr)[5]);
+void graph_bfs(struct Graph *G);
+void graph_dfs(struct Graph *G);
 
 #endif /* graph_h */

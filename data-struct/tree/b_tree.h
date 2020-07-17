@@ -10,15 +10,12 @@ struct BTVector{
     int capacity;
 };
 
-typedef struct BTVector BTVector;
 
 struct BTNode{
     struct BTNode *parent;
     struct Vector key;
-    BTVector child;
+    struct BTVector child;
 };
-
-typedef struct BTNode BTNode;
 
 
 struct BTree{
@@ -28,16 +25,15 @@ struct BTree{
     struct BTNode *hot;
 };
 
-typedef struct BTree BTree;
 
-BTVector btree_vector_init(void);
-void btree_vector_insert(BTVector *V, int r, BTNode* e);
-void btree_vector_delete(BTVector *V, int r);
-BTNode *btree_vector_get(BTVector *V,int r);
+struct BTVector btree_vector_init(void);
+void btree_vector_insert(struct BTVector *V, int r, struct BTNode* e);
+void btree_vector_delete(struct BTVector *V, int r);
+struct BTNode *btree_vector_get(struct BTVector *V,int r);
 
 
-BTree btree_init(void);
-void btree_insert(BTree *BT,int e);
-void btree_remove(BTree *BT,int e);
-void writeBTreeToDotFile(BTree *T,char opt[],char info[]);
+struct BTree btree_init(void);
+void btree_insert(struct BTree *BT,int e);
+void btree_remove(struct BTree *BT,int e);
+void writeBTreeToDotFile(struct BTree *T,char opt[],char info[]);
 #endif /* BTree_h */

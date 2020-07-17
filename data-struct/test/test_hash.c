@@ -2,10 +2,10 @@
 
 
 
-void print_table(table* t)
+void print_table(struct Hash_table* t)
 {
     int i;
-    entry* e;
+    struct Hash_entry* e;
     if (t == NULL)return;
     for (i = 0; i<BUCKETCOUNT; ++i) {
         printf("\nbucket[%d]:\n" , i);
@@ -21,7 +21,7 @@ void print_table(table* t)
 
 void testHash()
 {
-    table t;
+    struct Hash_table t;
     init_hash_table(&t);
     
     insert_entry(&t , "aaaa" , "aaaaaaaaaaaaaaaaaa");

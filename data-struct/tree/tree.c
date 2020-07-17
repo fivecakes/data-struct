@@ -1,22 +1,22 @@
 #include "tree.h"
 
-static BinTreeQueue binTreeInitQueue()
+static struct BinTreeQueue binTreeInitQueue()
 {
-    BinTreeQueue L;
+    struct BinTreeQueue L;
     L.size = 0;
-    L.header = malloc(sizeof(BinTreeQueueNode));
-    L.trailer = malloc(sizeof(BinTreeQueueNode));
+    L.header = malloc(sizeof(struct BinTreeQueueNode));
+    L.trailer = malloc(sizeof(struct BinTreeQueueNode));
     L.trailer->pred = L.header;
     L.header->succ = L.trailer;
     return L;
 }
 
-static void binTreeEnqueue(BinTreeQueue *Q, TreeNode *e)
+static void binTreeEnqueue(struct BinTreeQueue *Q, struct TreeNode *e)
 {
-    BinTreeQueueNode *p = Q->trailer;
+    struct BinTreeQueueNode *p = Q->trailer;
 
-    BinTreeQueueNode *new = malloc(sizeof(BinTreeQueueNode));
-    BinTreeQueueNode *h = p->pred;
+    struct BinTreeQueueNode *new = malloc(sizeof(struct BinTreeQueueNode));
+    struct BinTreeQueueNode *h = p->pred;
 
     new->data = e;
     h->succ =new;
@@ -26,12 +26,12 @@ static void binTreeEnqueue(BinTreeQueue *Q, TreeNode *e)
     Q->size++;
 }
 
-static TreeNode *binTreeDequeue(BinTreeQueue *Q)
+static struct TreeNode *binTreeDequeue(struct BinTreeQueue *Q)
 {
     if (Q->size == 0) {
         return NULL;
     }
-    TreeNode *tmp = Q->header->succ->data;
+    struct TreeNode *tmp = Q->header->succ->data;
     Q->header->succ->succ->pred = Q->header;
     Q->header->succ = Q->header->succ->succ;
     Q->size--;
@@ -39,9 +39,9 @@ static TreeNode *binTreeDequeue(BinTreeQueue *Q)
 }
 
 
-static BinTreeStack binTreeInitStack()
+static struct BinTreeStack binTreeInitStack()
 {
-    BinTreeStack S;
+    struct BinTreeStack S;
     S.elem = malloc(2* sizeof(int*));
     S.capacity =2;
     S.size = 0;
@@ -49,20 +49,20 @@ static BinTreeStack binTreeInitStack()
 }
 
 //扩容
-static void expand(BinTreeStack *S)
+static void expand(struct BinTreeStack *S)
 {
     if(S->size < S->capacity) return; //尚未满员，不必扩容
     S->elem = realloc(S->elem,(S->capacity<<=1)*sizeof(int));
 }
 
-static void binTreePush(BinTreeStack *S, TreeNode *e)
+static void binTreePush(struct BinTreeStack *S, struct TreeNode *e)
 {
     expand(S);
     *(S->elem+S->size) = e;
     S->size++;
 }
 
-static TreeNode *binTreePop(BinTreeStack *S)
+static struct TreeNode *binTreePop(struct BinTreeStack *S)
 {
     S->size--;
     return *(S->elem + S->size);
@@ -70,9 +70,9 @@ static TreeNode *binTreePop(BinTreeStack *S)
 
 
 
-Tree initBinTree()
+struct Tree initBinTree()
 {
-    Tree T;
+    struct Tree T;
     T.top = NULL;
     T.size = 0;
     T.hot = NULL;
@@ -85,13 +85,13 @@ Tree initBinTree()
 
 
 //层次遍历
-void travLevel(Tree T,void visit(TreeNode *e))
+void travLevel(struct Tree T,void visit(struct TreeNode *e))
 {
-    BinTreeQueue Q = binTreeInitQueue();
+    struct BinTreeQueue Q = binTreeInitQueue();
     binTreeEnqueue(&Q, T.top->lChild);
     
     while (Q.size) {
-        TreeNode *x = binTreeDequeue(&Q);
+        struct TreeNode *x = binTreeDequeue(&Q);
         
         visit(x);
         
@@ -105,7 +105,7 @@ void travLevel(Tree T,void visit(TreeNode *e))
     }
 }
 
-void visitAlongLeftBranch(TreeNode *x,void visit(TreeNode *e),BinTreeStack *S)
+void visitAlongLeftBranch(struct TreeNode *x,void visit(struct TreeNode *e),struct BinTreeStack *S)
 {
     while (x!= NULL) {
         visit(x);
@@ -115,10 +115,10 @@ void visitAlongLeftBranch(TreeNode *x,void visit(TreeNode *e),BinTreeStack *S)
 }
 
 //先序遍历
-void travPre(Tree T,void visit(TreeNode *e))
+void travPre(struct Tree T,void visit(struct TreeNode *e))
 {
-    BinTreeStack S = binTreeInitStack();
-    TreeNode *x = T.top->lChild;
+    struct BinTreeStack S = binTreeInitStack();
+    struct TreeNode *x = T.top->lChild;
     while (1) {
         visitAlongLeftBranch(x,visit,&S);
         if (S.size==0) {
@@ -129,7 +129,7 @@ void travPre(Tree T,void visit(TreeNode *e))
     }
 }
 
-void goAloneLeftBranch(TreeNode *x,BinTreeStack *S)
+void goAloneLeftBranch(struct TreeNode *x,struct BinTreeStack *S)
 {
     while (x != NULL) {
         binTreePush(S,x);
@@ -138,10 +138,10 @@ void goAloneLeftBranch(TreeNode *x,BinTreeStack *S)
 }
 
 //中序遍历
-void travIn(Tree T,void visit(TreeNode *e))
+void travIn(struct Tree T,void visit(struct TreeNode *e))
 {
-    BinTreeStack S = binTreeInitStack();
-    TreeNode *x = T.top->lChild;
+    struct BinTreeStack S = binTreeInitStack();
+    struct TreeNode *x = T.top->lChild;
     while (1) {
         goAloneLeftBranch(x,&S);
         if (S.size==0) {
@@ -154,13 +154,13 @@ void travIn(Tree T,void visit(TreeNode *e))
     }
 }
 
-void visit(TreeNode *e)
+void visit(struct TreeNode *e)
 {
     printf("%d,",e->data);
 }
 
 
-static void printDotNode(FILE* fp ,TreeNode *e)
+static void printDotNode(FILE* fp ,struct TreeNode *e)
 {
     if (!e) return;
     if (e->color == RED) {
@@ -197,7 +197,7 @@ static void printDotNode(FILE* fp ,TreeNode *e)
 
 
 
-void writeTreeToDotFile(Tree *T,char opt[],char info[])
+void writeTreeToDotFile(struct Tree *T,char opt[],char info[])
 {
     FILE* fp = fopen(dot_file_path, opt);
     if( NULL == fp)

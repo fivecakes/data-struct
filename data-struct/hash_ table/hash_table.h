@@ -7,27 +7,25 @@
 
 #define BUCKETCOUNT 17 //表长选素数
 
-struct hashEntry
+struct Hash_entry
 {
     char* key;
     char* value;
     struct hashEntry* next;
 };
 
-typedef struct hashEntry entry;
 
-struct hashTable
+struct Hash_table
 {
-    entry bucket[BUCKETCOUNT];  //先默认定义16个桶
+    struct Hash_entry bucket[BUCKETCOUNT];  //先默认定义16个桶
 };
 
-typedef struct hashTable table;
 
 
-char* find_value_by_key(table* t , char* key);
-int insert_entry(table* t , char* key , char* value);
+char* find_value_by_key(struct Hash_table* t , char* key);
+int insert_entry(struct Hash_table* t , char* key , char* value);
 int key2index(char* key);
-void init_hash_table(table* t);
+void init_hash_table(struct Hash_table* t);
 
 
 

@@ -3,7 +3,7 @@
 #include "common.h"
 #include "bst.h"
 
-TreeNode *avl_insert(Tree *T,int e);
-void avl_remove(Tree *T,int e);
+struct TreeNode *avl_insert(struct Tree *T,int e);
+void avl_remove(struct Tree *T,int e);
 
 #endif /* avl_h */

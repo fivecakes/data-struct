@@ -21,28 +21,25 @@ struct Tree{
     struct TreeNode *hot;
 };
 
-typedef struct TreeNode TreeNode;
-typedef struct Tree Tree;
 
-Tree initBinTree(void);
-void travLevel(Tree T,void visit(TreeNode *e));
-void travIn(Tree T,void visit(TreeNode *e));
-void travPre(Tree T,void visit(TreeNode *e));
-void visit(TreeNode *e);
-void writeTreeToDotFile(Tree *T,char opt[],char info[]);
+struct Tree initBinTree(void);
+void travLevel(struct Tree T,void visit(struct TreeNode *e));
+void travIn(struct Tree T,void visit(struct TreeNode *e));
+void travPre(struct Tree T,void visit(struct TreeNode *e));
+void visit(struct TreeNode *e);
+void writeTreeToDotFile(struct Tree *T,char opt[],char info[]);
 
 //栈数据结构
 struct BinTreeStack{
-    TreeNode **elem;
+    struct TreeNode **elem;
     int size;
     int capacity;
 };
-typedef struct BinTreeStack BinTreeStack;
 
 
 //队列数据结构
 struct BinTreeQueueNode{
-    TreeNode *data;
+    struct TreeNode *data;
     struct BinTreeQueueNode *pred;
     struct BinTreeQueueNode *succ;
 };
@@ -51,8 +48,6 @@ struct BinTreeQueue{
     struct BinTreeQueueNode *header;
     struct BinTreeQueueNode *trailer;
 };
-typedef struct BinTreeQueueNode BinTreeQueueNode;
-typedef struct BinTreeQueue BinTreeQueue;
 
 
 #endif /* binTree_h */

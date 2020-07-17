@@ -2,7 +2,7 @@
 
 
 
-int redblack_update_height(TreeNode *x)
+int redblack_update_height(struct TreeNode *x)
 {
     x->height = max(stature(x->lChild) , stature(x->rChild));
     
@@ -14,7 +14,7 @@ int redblack_update_height(TreeNode *x)
     return x->height;
 }
 
-void redblack_update_height_above(TreeNode *x)
+void redblack_update_height_above(struct TreeNode *x)
 {
     while (x != NULL) {
         redblack_update_height(x);
@@ -23,7 +23,7 @@ void redblack_update_height_above(TreeNode *x)
 }
 
 
-static TreeNode *solveRR_1(TreeNode *a,TreeNode *b,TreeNode *c,TreeNode *T0,TreeNode *T1,TreeNode *T2,TreeNode *T3)
+static struct TreeNode *solveRR_1(struct TreeNode *a,struct TreeNode *b,struct TreeNode *c,struct TreeNode *T0,struct TreeNode *T1,struct TreeNode *T2,struct TreeNode *T3)
 {
     a->lChild = T0; if(T0) T0->parent = a;
     a->rChild = T1; if(T1) T1->parent = a; redblack_update_height(a);
@@ -36,7 +36,7 @@ static TreeNode *solveRR_1(TreeNode *a,TreeNode *b,TreeNode *c,TreeNode *T0,Tree
 }
 
 
-static void solveRR_2(TreeNode *x,TreeNode *p,TreeNode *g,TreeNode *u)
+static void solveRR_2(struct TreeNode *x,struct TreeNode *p,struct TreeNode *g,struct TreeNode *u)
 {
     g->color = RED;
     p->color = BLACK;
@@ -46,15 +46,15 @@ static void solveRR_2(TreeNode *x,TreeNode *p,TreeNode *g,TreeNode *u)
     redblack_update_height(u);
 }
 
-void solveDoubleRed(Tree *T,TreeNode *x)
+void solveDoubleRed(struct Tree *T,struct TreeNode *x)
 {
     if (!x->parent || !x->parent->parent) return;
     if (x->parent->color != RED) return;
     
-    TreeNode *p = x->parent;
-    TreeNode *g = p->parent;
-    TreeNode *gg = g->parent;
-    TreeNode *b,*u;
+    struct TreeNode *p = x->parent;
+    struct TreeNode *g = p->parent;
+    struct TreeNode *gg = g->parent;
+    struct TreeNode *b,*u;
     
     if (!g->lChild || !g->rChild || g->lChild->color == BLACK || g->rChild->color == BLACK) {
         printf("双红缺陷,叔父为黑或不存在\n");
@@ -96,17 +96,17 @@ void solveDoubleRed(Tree *T,TreeNode *x)
     }
 }
 
-TreeNode *redblack_insert(Tree *T,int e)
+struct TreeNode *redblack_insert(struct Tree *T,int e)
 {
-    TreeNode *x = bst_search(T,e);
+    struct TreeNode *x = bst_search(T,e);
     if (x) {
         printf("%d已存在，插入失败\n",e);
     }else{
         printf("插入%d\n",e);
     }
-    TreeNode *p = T->hot;
+    struct TreeNode *p = T->hot;
     
-    TreeNode *new = malloc(sizeof(TreeNode));
+    struct TreeNode *new = malloc(sizeof(struct TreeNode));
     new->parent = p;
     new->lChild = NULL;
     new->rChild = NULL;
@@ -132,7 +132,7 @@ TreeNode *redblack_insert(Tree *T,int e)
     return new;
 }
 
-TreeNode * solveBB_1(TreeNode *t,TreeNode *s,TreeNode *p,TreeNode *T0,TreeNode *T1,TreeNode *T2,TreeNode *T3)
+struct TreeNode * solveBB_1(struct TreeNode *t,struct TreeNode *s,struct TreeNode *p,struct TreeNode *T0,struct TreeNode *T1,struct TreeNode *T2,struct TreeNode *T3)
 {
     s->color = p->color;
     s->lChild = t; if(t) t->parent = s;
@@ -147,7 +147,7 @@ TreeNode * solveBB_1(TreeNode *t,TreeNode *s,TreeNode *p,TreeNode *T0,TreeNode *
 
 
 
-static TreeNode * zig(TreeNode *s,TreeNode *p,TreeNode *X,TreeNode *Y,TreeNode *Z)
+static struct TreeNode * zig(struct TreeNode *s,struct TreeNode *p,struct TreeNode *X,struct TreeNode *Y,struct TreeNode *Z)
 {
     s->color = BLACK;
     p->color = RED;
@@ -159,7 +159,7 @@ static TreeNode * zig(TreeNode *s,TreeNode *p,TreeNode *X,TreeNode *Y,TreeNode *
     return s;
 }
 
-static TreeNode * zag(TreeNode *s,TreeNode *p,TreeNode *X,TreeNode *Y,TreeNode *Z)
+static struct TreeNode * zag(struct TreeNode *s,struct TreeNode *p,struct TreeNode *X,struct TreeNode *Y,struct TreeNode *Z)
 {
     s->color = BLACK;
     p->color = RED;
@@ -171,7 +171,7 @@ static TreeNode * zag(TreeNode *s,TreeNode *p,TreeNode *X,TreeNode *Y,TreeNode *
     return s;
 }
 
-void solveDoubleBlack(Tree *T,TreeNode *p,TreeNode *r)
+void solveDoubleBlack(struct Tree *T,struct TreeNode *p,struct TreeNode *r)
 {
     writeTreeToDotFile(T,"a+","solveDoubleBlack");
 
@@ -179,9 +179,9 @@ void solveDoubleBlack(Tree *T,TreeNode *p,TreeNode *r)
         return;
     }
         
-    TreeNode *g = p->parent;
-    TreeNode *s,*t = NULL;
-    TreeNode *new;
+    struct TreeNode *g = p->parent;
+    struct TreeNode *s,*t = NULL;
+    struct TreeNode *new;
     
     if (p->lChild == r) {
         s = p->rChild;
@@ -279,14 +279,14 @@ void solveDoubleBlack(Tree *T,TreeNode *p,TreeNode *r)
     }
 }
 
-void redblack_remove(Tree *T,int e)
+void redblack_remove(struct Tree *T,int e)
 {
-    TreeNode *x = bst_search(T,e);
+    struct TreeNode *x = bst_search(T,e);
     if (!x) {
         printf("%d不存在，删除失败\n",e);
     }
     
-    TreeNode *r = bst_remove_at(T,x);
+    struct TreeNode *r = bst_remove_at(T,x);
     
     //1.x仅有一个后代r
     //2.当x有两个后代时,会用后继w替换x的值,原x位置不会改变红黑树性质

@@ -5,7 +5,7 @@ void test_red_black()
 {
     printf("测试红黑树...\n");
     {
-        Tree T = initBinTree();
+        struct Tree T = initBinTree();
         redblack_insert(&T,36);
         redblack_insert(&T,27);
         redblack_insert(&T,58);
@@ -36,7 +36,7 @@ void test_bst()
 
     printf("测试BST...\n");
     {
-        Tree T = initBinTree();
+        struct Tree T = initBinTree();
         bst_insert(&T,36);
         bst_insert(&T,27);
         bst_insert(&T,58);
@@ -75,7 +75,7 @@ void test_avl()
     printf("测试AVL...\n");
     {
 
-        Tree T = initBinTree();
+        struct Tree T = initBinTree();
         avl_insert(&T,36);
         avl_insert(&T,27);
         avl_insert(&T,58);
@@ -100,7 +100,7 @@ void test_spaly()
 {
     printf("测试Spaly...\n");
     {
-        Tree T = initBinTree();
+        struct Tree T = initBinTree();
         writeTreeToDotFile(&T,"w+","");
         splay_insert(&T,36);
         writeTreeToDotFile(&T,"a+","36");
@@ -150,7 +150,7 @@ void test_b_tree()
 {
     printf("测试B-Tree...\n");
     {
-        BTree BT = btree_init();
+        struct BTree BT = btree_init();
         
         btree_insert(&BT,57);
         btree_insert(&BT,152);

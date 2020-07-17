@@ -4,7 +4,7 @@
 
 void test_string()
 {
-    String S = string_init();
+    struct String S = string_init();
     string_insert(&S,"dkdfcfcfcfcfcfcfcfcfcfcfcfcfcdmkmfcm");
     
     char P[] = "fcm";

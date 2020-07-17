@@ -1,10 +1,10 @@
 #include "b_tree.h"
 
 
-BTVector btree_vector_init()
+struct BTVector btree_vector_init()
 {
-    BTVector V;
-    V.elem = malloc(2* sizeof(BTNode*));
+    struct BTVector V;
+    V.elem = malloc(2* sizeof(struct BTNode*));
     V.capacity =2;
     V.size = 0;
     return V;
@@ -12,13 +12,13 @@ BTVector btree_vector_init()
 
 
 //扩容
-static void btree_vector_expand(BTVector *V)
+static void btree_vector_expand(struct BTVector *V)
 {
     if(V->size < V->capacity) return; //尚未满员，不必扩容
-    V->elem = realloc(V->elem,(V->capacity<<=1)*sizeof(BTNode*));
+    V->elem = realloc(V->elem,(V->capacity<<=1)*sizeof(struct BTNode*));
 }
 
-void btree_vector_insert(BTVector *V, int r, BTNode* e)
+void btree_vector_insert(struct BTVector *V, int r, struct BTNode* e)
 {
     btree_vector_expand(V);
     for (int i = V->size; i>r; i--) {
@@ -29,7 +29,7 @@ void btree_vector_insert(BTVector *V, int r, BTNode* e)
 }
 
 //特殊的：对于指针类型的遍历搜索
-int btree_vector_search(BTVector *V, BTNode* e)
+int btree_vector_search(struct BTVector *V, struct BTNode* e)
 {
     for (int i = 0; i<V->size; i++) {
         if (*(V->elem+i) == e) {
@@ -39,13 +39,13 @@ int btree_vector_search(BTVector *V, BTNode* e)
     return -1;
 }
 
-BTNode *btree_vector_get(BTVector *V,int r)
+struct BTNode *btree_vector_get(struct BTVector *V,int r)
 {
     return *(V->elem + r);
 }
 
 //删除
-void btree_vector_delete(BTVector *V, int r)
+void btree_vector_delete(struct BTVector *V, int r)
 {
     for (int i = r; i<V->size -1; i++) {
         *(V->elem+i) = *(V->elem+i+1);
@@ -53,15 +53,15 @@ void btree_vector_delete(BTVector *V, int r)
     V->size--;
 }
 
-BTree btree_init()
+struct BTree btree_init()
 {
-    BTNode *new = malloc(sizeof(BTNode));
+    struct BTNode *new = malloc(sizeof(struct BTNode));
     new->parent = NULL;
     new->key = vector_init();
     new->child = btree_vector_init();
     btree_vector_insert(&new->child, 0, NULL);
     
-    BTree BT;
+    struct BTree BT;
     BT.size = 1;
     BT.hot = NULL;
     BT.root = new;
@@ -71,9 +71,9 @@ BTree btree_init()
 }
 
 
-BTNode *btree_search(BTree *BT,int e)
+struct BTNode *btree_search(struct BTree *BT,int e)
 {
-    BTNode *v = BT->root;
+    struct BTNode *v = BT->root;
     BT->hot = NULL;
     
     while (v) {
@@ -87,23 +87,23 @@ BTNode *btree_search(BTree *BT,int e)
     return NULL;
 }
 
-void solveOverflow(BTree *BT,BTNode *v)
+void solveOverflow(struct BTree *BT,struct BTNode *v)
 {
     //  ⌈m/2⌉ ≤ n+1 < m
     if (v->child.size < BT->m) return;
     
     //writeBTreeToDotFile(BT,"a+","分裂之前");
-    BTNode *p = v->parent;
+    struct BTNode *p = v->parent;
     int mid = v->key.size/2;//c语言中整数/整数还是整数，自动强制类型转换了
     int mid_value = vector_get(&v->key, mid);
     
     //新建一个节点，并将中位数以后的数据移到新节点
-    BTNode *new = malloc(sizeof(BTNode));
+    struct BTNode *new = malloc(sizeof(struct BTNode));
     new->key = vector_init();
     new->child = btree_vector_init();
     for (int i = mid+1; i<v->key.size; i++) {
         int key_value = vector_get(&v->key, i);
-        BTNode *child_value = btree_vector_get(&v->child, i);
+        struct BTNode *child_value = btree_vector_get(&v->child, i);
         
         vector_insert(&new->key, new->key.size, key_value);
         btree_vector_insert(&new->child, new->child.size, child_value);
@@ -111,7 +111,7 @@ void solveOverflow(BTree *BT,BTNode *v)
     }
     
     //child比key多一个，所以多移动一次
-    BTNode *last = btree_vector_get(&v->child, v->key.size);
+    struct BTNode *last = btree_vector_get(&v->child, v->key.size);
     btree_vector_insert(&new->child, new->child.size,last);
     if (last) last->parent = new;
     
@@ -119,7 +119,7 @@ void solveOverflow(BTree *BT,BTNode *v)
         printf("根节点分裂\n");
         
         //新建一个根节点，并把中位数移到其中
-        BTNode *newroot = malloc(sizeof(BTNode));
+        struct BTNode *newroot = malloc(sizeof(struct BTNode));
         newroot->parent = NULL;
         newroot->key = vector_init();
         newroot->child = btree_vector_init();
@@ -155,7 +155,7 @@ void solveOverflow(BTree *BT,BTNode *v)
     
 }
 
-void solveUnderflow(BTree *BT,BTNode *v)
+void solveUnderflow(struct BTree *BT,struct BTNode *v)
 {
     writeBTreeToDotFile(BT,"a+","solveUnderflow");
     //向上取整c = (a + b - 1) / b;
@@ -165,7 +165,7 @@ void solveUnderflow(BTree *BT,BTNode *v)
     
     //r是父节点child的秩，父节点key的秩是r-1
     int r = btree_vector_search(&v->parent->child,v);
-    BTNode *brother;
+    struct BTNode *brother;
     if (r>0 && btree_vector_get(&v->parent->child, r-1)->child.size > under) {
         printf("向左兄弟借一个\n");
         
@@ -245,9 +245,9 @@ void solveUnderflow(BTree *BT,BTNode *v)
 }
 
 
-void btree_insert(BTree *BT,int e)
+void btree_insert(struct BTree *BT,int e)
 {
-    BTNode *v = btree_search(BT,e);
+    struct BTNode *v = btree_search(BT,e);
     if (v) {
         printf("%d存在,插入失败\n",e);
     }
@@ -264,9 +264,9 @@ void btree_insert(BTree *BT,int e)
 }
 
 
-void btree_remove(BTree *BT,int e)
+void btree_remove(struct BTree *BT,int e)
 {
-    BTNode *v = btree_search(BT,e);
+    struct BTNode *v = btree_search(BT,e);
     if (!v) {
         printf("%d不存在,删除失败\n",e);
     }
@@ -274,7 +274,7 @@ void btree_remove(BTree *BT,int e)
     int r = vector_search(&v->key,e);
     if(btree_vector_get(&v->child, 0)){
         //若v非叶节点,找到e的后继，并与之交换
-        BTNode *u = btree_vector_get(&v->child, r+1);//右子树
+        struct BTNode *u = btree_vector_get(&v->child, r+1);//右子树
         while (btree_vector_get(&u->child, 0)) {
             u = btree_vector_get(&u->child, 0);
         }
@@ -290,7 +290,7 @@ void btree_remove(BTree *BT,int e)
     solveUnderflow(BT,v);
 }
 
-static void printDotNode1(FILE* fp ,BTNode *e)
+static void printDotNode1(FILE* fp ,struct BTNode *e)
 {
     if (!e || !(e->key.size)) {
         return;
@@ -305,7 +305,7 @@ static void printDotNode1(FILE* fp ,BTNode *e)
     fprintf(fp, "\"]\n");
     
     for (int i=0; i<e->child.size; i++) {
-        BTNode *childnode = btree_vector_get(&e->child,i);
+        struct BTNode *childnode = btree_vector_get(&e->child,i);
         if (childnode) {
             if (!i) {
                 fprintf(fp, " node%p:<node%d>:sw -> node%p\n", e,vector_get(&e->key,i), childnode);
@@ -328,7 +328,7 @@ static void printDotNode1(FILE* fp ,BTNode *e)
 
 
 
-void writeBTreeToDotFile(BTree *BT,char opt[],char info[])
+void writeBTreeToDotFile(struct BTree *BT,char opt[],char info[])
 {
     FILE* fp = fopen(dot_file_path, opt);
     if( NULL == fp)

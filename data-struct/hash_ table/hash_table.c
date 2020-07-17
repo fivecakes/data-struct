@@ -2,7 +2,7 @@
 
 
 //初始化哈希表
-void init_hash_table(table* t)
+void init_hash_table(struct Hash_table* t)
 {
     int i;
     if (t == NULL)return;
@@ -43,10 +43,10 @@ int key2index(char* key)
 
 
 //向哈希表中插入数据
-int insert_entry(table* t , char* key , char* value)
+int insert_entry(struct Hash_table* t , char* key , char* value)
 {
     int index, vlen1, vlen2;
-    entry *e, *ep;
+    struct Hash_entry *e, *ep;
 
     index = key2index(key);
     if (t->bucket[index].key == NULL) {
@@ -71,7 +71,7 @@ int insert_entry(table* t , char* key , char* value)
         }
         //没有在当前桶中找到
         //创建条目加入
-        e = (entry*)malloc(sizeof (entry));
+        e = (struct Hash_entry*)malloc(sizeof (struct Hash_entry));
         e->key = strdup(key);
         e->value = strdup(value);
         e->next = NULL;
@@ -82,10 +82,10 @@ int insert_entry(table* t , char* key , char* value)
 
 //在哈希表中查找key对应的value
 //找到了返回value的地址，没找到返回NULL
-char* find_value_by_key(table* t , char* key)
+char* find_value_by_key(struct Hash_table* t , char* key)
 {
     int index;
-    entry* e;
+    struct Hash_entry* e;
     if (t == NULL || key == NULL) {
         return NULL;
     }

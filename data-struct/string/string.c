@@ -1,9 +1,9 @@
 #include "string.h"
 
 
-String string_init()
+struct String string_init()
 {
-    String S;
+    struct String S;
     S.elem = malloc(2*sizeof(char));
     S.capacity = 1;
     S.size = 0;
@@ -13,7 +13,7 @@ String string_init()
 
 
 //在末尾追加字符串
-void string_insert(String *S, char *s)
+void string_insert(struct String *S, char *s)
 {
     int len = (int)strlen(s);
     //扩容

@@ -1,6 +1,6 @@
 #include "splay.h"
 
-static TreeNode *connect34(TreeNode *a,TreeNode *b,TreeNode *c,TreeNode *T0,TreeNode *T1,TreeNode *T2,TreeNode *T3)
+static struct TreeNode *connect34(struct TreeNode *a,struct TreeNode *b,struct TreeNode *c,struct TreeNode *T0,struct TreeNode *T1,struct TreeNode *T2,struct TreeNode *T3)
 {
     a->lChild = T0; if(T0) T0->parent = a;
     a->rChild = T1; if(T1) T1->parent = a; bst_update_height(a);
@@ -12,7 +12,7 @@ static TreeNode *connect34(TreeNode *a,TreeNode *b,TreeNode *c,TreeNode *T0,Tree
 }
 
 
-static TreeNode *connectZigZig(TreeNode *g,TreeNode *p,TreeNode *v,TreeNode *T0,TreeNode *T1,TreeNode *T2,TreeNode *T3)
+static struct TreeNode *connectZigZig(struct TreeNode *g,struct TreeNode *p,struct TreeNode *v,struct TreeNode *T0,struct TreeNode *T1,struct TreeNode *T2,struct TreeNode *T3)
 {
     g->lChild = T2; if(T2) T2->parent = g;
     g->rChild = T3; if(T3) T3->parent = g; bst_update_height(g);
@@ -24,7 +24,7 @@ static TreeNode *connectZigZig(TreeNode *g,TreeNode *p,TreeNode *v,TreeNode *T0,
 }
 
 
-static TreeNode *connectZagZag(TreeNode *g,TreeNode *p,TreeNode *v,TreeNode *T0,TreeNode *T1,TreeNode *T2,TreeNode *T3)
+static struct TreeNode *connectZagZag(struct TreeNode *g,struct TreeNode *p,struct TreeNode *v,struct TreeNode *T0,struct TreeNode *T1,struct TreeNode *T2,struct TreeNode *T3)
 {
     g->lChild = T0; if(T0) T0->parent = g;
     g->rChild = T1; if(T1) T1->parent = g; bst_update_height(g);
@@ -35,7 +35,7 @@ static TreeNode *connectZagZag(TreeNode *g,TreeNode *p,TreeNode *v,TreeNode *T0,
     return v;
 }
 
-static TreeNode *Zig(TreeNode *v,TreeNode *r,TreeNode *X,TreeNode *Y,TreeNode *Z)
+static struct TreeNode *Zig(struct TreeNode *v,struct TreeNode *r,struct TreeNode *X,struct TreeNode *Y,struct TreeNode *Z)
 {
     r->lChild = Y; if(Y) Y->parent = r;
     r->rChild = Z; if(Z) Z->parent = r; bst_update_height(r);
@@ -45,7 +45,7 @@ static TreeNode *Zig(TreeNode *v,TreeNode *r,TreeNode *X,TreeNode *Y,TreeNode *Z
 }
 
 
-static TreeNode *Zag(TreeNode *v,TreeNode *r,TreeNode *X,TreeNode *Y,TreeNode *Z)
+static struct TreeNode *Zag(struct TreeNode *v,struct TreeNode *r,struct TreeNode *X,struct TreeNode *Y,struct TreeNode *Z)
 {
     r->lChild = X; if(X) X->parent = r;
     r->rChild = Y; if(Y) Y->parent = r; bst_update_height(r);
@@ -54,7 +54,7 @@ static TreeNode *Zag(TreeNode *v,TreeNode *r,TreeNode *X,TreeNode *Y,TreeNode *Z
     return v;
 }
 
-TreeNode *splay(Tree *T,TreeNode *v)
+struct TreeNode *splay(struct Tree *T,struct TreeNode *v)
 {
     //如果伸展根节点，直接返回
     if (!v->parent) {
@@ -63,7 +63,7 @@ TreeNode *splay(Tree *T,TreeNode *v)
     
     printf("伸展%d\n",v->data);
     
-    TreeNode *p,*g,*gg;
+    struct TreeNode *p,*g,*gg;
     
     while ((p = v->parent) && (g = p->parent)) {
         gg = g->parent;
@@ -119,13 +119,13 @@ TreeNode *splay(Tree *T,TreeNode *v)
 }
 
 
-TreeNode *splay_search(Tree *T,int e)
+struct TreeNode *splay_search(struct Tree *T,int e)
 {
     printf("搜索%d\n",e);
     
-    TreeNode *v = bst_search(T,e);
-    TreeNode *p = T->hot;
-    TreeNode *root;
+    struct TreeNode *v = bst_search(T,e);
+    struct TreeNode *p = T->hot;
+    struct TreeNode *root;
     
     if (!v) {
         printf("未搜到%d\n",e);
@@ -140,11 +140,11 @@ TreeNode *splay_search(Tree *T,int e)
 }
 
 
-void splay_insert(Tree *T,int e)
+void splay_insert(struct Tree *T,int e)
 {
-    TreeNode *root = splay_search(T,e);
+    struct TreeNode *root = splay_search(T,e);
     
-    TreeNode *new = malloc(sizeof(TreeNode));
+    struct TreeNode *new = malloc(sizeof(struct TreeNode));
     new->data = e;
     new->height = 0;
     new->color = WHITE;
@@ -178,9 +178,9 @@ void splay_insert(Tree *T,int e)
 }
 
 
-void splay_remove(Tree *T,int e)
+void splay_remove(struct Tree *T,int e)
 {
-    TreeNode *x = splay_search(T,e);
+    struct TreeNode *x = splay_search(T,e);
     if (!x || x->data != e) {
         return;
     }
