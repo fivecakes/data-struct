@@ -1,7 +1,7 @@
 #include "heap.h"
 
 
-int lt(struct Vector *V, int i, int p)
+int lt(struct vector *V, int i, int p)
 {
     if (vector_get(V,i) <= vector_get(V,p)) {
         return 1;
@@ -10,7 +10,7 @@ int lt(struct Vector *V, int i, int p)
     }
 }
 
-void swap(struct Vector *V, int i, int j)
+void swap(struct vector *V, int i, int j)
 {
     int tmp;
     tmp = vector_get(V,i);
@@ -18,7 +18,7 @@ void swap(struct Vector *V, int i, int j)
     vector_replace(V, j, tmp);
 }
 
-void percolate_up(struct Vector *V,int i)
+void percolate_up(struct vector *V,int i)
 {
     while (i>0) {
         int p = Parent(i);
@@ -32,7 +32,7 @@ void percolate_up(struct Vector *V,int i)
 }
 
 
-void percolate_down(struct Vector *V,int i)
+void percolate_down(struct vector *V,int i)
 {
     while (1) {
         int lchild = LChild(i);
@@ -60,9 +60,9 @@ void percolate_down(struct Vector *V,int i)
 }
 
 
-struct Vector heapfy(int a[],int len)
+struct vector heapfy(int a[],int len)
 {
-    struct Vector V = vector_init();
+    struct vector V = vector_init();
     for (int i=0; i<len; i++) {
         vector_insert(&V, V.size, a[i]);
         percolate_up(&V,i);
@@ -70,19 +70,19 @@ struct Vector heapfy(int a[],int len)
     return V;
 }
 
-void heap_insert(struct Vector *V, int e)
+void heap_insert(struct vector *V, int e)
 {
     int r =V->size;
     vector_insert(V, r, e);
     percolate_up(V,r);
 }
 
-int heap_get_max(struct Vector *V)
+int heap_get_max(struct vector *V)
 {
     return vector_get(V, 0);
 }
 
-int heap_del_max(struct Vector *V)
+int heap_del_max(struct vector *V)
 {
     int max = vector_get(V, 0);
     vector_replace(V, 0, vector_get(V, V->size-1));
@@ -93,7 +93,7 @@ int heap_del_max(struct Vector *V)
 
 
 
-static void printDotNode(FILE* fp ,struct Vector *V,int r)
+static void printDotNode(FILE* fp ,struct vector *V,int r)
 {
     if (!V) return;
     
@@ -125,9 +125,9 @@ static void printDotNode(FILE* fp ,struct Vector *V,int r)
     }
 }
 
-void heap_write2dot(struct Vector *V,char opt[],char info[])
+void heap_write2dot(struct vector *V,char opt[],char info[])
 {
-    FILE* fp = fopen(dot_file_path, opt);
+    FILE* fp = fopen(DOT_FILE_PATH, opt);
     if( NULL == fp)
     {
         printf("打开文件描述符失败\n");

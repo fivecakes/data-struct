@@ -5,24 +5,24 @@ void test_red_black()
 {
     printf("测试红黑树...\n");
     {
-        struct Tree T = initBinTree();
-        redblack_insert(&T,36);
-        redblack_insert(&T,27);
-        redblack_insert(&T,58);
-        redblack_insert(&T,6);
-        redblack_insert(&T,53);
-        redblack_insert(&T,69);
-        redblack_insert(&T,40);
-        redblack_insert(&T,41);
-        redblack_insert(&T,39);
-        redblack_insert(&T,76);
+        struct tree t = init_tree();
+        redblack_insert(&t,36);
+        redblack_insert(&t,27);
+        redblack_insert(&t,58);
+        redblack_insert(&t,6);
+        redblack_insert(&t,53);
+        redblack_insert(&t,69);
+        redblack_insert(&t,40);
+        redblack_insert(&t,41);
+        redblack_insert(&t,39);
+        redblack_insert(&t,76);
 //        redblack_insert(&T,21);
 //        redblack_insert(&T,24);
 //        redblack_insert(&T,78);
 //        redblack_insert(&T,98);
 //        redblack_insert(&T,57);
 //        redblack_insert(&T,35);
-        writeTreeToDotFile(&T,"w+","");
+        write_tree_to_dotfile(&t,"w+","");
         //BB-1
 //        redblack_remove(&T,6);
 //        redblack_remove(&T,39);
@@ -36,35 +36,35 @@ void test_bst()
 
     printf("测试BST...\n");
     {
-        struct Tree T = initBinTree();
-        bst_insert(&T,36);
-        bst_insert(&T,27);
-        bst_insert(&T,58);
-        bst_insert(&T,6);
-        bst_insert(&T,53);
-        bst_insert(&T,69);
-        bst_insert(&T,40);
-        bst_insert(&T,46);
-        bst_insert(&T,64);
+        struct tree t = init_tree();
+        bst_insert(&t,36);
+        bst_insert(&t,27);
+        bst_insert(&t,58);
+        bst_insert(&t,6);
+        bst_insert(&t,53);
+        bst_insert(&t,69);
+        bst_insert(&t,40);
+        bst_insert(&t,46);
+        bst_insert(&t,64);
         
-        writeTreeToDotFile(&T,"w+","");
+        write_tree_to_dotfile(&t,"w+","");
         printf("层次遍历:");
-        travLevel(T,visit);
+        travLevel(t,visit);
         printf("\n");
         
         printf("先序遍历:");
-        travPre(T,visit);
+        travPre(t,visit);
         printf("\n");
         
         printf("中序遍历:");
-        travIn(T,visit);
+        travIn(t,visit);
         printf("\n");
         
-        writeTreeToDotFile(&T,"w+","");
-        bst_remove(&T,69);
-        writeTreeToDotFile(&T,"a+","remove69");
-        bst_remove(&T,36);
-        writeTreeToDotFile(&T,"a+","remove36");
+        write_tree_to_dotfile(&t,"w+","");
+        bst_remove(&t,69);
+        write_tree_to_dotfile(&t,"a+","remove69");
+        bst_remove(&t,36);
+        write_tree_to_dotfile(&t,"a+","remove36");
     }
 
 }
@@ -75,7 +75,7 @@ void test_avl()
     printf("测试AVL...\n");
     {
 
-        struct Tree T = initBinTree();
+        struct tree T = init_tree();
         avl_insert(&T,36);
         avl_insert(&T,27);
         avl_insert(&T,58);
@@ -83,16 +83,16 @@ void test_avl()
         avl_insert(&T,53);
         avl_insert(&T,69);
         avl_insert(&T,40);
-        writeTreeToDotFile(&T,"w+","40");
+        write_tree_to_dotfile(&T,"w+","40");
 
         avl_insert(&T,46);
-        writeTreeToDotFile(&T,"a+","46");
+        write_tree_to_dotfile(&T,"a+","46");
 
         avl_insert(&T,41);
-        writeTreeToDotFile(&T,"a+","41");
+        write_tree_to_dotfile(&T,"a+","41");
         avl_remove(&T,6);
         
-        writeTreeToDotFile(&T,"a+","remove6");
+        write_tree_to_dotfile(&T,"a+","remove6");
     }
 }
 
@@ -100,46 +100,46 @@ void test_spaly()
 {
     printf("测试Spaly...\n");
     {
-        struct Tree T = initBinTree();
-        writeTreeToDotFile(&T,"w+","");
+        struct tree T = init_tree();
+        write_tree_to_dotfile(&T,"w+","");
         splay_insert(&T,36);
-        writeTreeToDotFile(&T,"a+","36");
+        write_tree_to_dotfile(&T,"a+","36");
         
         splay_insert(&T,27);
-        writeTreeToDotFile(&T,"a+","27");
+        write_tree_to_dotfile(&T,"a+","27");
         
         splay_insert(&T,58);
-        writeTreeToDotFile(&T,"a+","58");
+        write_tree_to_dotfile(&T,"a+","58");
         
         splay_insert(&T,6);
-        writeTreeToDotFile(&T,"a+","6");
+        write_tree_to_dotfile(&T,"a+","6");
         
         splay_insert(&T,53);
-        writeTreeToDotFile(&T,"a+","53");
+        write_tree_to_dotfile(&T,"a+","53");
         
         splay_insert(&T,69);
-        writeTreeToDotFile(&T,"a+","69");
+        write_tree_to_dotfile(&T,"a+","69");
         
         splay_insert(&T,40);
-        writeTreeToDotFile(&T,"a+","40");
+        write_tree_to_dotfile(&T,"a+","40");
         
         splay_insert(&T,46);
-        writeTreeToDotFile(&T,"a+","46");
+        write_tree_to_dotfile(&T,"a+","46");
         
         splay_insert(&T,64);
-        writeTreeToDotFile(&T,"a+","64");
+        write_tree_to_dotfile(&T,"a+","64");
         splay_remove(&T,69);
-        writeTreeToDotFile(&T,"a+","remove69");
+        write_tree_to_dotfile(&T,"a+","remove69");
         splay_search(&T,6);
-        writeTreeToDotFile(&T,"a+","search6");
+        write_tree_to_dotfile(&T,"a+","search6");
         splay_search(&T,36);
-        writeTreeToDotFile(&T,"a+","search36");
+        write_tree_to_dotfile(&T,"a+","search36");
         splay_search(&T,46);
-        writeTreeToDotFile(&T,"a+","search46");
+        write_tree_to_dotfile(&T,"a+","search46");
         splay_search(&T,27);
-        writeTreeToDotFile(&T,"a+","search27");
+        write_tree_to_dotfile(&T,"a+","search27");
         splay_remove(&T,58);
-        writeTreeToDotFile(&T,"a+","r58");
+        write_tree_to_dotfile(&T,"a+","r58");
     }
 
 }
@@ -150,7 +150,7 @@ void test_b_tree()
 {
     printf("测试B-Tree...\n");
     {
-        struct BTree BT = btree_init();
+        struct b_tree BT = btree_init();
         
         btree_insert(&BT,57);
         btree_insert(&BT,152);
@@ -172,12 +172,12 @@ void test_b_tree()
         btree_insert(&BT,53);
         btree_insert(&BT,52);
         btree_insert(&BT,51);
-        writeBTreeToDotFile(&BT,"w+","");
+        write_b_tree_to_dotfile(&BT,"w+","");
         btree_remove(&BT,484);
-        writeBTreeToDotFile(&BT,"a+","484");
+        write_b_tree_to_dotfile(&BT,"a+","484");
 
         btree_remove(&BT,52);
-        writeBTreeToDotFile(&BT,"a+","52");
+        write_b_tree_to_dotfile(&BT,"a+","52");
     }
 
 }

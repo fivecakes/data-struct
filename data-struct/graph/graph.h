@@ -7,10 +7,10 @@
 #define DISCOVERED 1
 #define VISITED 2
 
-struct graphNode{
+struct graph_node{
     int data;
-    int inDegree;
-    int outDegree;
+    int in_degree;
+    int out_degree;
     
     int status;
     int dTime,fTime;
@@ -19,14 +19,14 @@ struct graphNode{
 };
 
 
-struct Graph{
+struct graph{
     int (*matrix)[5];
-    struct graphNode *graphNodes;
+    struct graph_node *graphNodes;
 };
 
 
-struct Graph graph_init(int (*arr)[5]);
-void graph_bfs(struct Graph *G);
-void graph_dfs(struct Graph *G);
+struct graph graph_init(int (*arr)[5]);
+void graph_bfs(struct graph *G);
+void graph_dfs(struct graph *G);
 
 #endif /* graph_h */

@@ -1,15 +1,15 @@
 #ifndef stack_h
 #define stack_h
 #include "common.h"
-struct Stack{
+struct stack{
     int *elem;
     int size;
     int capacity;
 };
 
 
-struct Stack stack_init(void);
-void stack_push(struct Stack *S, int e);
+struct stack stack_init(void);
+void stack_push(struct stack *S, int e);
 
-int stack_pop(struct Stack *S);
+int stack_pop(struct stack *S);
 #endif /* stack_h */

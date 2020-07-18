@@ -1,11 +1,11 @@
 #include "graph.h"
 
 
-struct Graph graph_init(int (*arr)[5])
+struct graph graph_init(int (*arr)[5])
 {
-    struct Graph G;
+    struct graph G;
     G.matrix = arr;
-    G.graphNodes = malloc(5*sizeof(struct graphNode));
+    G.graphNodes = malloc(5*sizeof(struct graph_node));
     
     for (int i = 0; i<5; i++) {
         G.graphNodes[i].data = i;
@@ -16,7 +16,7 @@ struct Graph graph_init(int (*arr)[5])
 }
 
 //找节点i的编号为j的邻居的下一个邻居
-static int next_nbr(struct Graph *G,int i,int j)
+static int next_nbr(struct graph *G,int i,int j)
 {
     while (-1<j) {
         if (G->matrix[i][--j]) {
@@ -27,9 +27,9 @@ static int next_nbr(struct Graph *G,int i,int j)
 }
 
 
-static void bfs(struct Graph *G,int s)
+static void bfs(struct graph *G,int s)
 {
-    struct Queue Q = queue_init();
+    struct queue Q = queue_init();
     G->graphNodes[s].status = DISCOVERED;
     queue_enqueue(&Q, s);
     
@@ -48,7 +48,7 @@ static void bfs(struct Graph *G,int s)
     }
 }
 
-void graph_bfs(struct Graph *G)
+void graph_bfs(struct graph *G)
 {
     for (int i = 0; i<5; i++) {
         if (G->graphNodes[i].status == UNDISCOVERED) {
@@ -57,7 +57,7 @@ void graph_bfs(struct Graph *G)
     }
 }
 
-static void dfs(struct Graph *G,int s)
+static void dfs(struct graph *G,int s)
 {
     G->graphNodes[s].status = DISCOVERED;
 
@@ -72,7 +72,7 @@ static void dfs(struct Graph *G,int s)
 
 }
 
-void graph_dfs(struct Graph *G)
+void graph_dfs(struct graph *G)
 {
     for (int i = 0; i<5; i++) {
         if (G->graphNodes[i].status == UNDISCOVERED) {

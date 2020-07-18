@@ -1,22 +1,22 @@
 #include "queue.h"
 
-struct Queue queue_init()
+struct queue queue_init()
 {
-    struct Queue L;
+    struct queue L;
     L.size = 0;
-    L.header = malloc(sizeof(struct QueueNode));
-    L.trailer = malloc(sizeof(struct QueueNode));
+    L.header = malloc(sizeof(struct queue_node));
+    L.trailer = malloc(sizeof(struct queue_node));
     L.trailer->pred = L.header;
     L.header->succ = L.trailer;
     return L;
 }
 
-void queue_enqueue(struct Queue *Q, int e)
+void queue_enqueue(struct queue *Q, int e)
 {
-    struct QueueNode *p = Q->trailer;
+    struct queue_node *p = Q->trailer;
     
-    struct QueueNode *new = malloc(sizeof(struct QueueNode));
-    struct QueueNode *h = p->pred;
+    struct queue_node *new = malloc(sizeof(struct queue_node));
+    struct queue_node *h = p->pred;
     
     new->data = e;
     h->succ =new;
@@ -26,7 +26,7 @@ void queue_enqueue(struct Queue *Q, int e)
     Q->size++;
 }
 
-int queue_dequeue(struct Queue *Q)
+int queue_dequeue(struct queue *Q)
 {
     int tmp = Q->header->succ->data;
     Q->header->succ->succ->pred = Q->header;

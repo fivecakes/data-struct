@@ -3,10 +3,10 @@
 #include "common.h"
 #define stature(p) ((p) ? (p)->height : -1)
 
-struct TreeNode{
-    struct TreeNode *parent;
-    struct TreeNode *lChild;
-    struct TreeNode *rChild;
+struct tree_node{
+    struct tree_node *parent;
+    struct tree_node *lChild;
+    struct tree_node *rChild;
     //数据
     int data;
     //其他指标
@@ -15,38 +15,38 @@ struct TreeNode{
     int color;
 };
 
-struct Tree{
+struct tree{
     int size;
-    struct TreeNode *top;
-    struct TreeNode *hot;
+    struct tree_node *top;
+    struct tree_node *hot;
 };
 
 
-struct Tree initBinTree(void);
-void travLevel(struct Tree T,void visit(struct TreeNode *e));
-void travIn(struct Tree T,void visit(struct TreeNode *e));
-void travPre(struct Tree T,void visit(struct TreeNode *e));
-void visit(struct TreeNode *e);
-void writeTreeToDotFile(struct Tree *T,char opt[],char info[]);
+struct tree init_tree(void);
+void travLevel(struct tree T,void visit(struct tree_node *e));
+void travIn(struct tree T,void visit(struct tree_node *e));
+void travPre(struct tree T,void visit(struct tree_node *e));
+void visit(struct tree_node *e);
+void write_tree_to_dotfile(struct tree *T,char opt[],char info[]);
 
 //栈数据结构
-struct BinTreeStack{
-    struct TreeNode **elem;
+struct tree_stack{
+    struct tree_node **elem;
     int size;
     int capacity;
 };
 
 
 //队列数据结构
-struct BinTreeQueueNode{
-    struct TreeNode *data;
-    struct BinTreeQueueNode *pred;
-    struct BinTreeQueueNode *succ;
+struct tree_queue_node{
+    struct tree_node *data;
+    struct tree_queue_node *pred;
+    struct tree_queue_node *succ;
 };
-struct BinTreeQueue{
+struct tree_queue{
     int size;
-    struct BinTreeQueueNode *header;
-    struct BinTreeQueueNode *trailer;
+    struct tree_queue_node *header;
+    struct tree_queue_node *trailer;
 };
 
 

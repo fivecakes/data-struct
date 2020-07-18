@@ -4,7 +4,7 @@
 void test_heap()
 {
     int a[] = {1,3,5,7,9,2,4,6,8,10};
-    struct Vector V = heapfy(a,10);
+    struct vector V = heapfy(a,10);
     heap_write2dot(&V,"w+","");
     heap_insert(&V, 11);
     heap_insert(&V, 15);

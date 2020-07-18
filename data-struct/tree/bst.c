@@ -1,14 +1,14 @@
 #include "bst.h"
 
 
-int bst_update_height(struct TreeNode *x)
+int bst_update_height(struct tree_node *x)
 {
     x->height = 1 + max(stature(x->lChild) , stature(x->rChild));
     //printf("updateheight %d,height=%d\n",x->data,x->height);
     return x->height;
 }
 
-void bst_update_height_above(struct TreeNode *x)
+void bst_update_height_above(struct tree_node *x)
 {
     while (x != NULL) {
         bst_update_height(x);
@@ -16,7 +16,7 @@ void bst_update_height_above(struct TreeNode *x)
     }
 }
 
-static struct TreeNode *bst_search_in(struct Tree *T,struct TreeNode *v, int e)
+static struct tree_node *bst_search_in(struct tree *T,struct tree_node *v, int e)
 {
     if (!v) return v;
     if (v->data == e) return v;
@@ -39,22 +39,22 @@ static struct TreeNode *bst_search_in(struct Tree *T,struct TreeNode *v, int e)
 }
 
 
-struct TreeNode *bst_search(struct Tree *T,int e)
+struct tree_node *bst_search(struct tree *T,int e)
 {
     return bst_search_in(T,T->top,e);
 }
 
 
 
-struct TreeNode *bst_insert(struct Tree *T,int e)
+struct tree_node *bst_insert(struct tree *T,int e)
 {
-    struct TreeNode *x = bst_search(T,e);
+    struct tree_node *x = bst_search(T,e);
     if (x) {
         printf("%d已存在，插入失败\n",e);
     }
-    struct TreeNode *p = T->hot;
+    struct tree_node *p = T->hot;
     
-    struct TreeNode *new = malloc(sizeof(struct TreeNode));
+    struct tree_node *new = malloc(sizeof(struct tree_node));
     new->parent = p;
     new->lChild = NULL;
     new->rChild = NULL;
@@ -79,7 +79,7 @@ struct TreeNode *bst_insert(struct Tree *T,int e)
 }
 
 
-struct TreeNode *bst_succ(struct TreeNode *x)
+struct tree_node *bst_succ(struct tree_node *x)
 {
     if (x->rChild != NULL) {
         x = x->rChild;
@@ -91,10 +91,10 @@ struct TreeNode *bst_succ(struct TreeNode *x)
 }
 
 //删除x，返回被删除节点的代替者
-struct TreeNode *bst_remove_at(struct Tree *T,struct TreeNode *x)
+struct tree_node *bst_remove_at(struct tree *T,struct tree_node *x)
 {
     printf("删除节点%d\n",x->data);
-    struct TreeNode *p = x->parent;
+    struct tree_node *p = x->parent;
     T->hot = p;
     
     if (!x->lChild){
@@ -134,7 +134,7 @@ struct TreeNode *bst_remove_at(struct Tree *T,struct TreeNode *x)
     else{
         //交换x与x的直接后继w
         int tmp;
-        struct TreeNode *w = bst_succ(x);//x的直接后继
+        struct tree_node *w = bst_succ(x);//x的直接后继
         T->hot = w->parent;
         //printf("%d的直接后继为%d\n",x->data,w->data);
         tmp = w->data;
@@ -153,9 +153,9 @@ struct TreeNode *bst_remove_at(struct Tree *T,struct TreeNode *x)
     }
 }
 
-void bst_remove(struct Tree *T,int e)
+void bst_remove(struct tree *T,int e)
 {
-    struct TreeNode *x = bst_search(T,e);
+    struct tree_node *x = bst_search(T,e);
     if (!x) {
         printf("%d不存在，删除失败\n",e);
     }

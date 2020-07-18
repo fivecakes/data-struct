@@ -1,22 +1,22 @@
 #include "tree.h"
 
-static struct BinTreeQueue binTreeInitQueue()
+static struct tree_queue binTreeInitQueue()
 {
-    struct BinTreeQueue L;
+    struct tree_queue L;
     L.size = 0;
-    L.header = malloc(sizeof(struct BinTreeQueueNode));
-    L.trailer = malloc(sizeof(struct BinTreeQueueNode));
+    L.header = malloc(sizeof(struct tree_queue_node));
+    L.trailer = malloc(sizeof(struct tree_queue_node));
     L.trailer->pred = L.header;
     L.header->succ = L.trailer;
     return L;
 }
 
-static void binTreeEnqueue(struct BinTreeQueue *Q, struct TreeNode *e)
+static void binTreeEnqueue(struct tree_queue *Q, struct tree_node *e)
 {
-    struct BinTreeQueueNode *p = Q->trailer;
+    struct tree_queue_node *p = Q->trailer;
 
-    struct BinTreeQueueNode *new = malloc(sizeof(struct BinTreeQueueNode));
-    struct BinTreeQueueNode *h = p->pred;
+    struct tree_queue_node *new = malloc(sizeof(struct tree_queue_node));
+    struct tree_queue_node *h = p->pred;
 
     new->data = e;
     h->succ =new;
@@ -26,12 +26,12 @@ static void binTreeEnqueue(struct BinTreeQueue *Q, struct TreeNode *e)
     Q->size++;
 }
 
-static struct TreeNode *binTreeDequeue(struct BinTreeQueue *Q)
+static struct tree_node *binTreeDequeue(struct tree_queue *Q)
 {
     if (Q->size == 0) {
         return NULL;
     }
-    struct TreeNode *tmp = Q->header->succ->data;
+    struct tree_node *tmp = Q->header->succ->data;
     Q->header->succ->succ->pred = Q->header;
     Q->header->succ = Q->header->succ->succ;
     Q->size--;
@@ -39,9 +39,9 @@ static struct TreeNode *binTreeDequeue(struct BinTreeQueue *Q)
 }
 
 
-static struct BinTreeStack binTreeInitStack()
+static struct tree_stack binTreeInitStack()
 {
-    struct BinTreeStack S;
+    struct tree_stack S;
     S.elem = malloc(2* sizeof(int*));
     S.capacity =2;
     S.size = 0;
@@ -49,20 +49,20 @@ static struct BinTreeStack binTreeInitStack()
 }
 
 //扩容
-static void expand(struct BinTreeStack *S)
+static void expand(struct tree_stack *S)
 {
     if(S->size < S->capacity) return; //尚未满员，不必扩容
     S->elem = realloc(S->elem,(S->capacity<<=1)*sizeof(int));
 }
 
-static void binTreePush(struct BinTreeStack *S, struct TreeNode *e)
+static void binTreePush(struct tree_stack *S, struct tree_node *e)
 {
     expand(S);
     *(S->elem+S->size) = e;
     S->size++;
 }
 
-static struct TreeNode *binTreePop(struct BinTreeStack *S)
+static struct tree_node *binTreePop(struct tree_stack *S)
 {
     S->size--;
     return *(S->elem + S->size);
@@ -70,9 +70,9 @@ static struct TreeNode *binTreePop(struct BinTreeStack *S)
 
 
 
-struct Tree initBinTree()
+struct tree init_tree()
 {
-    struct Tree T;
+    struct tree T;
     T.top = NULL;
     T.size = 0;
     T.hot = NULL;
@@ -85,13 +85,13 @@ struct Tree initBinTree()
 
 
 //层次遍历
-void travLevel(struct Tree T,void visit(struct TreeNode *e))
+void travLevel(struct tree T,void visit(struct tree_node *e))
 {
-    struct BinTreeQueue Q = binTreeInitQueue();
+    struct tree_queue Q = binTreeInitQueue();
     binTreeEnqueue(&Q, T.top->lChild);
     
     while (Q.size) {
-        struct TreeNode *x = binTreeDequeue(&Q);
+        struct tree_node *x = binTreeDequeue(&Q);
         
         visit(x);
         
@@ -105,7 +105,7 @@ void travLevel(struct Tree T,void visit(struct TreeNode *e))
     }
 }
 
-void visitAlongLeftBranch(struct TreeNode *x,void visit(struct TreeNode *e),struct BinTreeStack *S)
+void visitAlongLeftBranch(struct tree_node *x,void visit(struct tree_node *e),struct tree_stack *S)
 {
     while (x!= NULL) {
         visit(x);
@@ -115,10 +115,10 @@ void visitAlongLeftBranch(struct TreeNode *x,void visit(struct TreeNode *e),stru
 }
 
 //先序遍历
-void travPre(struct Tree T,void visit(struct TreeNode *e))
+void travPre(struct tree T,void visit(struct tree_node *e))
 {
-    struct BinTreeStack S = binTreeInitStack();
-    struct TreeNode *x = T.top->lChild;
+    struct tree_stack S = binTreeInitStack();
+    struct tree_node *x = T.top->lChild;
     while (1) {
         visitAlongLeftBranch(x,visit,&S);
         if (S.size==0) {
@@ -129,7 +129,7 @@ void travPre(struct Tree T,void visit(struct TreeNode *e))
     }
 }
 
-void goAloneLeftBranch(struct TreeNode *x,struct BinTreeStack *S)
+void goAloneLeftBranch(struct tree_node *x,struct tree_stack *S)
 {
     while (x != NULL) {
         binTreePush(S,x);
@@ -138,10 +138,10 @@ void goAloneLeftBranch(struct TreeNode *x,struct BinTreeStack *S)
 }
 
 //中序遍历
-void travIn(struct Tree T,void visit(struct TreeNode *e))
+void travIn(struct tree T,void visit(struct tree_node *e))
 {
-    struct BinTreeStack S = binTreeInitStack();
-    struct TreeNode *x = T.top->lChild;
+    struct tree_stack S = binTreeInitStack();
+    struct tree_node *x = T.top->lChild;
     while (1) {
         goAloneLeftBranch(x,&S);
         if (S.size==0) {
@@ -154,13 +154,13 @@ void travIn(struct Tree T,void visit(struct TreeNode *e))
     }
 }
 
-void visit(struct TreeNode *e)
+void visit(struct tree_node *e)
 {
     printf("%d,",e->data);
 }
 
 
-static void printDotNode(FILE* fp ,struct TreeNode *e)
+static void print_dot_node(FILE* fp ,struct tree_node *e)
 {
     if (!e) return;
     if (e->color == RED) {
@@ -179,7 +179,7 @@ static void printDotNode(FILE* fp ,struct TreeNode *e)
     if (e->lChild) {
         fprintf(fp, " node%p -> node%p\n", e ,e->lChild) ;
         fprintf(fp, " node%p -> node%p\n",  e->lChild,e->lChild->parent) ;
-        printDotNode(fp ,e->lChild);
+        print_dot_node(fp ,e->lChild);
     }else{
         fprintf(fp, " lChild%p [label=\"Null\"][style = dotted]\n", e);
         fprintf(fp, " node%p -> lChild%p[style = dotted]\n", e,e);
@@ -188,7 +188,7 @@ static void printDotNode(FILE* fp ,struct TreeNode *e)
     if (e->rChild) {
         fprintf(fp, " node%p -> node%p\n", e ,e->rChild) ;
         fprintf(fp, " node%p -> node%p\n",  e->rChild,e->rChild->parent) ;
-        printDotNode(fp ,e->rChild);
+        print_dot_node(fp ,e->rChild);
     }else{
         fprintf(fp, " rChild%p [label=\"Null\"][style = dotted]\n", e);
         fprintf(fp, " node%p -> rChild%p[style = dotted]\n", e,e);
@@ -197,9 +197,9 @@ static void printDotNode(FILE* fp ,struct TreeNode *e)
 
 
 
-void writeTreeToDotFile(struct Tree *T,char opt[],char info[])
+void write_tree_to_dotfile(struct tree *T,char opt[],char info[])
 {
-    FILE* fp = fopen(dot_file_path, opt);
+    FILE* fp = fopen(DOT_FILE_PATH, opt);
     if( NULL == fp)
     {
         printf("打开文件描述符失败\n");
@@ -210,7 +210,7 @@ void writeTreeToDotFile(struct Tree *T,char opt[],char info[])
     fprintf(fp, "\ndigraph {\n");
     fprintf(fp, " splines=false;\n");
     fprintf(fp, " node [style=filled,color=lightblue;];\n\n");
-    printDotNode(fp ,T->top);
+    print_dot_node(fp ,T->top);
     fprintf(fp, "}\n");
     fclose(fp);
 }

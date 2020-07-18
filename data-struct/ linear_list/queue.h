@@ -1,23 +1,23 @@
 #ifndef queue_h
 #define queue_h
 #include "common.h"
-struct QueueNode{
+struct queue_node{
     int data;
-    struct QueueNode *pred;
-    struct QueueNode *succ;
+    struct queue_node *pred;
+    struct queue_node *succ;
 };
 
-struct Queue{
+struct queue{
     int size;
-    struct QueueNode *header;
-    struct QueueNode *trailer;
+    struct queue_node *header;
+    struct queue_node *trailer;
 };
 
 
 
-struct Queue queue_init(void);
-void queue_enqueue(struct Queue *Q, int e);
+struct queue queue_init(void);
+void queue_enqueue(struct queue *Q, int e);
 
-int queue_dequeue(struct Queue *Q);
+int queue_dequeue(struct queue *Q);
 
 #endif /* queue_h */

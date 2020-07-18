@@ -1,5 +1,5 @@
-#ifndef testTree_h
-#define testTree_h
+#ifndef test_tree_h
+#define test_tree_h
 
 #include <stdio.h>
 #include "bst.h"

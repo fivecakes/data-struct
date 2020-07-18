@@ -3,7 +3,7 @@
 #include "common.h"
 #include <string.h>
 
-struct String{
+struct string{
     char *elem;
     int size;
     int capacity;
@@ -11,8 +11,8 @@ struct String{
 
 
 
-struct String string_init(void);
-void string_insert(struct String *S, char *s);
+struct string string_init(void);
+void string_insert(struct string *S, char *s);
 int string_match(char *P, char *T);
 int string_kmp(char *P, char *T);
 int string_bm(char *P,char* T);

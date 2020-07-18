@@ -3,35 +3,35 @@
 
 #include "common.h"
 
-struct ListNode{
+struct list_node{
     int data;
-    struct ListNode *pred;
-    struct ListNode *succ;
+    struct list_node *pred;
+    struct list_node *succ;
 };
 
-struct List{
+struct list{
     int size;
-    struct ListNode *header;
-    struct ListNode *trailer;
+    struct list_node *header;
+    struct list_node *trailer;
 };
 
 
-void list_write2dot(struct List L,char opt[],char info[]);
+void list_write2dot(struct list L,char opt[],char info[]);
 //初始化
-struct List list_init(void);
+struct list list_init(void);
 
 //获取
-int list_get(struct List L,int r);
+int list_get(struct list L,int r);
 
-void list_insert_before(struct ListNode *p,int e);
+void list_insert_before(struct list_node *p,int e);
 //插入
-void list_insert(struct List *L, int n, int e);
+void list_insert(struct list *L, int n, int e);
 
 //选择排序
-void list_selection_sort(struct List *L);
+void list_selection_sort(struct list *L);
 
 //插入排序
-void list_insert_sort(struct List *L);
+void list_insert_sort(struct list *L);
 
 
 #endif /* list_h */

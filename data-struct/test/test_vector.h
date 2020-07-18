@@ -1,5 +1,5 @@
-#ifndef testVector_h
-#define testVector_h
+#ifndef test_vector_h
+#define test_vector_h
 
 #include "vector.h"
 

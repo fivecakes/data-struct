@@ -1,5 +1,5 @@
-#ifndef testList_h
-#define testList_h
+#ifndef test_list_h
+#define test_list_h
 
 #include "list.h"
 

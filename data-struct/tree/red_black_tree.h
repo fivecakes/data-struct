@@ -3,7 +3,9 @@
 
 #include "bst.h"
 
-struct TreeNode *redblack_insert(struct Tree *T,int e);
-void redblack_remove(struct Tree *T,int e);
+
+
+struct tree_node *redblack_insert(struct tree *T,int e);
+void redblack_remove(struct tree *T,int e);
 
 #endif /* RedBlackTree_h */
