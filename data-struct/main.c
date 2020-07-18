@@ -1,5 +1,4 @@
-#include "test_vector.h"
-#include "test_list.h"
+#include "test_linear_list.h"
 #include "test_tree.h"
 #include "test_graph.h"
 #include "test_hash.h"
@@ -9,5 +8,5 @@
 
 int main()
 {
-    test_string();
+    test_list();
 }
