@@ -1,6 +1,6 @@
 #include "tree.h"
 
-static struct tree_queue binTreeInitQueue()
+static struct tree_queue tree_init_queue()
 {
     struct tree_queue L;
     L.size = 0;
@@ -11,7 +11,7 @@ static struct tree_queue binTreeInitQueue()
     return L;
 }
 
-static void binTreeEnqueue(struct tree_queue *Q, struct tree_node *e)
+static void tree_enqueue(struct tree_queue *Q, struct tree_node *e)
 {
     struct tree_queue_node *p = Q->trailer;
 
@@ -26,7 +26,7 @@ static void binTreeEnqueue(struct tree_queue *Q, struct tree_node *e)
     Q->size++;
 }
 
-static struct tree_node *binTreeDequeue(struct tree_queue *Q)
+static struct tree_node *tree_dequeue(struct tree_queue *Q)
 {
     if (Q->size == 0) {
         return NULL;
@@ -39,7 +39,7 @@ static struct tree_node *binTreeDequeue(struct tree_queue *Q)
 }
 
 
-static struct tree_stack binTreeInitStack()
+static struct tree_stack tree_init_stack()
 {
     struct tree_stack S;
     S.elem = malloc(2* sizeof(int*));
@@ -55,14 +55,14 @@ static void expand(struct tree_stack *S)
     S->elem = realloc(S->elem,(S->capacity<<=1)*sizeof(int));
 }
 
-static void binTreePush(struct tree_stack *S, struct tree_node *e)
+static void tree_push(struct tree_stack *S, struct tree_node *e)
 {
     expand(S);
     *(S->elem+S->size) = e;
     S->size++;
 }
 
-static struct tree_node *binTreePop(struct tree_stack *S)
+static struct tree_node *tree_pop(struct tree_stack *S)
 {
     S->size--;
     return *(S->elem + S->size);
@@ -85,71 +85,71 @@ struct tree init_tree()
 
 
 //层次遍历
-void travLevel(struct tree T,void visit(struct tree_node *e))
+void level_traversal(struct tree T,void visit(struct tree_node *e))
 {
-    struct tree_queue Q = binTreeInitQueue();
-    binTreeEnqueue(&Q, T.top->lChild);
+    struct tree_queue Q = tree_init_queue();
+    tree_enqueue(&Q, T.top->left_child);
     
     while (Q.size) {
-        struct tree_node *x = binTreeDequeue(&Q);
+        struct tree_node *x = tree_dequeue(&Q);
         
         visit(x);
         
-        if (x->lChild != NULL){
-            binTreeEnqueue(&Q, x->lChild);
+        if (x->left_child != NULL){
+            tree_enqueue(&Q, x->left_child);
         }
         
-        if (x->rChild != NULL){
-            binTreeEnqueue(&Q, x->rChild);
+        if (x->right_child != NULL){
+            tree_enqueue(&Q, x->right_child);
         }
     }
 }
 
-void visitAlongLeftBranch(struct tree_node *x,void visit(struct tree_node *e),struct tree_stack *S)
+void visit_along_left_branch(struct tree_node *x,void visit(struct tree_node *e),struct tree_stack *S)
 {
     while (x!= NULL) {
         visit(x);
-        binTreePush(S,x->rChild);
-        x = x->lChild;
+        tree_push(S,x->right_child);
+        x = x->left_child;
     }
 }
 
 //先序遍历
-void travPre(struct tree T,void visit(struct tree_node *e))
+void pre_traversal(struct tree T,void visit(struct tree_node *e))
 {
-    struct tree_stack S = binTreeInitStack();
-    struct tree_node *x = T.top->lChild;
+    struct tree_stack S = tree_init_stack();
+    struct tree_node *x = T.top->left_child;
     while (1) {
-        visitAlongLeftBranch(x,visit,&S);
+        visit_along_left_branch(x,visit,&S);
         if (S.size==0) {
             break;
         }else{
-            x = binTreePop(&S);
+            x = tree_pop(&S);
         }
     }
 }
 
-void goAloneLeftBranch(struct tree_node *x,struct tree_stack *S)
+void go_alone_left_branch(struct tree_node *x,struct tree_stack *S)
 {
     while (x != NULL) {
-        binTreePush(S,x);
-        x = x->lChild;
+        tree_push(S,x);
+        x = x->left_child;
     }
 }
 
 //中序遍历
-void travIn(struct tree T,void visit(struct tree_node *e))
+void in_traversal(struct tree T,void visit(struct tree_node *e))
 {
-    struct tree_stack S = binTreeInitStack();
-    struct tree_node *x = T.top->lChild;
+    struct tree_stack S = tree_init_stack();
+    struct tree_node *x = T.top->left_child;
     while (1) {
-        goAloneLeftBranch(x,&S);
+        go_alone_left_branch(x,&S);
         if (S.size==0) {
             break;
         }else{
-            x = binTreePop(&S);
+            x = tree_pop(&S);
             visit(x);
-            x = x->rChild;
+            x = x->right_child;
         }
     }
 }
@@ -172,23 +172,23 @@ static void print_dot_node(FILE* fp ,struct tree_node *e)
     }
     
     
-    if (!e->lChild && !e->rChild) {
+    if (!e->left_child && !e->right_child) {
         return;
     }
     
-    if (e->lChild) {
-        fprintf(fp, " node%p -> node%p\n", e ,e->lChild) ;
-        fprintf(fp, " node%p -> node%p\n",  e->lChild,e->lChild->parent) ;
-        print_dot_node(fp ,e->lChild);
+    if (e->left_child) {
+        fprintf(fp, " node%p -> node%p\n", e ,e->left_child) ;
+        fprintf(fp, " node%p -> node%p\n",  e->left_child,e->left_child->parent) ;
+        print_dot_node(fp ,e->left_child);
     }else{
         fprintf(fp, " lChild%p [label=\"Null\"][style = dotted]\n", e);
         fprintf(fp, " node%p -> lChild%p[style = dotted]\n", e,e);
     }
     
-    if (e->rChild) {
-        fprintf(fp, " node%p -> node%p\n", e ,e->rChild) ;
-        fprintf(fp, " node%p -> node%p\n",  e->rChild,e->rChild->parent) ;
-        print_dot_node(fp ,e->rChild);
+    if (e->right_child) {
+        fprintf(fp, " node%p -> node%p\n", e ,e->right_child) ;
+        fprintf(fp, " node%p -> node%p\n",  e->right_child,e->right_child->parent) ;
+        print_dot_node(fp ,e->right_child);
     }else{
         fprintf(fp, " rChild%p [label=\"Null\"][style = dotted]\n", e);
         fprintf(fp, " node%p -> rChild%p[style = dotted]\n", e,e);

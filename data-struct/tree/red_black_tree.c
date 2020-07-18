@@ -4,7 +4,7 @@
 
 int redblack_update_height(struct tree_node *x)
 {
-    x->height = max(stature(x->lChild) , stature(x->rChild));
+    x->height = max(stature(x->left_child) , stature(x->right_child));
     
     //只统计黑高度
     if (x->color == BLACK) {
@@ -25,12 +25,12 @@ void redblack_update_height_above(struct tree_node *x)
 
 static struct tree_node *solveRR_1(struct tree_node *a,struct tree_node *b,struct tree_node *c,struct tree_node *T0,struct tree_node *T1,struct tree_node *T2,struct tree_node *T3)
 {
-    a->lChild = T0; if(T0) T0->parent = a;
-    a->rChild = T1; if(T1) T1->parent = a; redblack_update_height(a);
-    c->lChild = T2; if(T2) T2->parent = c;
-    c->rChild = T3; if(T3) T3->parent = c; redblack_update_height(c);
-    b->lChild = a; a->parent = b;
-    b->rChild = c; c->parent = b; redblack_update_height(b);
+    a->left_child = T0; if(T0) T0->parent = a;
+    a->right_child = T1; if(T1) T1->parent = a; redblack_update_height(a);
+    c->left_child = T2; if(T2) T2->parent = c;
+    c->right_child = T3; if(T3) T3->parent = c; redblack_update_height(c);
+    b->left_child = a; a->parent = b;
+    b->right_child = c; c->parent = b; redblack_update_height(b);
     a->color = RED;c->color = RED;b->color = BLACK;
     return b;
 }
@@ -56,25 +56,25 @@ void solveDoubleRed(struct tree *T,struct tree_node *x)
     struct tree_node *gg = g->parent;
     struct tree_node *b,*u;
     
-    if (!g->lChild || !g->rChild || g->lChild->color == BLACK || g->rChild->color == BLACK) {
+    if (!g->left_child || !g->right_child || g->left_child->color == BLACK || g->right_child->color == BLACK) {
         printf("双红缺陷,叔父为黑或不存在\n");
 
-        if (g->lChild == p && p->lChild == x) {
-            b=solveRR_1(x,p,g,x->lChild,x->rChild,p->rChild,g->rChild);
-        }else if (g->lChild == p && p->rChild == x){
-            b=solveRR_1(p,x,g,p->lChild,x->lChild,x->rChild,g->rChild);
-        }else if (g->rChild == p && p->rChild == x){
-            b=solveRR_1(g,p,x,g->lChild,p->lChild,x->lChild,x->rChild);
+        if (g->left_child == p && p->left_child == x) {
+            b=solveRR_1(x,p,g,x->left_child,x->right_child,p->right_child,g->right_child);
+        }else if (g->left_child == p && p->right_child == x){
+            b=solveRR_1(p,x,g,p->left_child,x->left_child,x->right_child,g->right_child);
+        }else if (g->right_child == p && p->right_child == x){
+            b=solveRR_1(g,p,x,g->left_child,p->left_child,x->left_child,x->right_child);
         }else{
-            b=solveRR_1(g,x,p,g->lChild,x->lChild,x->rChild,p->rChild);
+            b=solveRR_1(g,x,p,g->left_child,x->left_child,x->right_child,p->right_child);
         }
         //将新子树接回原树
         if (gg) {
-            if (gg->rChild == g) {
-                gg->rChild = b;
+            if (gg->right_child == g) {
+                gg->right_child = b;
                 b->parent = gg;
             }else{
-                gg->lChild = b;
+                gg->left_child = b;
                 b->parent = gg;
             }
         }else{
@@ -83,10 +83,10 @@ void solveDoubleRed(struct tree *T,struct tree_node *x)
         }
     }else{
         printf("双红缺陷,叔父为红\n");
-        if (g->lChild == p) {
-            u = g->rChild;
+        if (g->left_child == p) {
+            u = g->right_child;
         }else{
-            u = g->lChild;
+            u = g->left_child;
         }
         solveRR_2(x,p,g,u);
         if (!gg) {
@@ -108,17 +108,17 @@ struct tree_node *redblack_insert(struct tree *T,int e)
     
     struct tree_node *new = malloc(sizeof(struct tree_node));
     new->parent = p;
-    new->lChild = NULL;
-    new->rChild = NULL;
+    new->left_child = NULL;
+    new->right_child = NULL;
     new->data = e;
     new->color = RED;
     new->height = -1;
     
     if (p) {
         if (e<p->data) {
-            p->lChild = new;
+            p->left_child = new;
         }else{
-            p->rChild = new;
+            p->right_child = new;
         }
         solveDoubleRed(T,new);
         redblack_update_height_above(new);
@@ -135,13 +135,13 @@ struct tree_node *redblack_insert(struct tree *T,int e)
 struct tree_node * solveBB_1(struct tree_node *t,struct tree_node *s,struct tree_node *p,struct tree_node *T0,struct tree_node *T1,struct tree_node *T2,struct tree_node *T3)
 {
     s->color = p->color;
-    s->lChild = t; if(t) t->parent = s;
-    s->rChild = p; if(p) p->parent = s;
+    s->left_child = t; if(t) t->parent = s;
+    s->right_child = p; if(p) p->parent = s;
     
-    t->lChild = T0; if(T0) T0->parent = t;
-    t->rChild = T1; if(T1) T1->parent = t; t->color = BLACK;
-    p->lChild = T2; if(T2) T2->parent = p;
-    p->rChild = T3; if(T3) T3->parent = p; p->color = BLACK;
+    t->left_child = T0; if(T0) T0->parent = t;
+    t->right_child = T1; if(T1) T1->parent = t; t->color = BLACK;
+    p->left_child = T2; if(T2) T2->parent = p;
+    p->right_child = T3; if(T3) T3->parent = p; p->color = BLACK;
     return s;
 }
 
@@ -152,10 +152,10 @@ static struct tree_node * zig(struct tree_node *s,struct tree_node *p,struct tre
     s->color = BLACK;
     p->color = RED;
     
-    p->lChild = Y; if(Y) Y->parent = p;
-    p->rChild = Z; if(Z) Z->parent = p;
-    s->lChild = X; if(X) X->parent = s;
-    s->rChild = p; p->parent = s;
+    p->left_child = Y; if(Y) Y->parent = p;
+    p->right_child = Z; if(Z) Z->parent = p;
+    s->left_child = X; if(X) X->parent = s;
+    s->right_child = p; p->parent = s;
     return s;
 }
 
@@ -164,10 +164,10 @@ static struct tree_node * zag(struct tree_node *s,struct tree_node *p,struct tre
     s->color = BLACK;
     p->color = RED;
 
-    p->lChild = X; if(X) X->parent = p;
-    p->rChild = Y; if(Y) Y->parent = p;
-    s->lChild = p; p->parent = s;
-    s->rChild = Z; if(Z) Z->parent = s;
+    p->left_child = X; if(X) X->parent = p;
+    p->right_child = Y; if(Y) Y->parent = p;
+    s->left_child = p; p->parent = s;
+    s->right_child = Z; if(Z) Z->parent = s;
     return s;
 }
 
@@ -183,34 +183,34 @@ void solveDoubleBlack(struct tree *T,struct tree_node *p,struct tree_node *r)
     struct tree_node *s,*t = NULL;
     struct tree_node *new;
     
-    if (p->lChild == r) {
-        s = p->rChild;
+    if (p->left_child == r) {
+        s = p->right_child;
     }else{
-        s = p->lChild;
+        s = p->left_child;
     }
     
-    if (s->lChild && s->lChild->color == RED) {
-        t = s->lChild;
+    if (s->left_child && s->left_child->color == RED) {
+        t = s->left_child;
     }
-    if (s->rChild && s->rChild->color == RED) {
-        t = s->rChild;
+    if (s->right_child && s->right_child->color == RED) {
+        t = s->right_child;
     }
     
     if (s && s->color == RED) {
         //BB-3
         printf("BB-3\n");
-        if (p->lChild == s) {
-            new = zig(s,p,s->lChild,s->rChild,p->rChild);
+        if (p->left_child == s) {
+            new = zig(s,p,s->left_child,s->right_child,p->right_child);
         }else{
-            new = zag(s,p,p->lChild,s->lChild,s->rChild);
+            new = zag(s,p,p->left_child,s->left_child,s->right_child);
         }
         
         //接回到原树
         if (g) {
-            if (g->lChild == p) {
-                g->lChild = new;
+            if (g->left_child == p) {
+                g->left_child = new;
             }else{
-                g->rChild = new;
+                g->right_child = new;
             }
             new->parent = g;
         }else{
@@ -224,29 +224,29 @@ void solveDoubleBlack(struct tree *T,struct tree_node *p,struct tree_node *r)
             //BB-1,与AVL树一样分四种情况，进行connect34
             printf("BB-1\n");
             printf("p,s,t = %d,%d,%d\n",p->data,s->data,t->data);
-            if (p->lChild == s) {
-                if (s->lChild == t) {
+            if (p->left_child == s) {
+                if (s->left_child == t) {
                     printf("case1\n");
-                    new = solveBB_1(t,s,p,t->lChild,t->rChild,s->rChild,r);
+                    new = solveBB_1(t,s,p,t->left_child,t->right_child,s->right_child,r);
                 }else{
                     printf("case2\n");
-                    new = solveBB_1(s,t,p,s->lChild,t->lChild,t->rChild,r);
+                    new = solveBB_1(s,t,p,s->left_child,t->left_child,t->right_child,r);
                 }
             }else{
-                if (s->lChild == t) {
+                if (s->left_child == t) {
                     printf("case3\n");
-                    new = solveBB_1(p,t,s,r,t->lChild,t->rChild,s->rChild);
+                    new = solveBB_1(p,t,s,r,t->left_child,t->right_child,s->right_child);
                 }else{
                     printf("case4\n");
-                    new = solveBB_1(p,s,t,r,s->lChild,t->lChild,t->rChild);
+                    new = solveBB_1(p,s,t,r,s->left_child,t->left_child,t->right_child);
                 }
             }
             //接回到原树
             if (g) {
-                if (g->lChild == p) {
-                    g->lChild = new;
+                if (g->left_child == p) {
+                    g->left_child = new;
                 }else{
-                    g->rChild = new;
+                    g->right_child = new;
                 }
                 new->parent = g;
             }else{
@@ -259,19 +259,19 @@ void solveDoubleBlack(struct tree *T,struct tree_node *p,struct tree_node *r)
                 printf("BB-2R\n");
                 p->color = BLACK;
                 s->color = RED;
-                if (p->lChild == s) {
-                    p->rChild = r;
+                if (p->left_child == s) {
+                    p->right_child = r;
                 }else{
-                    p->lChild = r;
+                    p->left_child = r;
                 }
             }else{
                 //BB-2B
                 printf("BB-2B\n");
                 s->color = RED;
-                if (p->lChild == s) {
-                    p->rChild = r;
+                if (p->left_child == s) {
+                    p->right_child = r;
                 }else{
-                    p->lChild = r;
+                    p->left_child = r;
                 }
             }
             solveDoubleBlack(T,p,r);

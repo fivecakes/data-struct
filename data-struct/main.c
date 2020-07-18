@@ -8,5 +8,5 @@
 
 int main()
 {
-    test_list();
+    test_bst();
 }

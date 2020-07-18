@@ -5,8 +5,8 @@
 
 struct tree_node{
     struct tree_node *parent;
-    struct tree_node *lChild;
-    struct tree_node *rChild;
+    struct tree_node *left_child;
+    struct tree_node *right_child;
     //数据
     int data;
     //其他指标
@@ -23,9 +23,9 @@ struct tree{
 
 
 struct tree init_tree(void);
-void travLevel(struct tree T,void visit(struct tree_node *e));
-void travIn(struct tree T,void visit(struct tree_node *e));
-void travPre(struct tree T,void visit(struct tree_node *e));
+void level_traversal(struct tree T,void visit(struct tree_node *e));
+void in_traversal(struct tree T,void visit(struct tree_node *e));
+void pre_traversal(struct tree T,void visit(struct tree_node *e));
 void visit(struct tree_node *e);
 void write_tree_to_dotfile(struct tree *T,char opt[],char info[]);
 

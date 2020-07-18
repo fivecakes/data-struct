@@ -3,7 +3,7 @@
 
 int bst_update_height(struct tree_node *x)
 {
-    x->height = 1 + max(stature(x->lChild) , stature(x->rChild));
+    x->height = 1 + max(stature(x->left_child) , stature(x->right_child));
     //printf("updateheight %d,height=%d\n",x->data,x->height);
     return x->height;
 }
@@ -24,14 +24,14 @@ static struct tree_node *bst_search_in(struct tree *T,struct tree_node *v, int e
     T->hot = v;
     
     if (e<v->data) {
-        if (v->lChild) {
-            return bst_search_in(T,v->lChild,e);
+        if (v->left_child) {
+            return bst_search_in(T,v->left_child,e);
         }else{
             return NULL;
         }
     }else{
-       if (v->rChild) {
-            return bst_search_in(T,v->rChild,e);
+       if (v->right_child) {
+            return bst_search_in(T,v->right_child,e);
         }else{
             return NULL;
         }
@@ -56,8 +56,8 @@ struct tree_node *bst_insert(struct tree *T,int e)
     
     struct tree_node *new = malloc(sizeof(struct tree_node));
     new->parent = p;
-    new->lChild = NULL;
-    new->rChild = NULL;
+    new->left_child = NULL;
+    new->right_child = NULL;
     new->data = e;
     new->color = WHITE;
     new->height = 0;
@@ -66,9 +66,9 @@ struct tree_node *bst_insert(struct tree *T,int e)
         T->top = new;
     }else{
         if (e<p->data) {
-            p->lChild = new;
+            p->left_child = new;
         }else{
-            p->rChild = new;
+            p->right_child = new;
         }
     }
     
@@ -81,11 +81,11 @@ struct tree_node *bst_insert(struct tree *T,int e)
 
 struct tree_node *bst_succ(struct tree_node *x)
 {
-    if (x->rChild != NULL) {
-        x = x->rChild;
+    if (x->right_child != NULL) {
+        x = x->right_child;
     }
-    while (x->lChild != NULL) {
-        x = x->lChild;
+    while (x->left_child != NULL) {
+        x = x->left_child;
     }
     return x;
 }
@@ -97,38 +97,38 @@ struct tree_node *bst_remove_at(struct tree *T,struct tree_node *x)
     struct tree_node *p = x->parent;
     T->hot = p;
     
-    if (!x->lChild){
+    if (!x->left_child){
         if (!p) {
-            T->top = x->rChild;
-            x->rChild->parent = NULL;
-            return x->rChild;
+            T->top = x->right_child;
+            x->right_child->parent = NULL;
+            return x->right_child;
         }else{
-            if (p->lChild == x) {
-                p->lChild = x->rChild;
+            if (p->left_child == x) {
+                p->left_child = x->right_child;
             }else{
-                p->rChild = x->rChild;
+                p->right_child = x->right_child;
             }
-            if (x->rChild) {
-                x->rChild->parent = p;
+            if (x->right_child) {
+                x->right_child->parent = p;
             }
-            return x->rChild;
+            return x->right_child;
         }
     }
-    else if (!x->rChild){
+    else if (!x->right_child){
         if (!p) {
-            T->top = x->lChild;
-            x->lChild->parent = NULL;
-            return x->rChild;
+            T->top = x->left_child;
+            x->left_child->parent = NULL;
+            return x->right_child;
         }else{
-            if (p->lChild == x) {
-                p->lChild = x->lChild;
+            if (p->left_child == x) {
+                p->left_child = x->left_child;
             }else{
-                p->rChild = x->lChild;
+                p->right_child = x->left_child;
             }
-            if (x->lChild) {
-                x->lChild->parent = p;
+            if (x->left_child) {
+                x->left_child->parent = p;
             }
-            return x->lChild;
+            return x->left_child;
         }
     }
     else{
@@ -142,14 +142,14 @@ struct tree_node *bst_remove_at(struct tree *T,struct tree_node *x)
         x->data = tmp;
         
         //删除w
-        if (x->rChild == w) {
-            w->parent->rChild = w->rChild;
+        if (x->right_child == w) {
+            w->parent->right_child = w->right_child;
         }else{
-            w->parent->lChild = w->rChild;
+            w->parent->left_child = w->right_child;
         }
 
-        if(w->rChild) w->rChild->parent = w->parent;
-        return w->rChild;
+        if(w->right_child) w->right_child->parent = w->parent;
+        return w->right_child;
     }
 }
 

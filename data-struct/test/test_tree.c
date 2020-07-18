@@ -1,36 +1,6 @@
 #include "test_tree.h"
 
 
-void test_red_black()
-{
-    printf("测试红黑树...\n");
-    {
-        struct tree t = init_tree();
-        redblack_insert(&t,36);
-        redblack_insert(&t,27);
-        redblack_insert(&t,58);
-        redblack_insert(&t,6);
-        redblack_insert(&t,53);
-        redblack_insert(&t,69);
-        redblack_insert(&t,40);
-        redblack_insert(&t,41);
-        redblack_insert(&t,39);
-        redblack_insert(&t,76);
-//        redblack_insert(&T,21);
-//        redblack_insert(&T,24);
-//        redblack_insert(&T,78);
-//        redblack_insert(&T,98);
-//        redblack_insert(&T,57);
-//        redblack_insert(&T,35);
-        write_tree_to_dotfile(&t,"w+","");
-        //BB-1
-//        redblack_remove(&T,6);
-//        redblack_remove(&T,39);
-//        redblack_remove(&T,40);
-//        writeTreeToDotFile(&T,"a+","");
-    }
-}
-
 void test_bst()
 {
 
@@ -48,16 +18,17 @@ void test_bst()
         bst_insert(&t,64);
         
         write_tree_to_dotfile(&t,"w+","");
-        printf("层次遍历:");
-        travLevel(t,visit);
-        printf("\n");
         
         printf("先序遍历:");
-        travPre(t,visit);
+        pre_traversal(t,visit);
         printf("\n");
         
         printf("中序遍历:");
-        travIn(t,visit);
+        in_traversal(t,visit);
+        printf("\n");
+        
+        printf("层次遍历:");
+        level_traversal(t,visit);
         printf("\n");
         
         write_tree_to_dotfile(&t,"w+","");
@@ -68,6 +39,8 @@ void test_bst()
     }
 
 }
+
+
 
 void test_avl()
 {
@@ -180,4 +153,36 @@ void test_b_tree()
         write_b_tree_to_dotfile(&BT,"a+","52");
     }
 
+}
+
+
+
+void test_red_black()
+{
+    printf("测试红黑树...\n");
+    {
+        struct tree t = init_tree();
+        redblack_insert(&t,36);
+        redblack_insert(&t,27);
+        redblack_insert(&t,58);
+        redblack_insert(&t,6);
+        redblack_insert(&t,53);
+        redblack_insert(&t,69);
+        redblack_insert(&t,40);
+        redblack_insert(&t,41);
+        redblack_insert(&t,39);
+        redblack_insert(&t,76);
+//        redblack_insert(&T,21);
+//        redblack_insert(&T,24);
+//        redblack_insert(&T,78);
+//        redblack_insert(&T,98);
+//        redblack_insert(&T,57);
+//        redblack_insert(&T,35);
+        write_tree_to_dotfile(&t,"w+","");
+        //BB-1
+//        redblack_remove(&T,6);
+//        redblack_remove(&T,39);
+//        redblack_remove(&T,40);
+//        writeTreeToDotFile(&T,"a+","");
+    }
 }
