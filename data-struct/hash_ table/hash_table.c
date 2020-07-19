@@ -43,7 +43,7 @@ int key2index(char* key)
 
 
 //向哈希表中插入数据
-int insert_entry(struct hash_table* t , char* key , char* value)
+int hash_insert(struct hash_table* t , char* key , char* value)
 {
     int index, vlen1, vlen2;
     struct hash_entry *e, *ep;
@@ -82,7 +82,7 @@ int insert_entry(struct hash_table* t , char* key , char* value)
 
 //在哈希表中查找key对应的value
 //找到了返回value的地址，没找到返回NULL
-char* find_value_by_key(struct hash_table* t , char* key)
+char* hash_get(struct hash_table* t , char* key)
 {
     int index;
     struct hash_entry* e;

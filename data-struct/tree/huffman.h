@@ -1,7 +1,9 @@
 #ifndef huffman_h
 #define huffman_h
 #include "common.h"
-
+#include <string.h>
+#include "hash_table.h"
+#include "vector.h"
 
 struct huff_char{
     char ch;

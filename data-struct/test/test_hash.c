@@ -24,9 +24,9 @@ void testHash()
     struct hash_table t;
     init_hash_table(&t);
     
-    insert_entry(&t , "aaaa" , "aaaaaaaaaaaaaaaaaa");
-    insert_entry(&t , "bbbb" , "bbbbbbbbbbbbbbbbbb");
-    insert_entry(&t , "cccc" , "cccccccccccccccccc");
+    hash_insert(&t , "aaaa" , "aaaaaaaaaaaaaaaaaa");
+    hash_insert(&t , "bbbb" , "bbbbbbbbbbbbbbbbbb");
+    hash_insert(&t , "cccc" , "cccccccccccccccccc");
 
     print_table(&t);
 }

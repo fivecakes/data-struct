@@ -92,3 +92,31 @@ struct huff_tree generate_tree (struct huff_forest* forest ) {
     }
     return forest->header->pred->data;
 }
+
+
+//根据编码表，将字符串转换为二进制编码
+int encode (struct hash_table* table, struct vector* code, char* s ) {
+    int n = 0;
+    for ( size_t m = strlen ( s ), i = 0; i < m; i++ ) {
+        //对每个字符从编码表中获取编码，不能识别的用空格代替
+        char* pCharCode = hash_get(table, &(s[i]) );
+        if ( !pCharCode ) pCharCode = hash_get (table, " " );
+        
+        for ( size_t m = strlen (pCharCode), j = 0; j < m; j++ ){
+            vector_push(code,'1' == * (pCharCode + j ) ?1:0);
+        }
+    }
+    printf ( "\n" ); return n;
+}
+
+
+void decode ( struct huff_tree* tree, struct vector* code, int n ) {
+    struct huff_tree_node *x = tree->top;
+    for ( int i = 0; i < code->size; i++ ) {
+      x = vector_get(code,i) ? x->right_child : x->left_child;
+      if (!x->left_child) {
+          printf ( "%c", x->data.ch );
+          x = tree->top;
+      }
+   }
+}

@@ -22,8 +22,8 @@ struct hash_table
 
 
 
-char* find_value_by_key(struct hash_table* t , char* key);
-int insert_entry(struct hash_table* t , char* key , char* value);
+char* hash_get(struct hash_table* t , char* key);
+int hash_insert(struct hash_table* t , char* key , char* value);
 int key2index(char* key);
 void init_hash_table(struct hash_table* t);
 

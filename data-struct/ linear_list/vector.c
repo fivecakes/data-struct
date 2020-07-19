@@ -35,6 +35,13 @@ void vector_insert(struct vector *V, int r, int e)
     V->size++;
 }
 
+void vector_push(struct vector *v, int e)
+{
+    vector_expand(v);
+    *(v->elem+v->size) = e;
+    v->size++;
+}
+
 
 //替换
 void vector_replace(struct vector *V, int r, int e)
