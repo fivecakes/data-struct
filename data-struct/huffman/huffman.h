@@ -5,6 +5,7 @@
 #include "hash_table.h"
 #include "vector.h"
 
+#define  N_CHAR  (0x80 - 0x20)
 struct huff_char{
     char ch;
     int weight;
@@ -36,6 +37,22 @@ struct huff_forest{
     struct huff_forest_node *header;
     struct huff_forest_node *trailer;
 };
+
+
+struct huff_forest generate_forest(char* s);
+struct huff_tree generate_tree(struct huff_forest* forest);
+int huffman_encode(struct hash_table* table, struct vector* code, char* s);
+void huffman_decode(struct huff_tree* tree, struct vector* code);
+
+
+
+
+
+
+
+
+
+
 
 
 

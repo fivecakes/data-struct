@@ -8,5 +8,5 @@
 
 int main()
 {
-    test_avl();
+    test_huffman();
 }

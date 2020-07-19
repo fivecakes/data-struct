@@ -45,7 +45,8 @@ void huff_forest_insert(struct huff_forest *f,struct huff_tree e)
 
 
 
-struct huff_tree* min_huff_char ( struct huff_forest* f ) {
+struct huff_tree* min_huff_char ( struct huff_forest* f )
+{
     //首节点
     struct huff_forest_node *p =f->header->succ;
     
@@ -69,8 +70,37 @@ struct huff_tree* min_huff_char ( struct huff_forest* f ) {
     return &minChar->data;
 }
 
+int* statistics ( char* sample_text_file )
+{
+    int* freq = malloc(N_CHAR* sizeof(int));
+    memset ( freq, 0, sizeof ( int ) * N_CHAR );
+    FILE* fp = fopen ( sample_text_file, "r" );
+    for ( char ch; 0 < fscanf ( fp, "%c", &ch );)
+        if ( ch >= 0x20 ) freq[ch - 0x20]++;
+    fclose ( fp );
+    return freq;
+}
 
-struct huff_tree generate_tree (struct huff_forest* forest ) {
+struct huff_forest* initForest ( int* freq )
+{
+   struct huff_forest* forest = malloc(sizeof(struct huff_forest));
+   for ( int i = 0; i < N_CHAR; i++ ) {
+       //新树
+       struct huff_tree new_huff_tree = init_huff_tree();
+       struct huff_char huff_char;
+       huff_char.ch =0x20 + i;
+       huff_char.weight = freq[i];
+       insert_huff_tree_root(&new_huff_tree,huff_char);
+       
+       //将新树加入森林
+       huff_forest_insert(forest,new_huff_tree);
+   }
+   return forest;
+}
+
+
+struct huff_tree generate_tree(struct huff_forest* forest)
+{
     while ( 1 < forest->size ) {
         //从森林里面选取两颗权重最低的树，并将这两科树从森林中删除
         struct huff_tree* T1 = min_huff_char ( forest );
@@ -95,12 +125,17 @@ struct huff_tree generate_tree (struct huff_forest* forest ) {
 
 
 //根据编码表，将字符串转换为二进制编码
-int encode (struct hash_table* table, struct vector* code, char* s ) {
+int huffman_encode(struct hash_table* table, struct vector* code, char* s)
+{
     int n = 0;
     for ( size_t m = strlen ( s ), i = 0; i < m; i++ ) {
         //对每个字符从编码表中获取编码，不能识别的用空格代替
-        char* pCharCode = hash_get(table, &(s[i]) );
+        char c[2];
+        c[0] = s[i];
+        c[1] = '\0';
+        char* pCharCode = hash_get(table, c);
         if ( !pCharCode ) pCharCode = hash_get (table, " " );
+        //printf("%c,%s\n",s[i],pCharCode);
         
         for ( size_t m = strlen (pCharCode), j = 0; j < m; j++ ){
             vector_push(code,'1' == * (pCharCode + j ) ?1:0);
@@ -110,7 +145,8 @@ int encode (struct hash_table* table, struct vector* code, char* s ) {
 }
 
 
-void decode ( struct huff_tree* tree, struct vector* code, int n ) {
+void huffman_decode(struct huff_tree* tree, struct vector* code)
+{
     struct huff_tree_node *x = tree->top;
     for ( int i = 0; i < code->size; i++ ) {
       x = vector_get(code,i) ? x->right_child : x->left_child;

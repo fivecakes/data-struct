@@ -22,7 +22,7 @@ int hash_code(char* s)
         h = (h<<5) | (h>>27);
         h += (int)s[i];
     }
-    printf("%s = %d\n",s,h);
+    //printf("%s = %d\n",s,h);
     return h;
 }
 
@@ -103,3 +103,19 @@ char* hash_get(struct hash_table* t , char* key)
 
 
 
+
+void print_hash_table(struct hash_table* t)
+{
+    int i;
+    struct hash_entry* e;
+    if (t == NULL)return;
+    for (i = 0; i<BUCKETCOUNT; ++i) {
+        printf("\nbucket[%d]:\n" , i);
+        e = &(t->bucket[i]);
+        while (e->key != NULL) {
+            printf("\t%s\t=\t%s\n" , e->key , e->value);
+            if (e->next == NULL)break;
+            e = e->next;
+        }
+    }
+}

@@ -27,6 +27,6 @@ int hash_insert(struct hash_table* t , char* key , char* value);
 int key2index(char* key);
 void init_hash_table(struct hash_table* t);
 
-
+void print_hash_table(struct hash_table* t);
 
 #endif /* hash_h */
