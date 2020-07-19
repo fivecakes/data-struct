@@ -48,24 +48,24 @@ void test_avl()
     printf("测试AVL...\n");
     {
 
-        struct tree T = init_tree();
-        avl_insert(&T,36);
-        avl_insert(&T,27);
-        avl_insert(&T,58);
-        avl_insert(&T,6);
-        avl_insert(&T,53);
-        avl_insert(&T,69);
-        avl_insert(&T,40);
-        write_tree_to_dotfile(&T,"w+","40");
+        struct tree t = init_tree();
+        avl_insert(&t,36);
+        avl_insert(&t,27);
+        avl_insert(&t,58);
+        avl_insert(&t,6);
+        avl_insert(&t,53);
+        avl_insert(&t,69);
+        avl_insert(&t,40);
+        write_tree_to_dotfile(&t,"w+","40");
 
-        avl_insert(&T,46);
-        write_tree_to_dotfile(&T,"a+","46");
+        avl_insert(&t,46);
+        write_tree_to_dotfile(&t,"a+","46");
 
-        avl_insert(&T,41);
-        write_tree_to_dotfile(&T,"a+","41");
-        avl_remove(&T,6);
+        avl_insert(&t,41);
+        write_tree_to_dotfile(&t,"a+","41");
+        avl_remove(&t,6);
         
-        write_tree_to_dotfile(&T,"a+","remove6");
+        write_tree_to_dotfile(&t,"a+","remove6");
     }
 }
 

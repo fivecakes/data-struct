@@ -82,8 +82,6 @@ struct tree init_tree()
 
 
 
-
-
 //层次遍历
 void level_traversal(struct tree T,void visit(struct tree_node *e))
 {

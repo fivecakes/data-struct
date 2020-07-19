@@ -8,5 +8,5 @@
 
 int main()
 {
-    test_bst();
+    test_avl();
 }
