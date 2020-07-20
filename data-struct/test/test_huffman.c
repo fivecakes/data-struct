@@ -4,7 +4,7 @@ void test_huffman()
 {
     //创建huffman树
     int* freq = statistics ("/Users/book/Codes/data-struct/data-struct/huffman/sample.txt");
-    struct huff_forest *forest = initForest(freq);
+    struct huff_forest *forest = init_forest(freq);
     struct huff_tree* huff_tree = generate_tree(forest);
     write_huff_tree_to_dotfile(forest,"w+","");
     

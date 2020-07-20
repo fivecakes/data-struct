@@ -16,8 +16,8 @@ struct queue{
 
 
 struct queue queue_init(void);
-void queue_enqueue(struct queue *Q, int e);
+void queue_enqueue(struct queue *q, int e);
 
-int queue_dequeue(struct queue *Q);
+int queue_dequeue(struct queue *q);
 
 #endif /* queue_h */

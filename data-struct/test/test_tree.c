@@ -73,46 +73,46 @@ void test_spaly()
 {
     printf("测试Spaly...\n");
     {
-        struct tree T = init_tree();
-        write_tree_to_dotfile(&T,"w+","");
-        splay_insert(&T,36);
-        write_tree_to_dotfile(&T,"a+","36");
+        struct tree tree = init_tree();
+        write_tree_to_dotfile(&tree,"w+","");
+        splay_insert(&tree,36);
+        write_tree_to_dotfile(&tree,"a+","36");
         
-        splay_insert(&T,27);
-        write_tree_to_dotfile(&T,"a+","27");
+        splay_insert(&tree,27);
+        write_tree_to_dotfile(&tree,"a+","27");
         
-        splay_insert(&T,58);
-        write_tree_to_dotfile(&T,"a+","58");
+        splay_insert(&tree,58);
+        write_tree_to_dotfile(&tree,"a+","58");
         
-        splay_insert(&T,6);
-        write_tree_to_dotfile(&T,"a+","6");
+        splay_insert(&tree,6);
+        write_tree_to_dotfile(&tree,"a+","6");
         
-        splay_insert(&T,53);
-        write_tree_to_dotfile(&T,"a+","53");
+        splay_insert(&tree,53);
+        write_tree_to_dotfile(&tree,"a+","53");
         
-        splay_insert(&T,69);
-        write_tree_to_dotfile(&T,"a+","69");
+        splay_insert(&tree,69);
+        write_tree_to_dotfile(&tree,"a+","69");
         
-        splay_insert(&T,40);
-        write_tree_to_dotfile(&T,"a+","40");
+        splay_insert(&tree,40);
+        write_tree_to_dotfile(&tree,"a+","40");
         
-        splay_insert(&T,46);
-        write_tree_to_dotfile(&T,"a+","46");
+        splay_insert(&tree,46);
+        write_tree_to_dotfile(&tree,"a+","46");
         
-        splay_insert(&T,64);
-        write_tree_to_dotfile(&T,"a+","64");
-        splay_remove(&T,69);
-        write_tree_to_dotfile(&T,"a+","remove69");
-        splay_search(&T,6);
-        write_tree_to_dotfile(&T,"a+","search6");
-        splay_search(&T,36);
-        write_tree_to_dotfile(&T,"a+","search36");
-        splay_search(&T,46);
-        write_tree_to_dotfile(&T,"a+","search46");
-        splay_search(&T,27);
-        write_tree_to_dotfile(&T,"a+","search27");
-        splay_remove(&T,58);
-        write_tree_to_dotfile(&T,"a+","r58");
+        splay_insert(&tree,64);
+        write_tree_to_dotfile(&tree,"a+","64");
+        splay_remove(&tree,69);
+        write_tree_to_dotfile(&tree,"a+","remove69");
+        splay_search(&tree,6);
+        write_tree_to_dotfile(&tree,"a+","search6");
+        splay_search(&tree,36);
+        write_tree_to_dotfile(&tree,"a+","search36");
+        splay_search(&tree,46);
+        write_tree_to_dotfile(&tree,"a+","search46");
+        splay_search(&tree,27);
+        write_tree_to_dotfile(&tree,"a+","search27");
+        splay_remove(&tree,58);
+        write_tree_to_dotfile(&tree,"a+","r58");
     }
 
 }
@@ -123,34 +123,34 @@ void test_b_tree()
 {
     printf("测试B-Tree...\n");
     {
-        struct b_tree BT = btree_init();
+        struct b_tree b_tree = btree_init();
         
-        btree_insert(&BT,57);
-        btree_insert(&BT,152);
-        btree_insert(&BT,196);
-        btree_insert(&BT,249);
-        btree_insert(&BT,266);
-        btree_insert(&BT,268);
-        btree_insert(&BT,315);
-        btree_insert(&BT,423);
-        btree_insert(&BT,468);
-        btree_insert(&BT,484);
-        btree_insert(&BT,528);
-        btree_insert(&BT,300);
-        btree_insert(&BT,310);
-        btree_insert(&BT,299);
-        btree_insert(&BT,56);
-        btree_insert(&BT,55);
-        btree_insert(&BT,54);
-        btree_insert(&BT,53);
-        btree_insert(&BT,52);
-        btree_insert(&BT,51);
-        write_b_tree_to_dotfile(&BT,"w+","");
-        btree_remove(&BT,484);
-        write_b_tree_to_dotfile(&BT,"a+","484");
+        btree_insert(&b_tree,57);
+        btree_insert(&b_tree,152);
+        btree_insert(&b_tree,196);
+        btree_insert(&b_tree,249);
+        btree_insert(&b_tree,266);
+        btree_insert(&b_tree,268);
+        btree_insert(&b_tree,315);
+        btree_insert(&b_tree,423);
+        btree_insert(&b_tree,468);
+        btree_insert(&b_tree,484);
+        btree_insert(&b_tree,528);
+        btree_insert(&b_tree,300);
+        btree_insert(&b_tree,310);
+        btree_insert(&b_tree,299);
+        btree_insert(&b_tree,56);
+        btree_insert(&b_tree,55);
+        btree_insert(&b_tree,54);
+        btree_insert(&b_tree,53);
+        btree_insert(&b_tree,52);
+        btree_insert(&b_tree,51);
+        write_b_tree_to_dotfile(&b_tree,"w+","");
+        btree_remove(&b_tree,484);
+        write_b_tree_to_dotfile(&b_tree,"a+","484");
 
-        btree_remove(&BT,52);
-        write_b_tree_to_dotfile(&BT,"a+","52");
+        btree_remove(&b_tree,52);
+        write_b_tree_to_dotfile(&b_tree,"a+","52");
     }
 
 }

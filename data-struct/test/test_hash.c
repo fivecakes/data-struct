@@ -4,7 +4,7 @@
 
 
 
-void testHash()
+void test_hash()
 {
     struct hash_table t;
     init_hash_table(&t);

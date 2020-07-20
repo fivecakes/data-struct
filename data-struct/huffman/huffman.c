@@ -81,23 +81,23 @@ struct huff_tree* min_huff_char ( struct huff_forest* f )
     struct huff_forest_node *p =f->header->succ;
     
     //记录权重最小节点的位置及权重
-    struct huff_forest_node *minChar = p;
-    int minWeight = p->huff_tree.top->huff_char.weight;
+    struct huff_forest_node *min_char = p;
+    int min_weight = p->huff_tree.top->huff_char.weight;
     
     //遍历所有节点
     while(p->succ){
-        if (minWeight > p->huff_tree.top->huff_char.weight ){
-            minWeight = p->huff_tree.top->huff_char.weight;
-            minChar = p;
+        if (min_weight > p->huff_tree.top->huff_char.weight ){
+            min_weight = p->huff_tree.top->huff_char.weight;
+            min_char = p;
         }
         p = p->succ;
     }
     
     //从森林中删除
-    minChar->pred->succ = minChar->succ;
-    minChar->succ->pred = minChar->pred;
+    min_char->pred->succ = min_char->succ;
+    min_char->succ->pred = min_char->pred;
     f->size--;
-    return &(minChar->huff_tree);
+    return &(min_char->huff_tree);
 }
 
 int* statistics ( char* sample_text_file )
@@ -111,7 +111,7 @@ int* statistics ( char* sample_text_file )
     return freq;
 }
 
-struct huff_forest* initForest ( int* freq )
+struct huff_forest* init_forest ( int* freq )
 {
     struct huff_forest* forest = malloc(sizeof(struct huff_forest));
     forest->size = 0;
@@ -137,15 +137,15 @@ struct huff_tree* generate_tree(struct huff_forest* forest)
 {
     while ( 1 < forest->size ) {
         //从森林里面选取两颗权重最低的树，并将这两科树从森林中删除
-        struct huff_tree* T1 = min_huff_char ( forest );
-        struct huff_tree* T2 = min_huff_char ( forest );
+        struct huff_tree* t1 = min_huff_char (forest);
+        struct huff_tree* t2 = min_huff_char (forest);
         
         //将这两颗树组成一棵新树
-        struct huff_tree new_huff_tree = creat_huff_tree('^',T1->top->huff_char.weight + T2->top->huff_char.weight);
-        new_huff_tree.top->left_child = T1->top;
-        T1->top->parent = new_huff_tree.top;
-        new_huff_tree.top->right_child = T2->top;
-        T2->top->parent = new_huff_tree.top;
+        struct huff_tree new_huff_tree = creat_huff_tree('^',t1->top->huff_char.weight + t2->top->huff_char.weight);
+        new_huff_tree.top->left_child = t1->top;
+        t1->top->parent = new_huff_tree.top;
+        new_huff_tree.top->right_child = t2->top;
+        t2->top->parent = new_huff_tree.top;
         
         //将新树加入森林
         huff_forest_insert(forest,new_huff_tree);
@@ -163,12 +163,12 @@ char *huffman_encode(struct hash_table* table, char* s)
     for ( size_t m = strlen (s), i = 0; i < m; i++ ) {
         //对每个字符从编码表中获取编码
         c[0] = s[i];
-        char* pCharCode = hash_get(table, c);
+        char* p_char_code = hash_get(table, c);
         //不能识别的用空格代替
-        if ( !pCharCode ) pCharCode = hash_get (table, " " );
+        if ( !p_char_code ) p_char_code = hash_get (table, " " );
         
-        for ( size_t m = strlen (pCharCode), j = 0; j < m; j++ ){
-            code[len++] = * (pCharCode + j);
+        for ( size_t m = strlen (p_char_code), j = 0; j < m; j++ ){
+            code[len++] = * (p_char_code + j);
         }
     }
     code[len+1] = '\0';

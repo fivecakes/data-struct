@@ -171,9 +171,9 @@ static struct tree_node * zag(struct tree_node *s,struct tree_node *p,struct tre
     return s;
 }
 
-void solveDoubleBlack(struct tree *T,struct tree_node *p,struct tree_node *r)
+void solveDoubleBlack(struct tree *tree,struct tree_node *p,struct tree_node *r)
 {
-    write_tree_to_dotfile(T,"a+","solveDoubleBlack");
+    write_tree_to_dotfile(tree,"a+","solveDoubleBlack");
 
     if (!p) {
         return;
@@ -215,10 +215,10 @@ void solveDoubleBlack(struct tree *T,struct tree_node *p,struct tree_node *r)
             new->parent = g;
         }else{
             new->parent = NULL;
-            T->top = new;
+            tree->top = new;
         }
         
-        solveDoubleBlack(T,p,r);
+        solveDoubleBlack(tree,p,r);
     }else{
         if (t) {
             //BB-1,与AVL树一样分四种情况，进行connect34
@@ -251,7 +251,7 @@ void solveDoubleBlack(struct tree *T,struct tree_node *p,struct tree_node *r)
                 new->parent = g;
             }else{
                 new->parent = NULL;
-                T->top = new;
+                tree->top = new;
             }
         }else{
             if (p->color == RED) {
@@ -274,7 +274,7 @@ void solveDoubleBlack(struct tree *T,struct tree_node *p,struct tree_node *r)
                     p->left_child = r;
                 }
             }
-            solveDoubleBlack(T,p,r);
+            solveDoubleBlack(tree,p,r);
         }
     }
 }

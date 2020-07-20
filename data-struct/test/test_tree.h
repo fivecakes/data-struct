@@ -14,4 +14,4 @@ void test_avl(void);
 void test_spaly(void);
 void test_b_tree(void);
 void test_red_black(void);
-#endif /* testTree_h */
+#endif

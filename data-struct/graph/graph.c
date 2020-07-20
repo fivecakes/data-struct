@@ -3,23 +3,23 @@
 
 struct graph graph_init(int (*arr)[5])
 {
-    struct graph G;
-    G.matrix = arr;
-    G.graphNodes = malloc(5*sizeof(struct graph_node));
+    struct graph g;
+    g.matrix = arr;
+    g.graph_nodes = malloc(5*sizeof(struct graph_node));
     
     for (int i = 0; i<5; i++) {
-        G.graphNodes[i].data = i;
-        G.graphNodes[i].status = UNDISCOVERED;
+        g.graph_nodes[i].data = i;
+        g.graph_nodes[i].status = UNDISCOVERED;
     }
     
-    return G;
+    return g;
 }
 
 //找节点i的编号为j的邻居的下一个邻居
-static int next_nbr(struct graph *G,int i,int j)
+static int next_nbr(struct graph *g,int i,int j)
 {
     while (-1<j) {
-        if (G->matrix[i][--j]) {
+        if (g->matrix[i][--j]) {
             break;
         }
     }
@@ -27,56 +27,56 @@ static int next_nbr(struct graph *G,int i,int j)
 }
 
 
-static void bfs(struct graph *G,int s)
+static void bfs(struct graph *g,int s)
 {
-    struct queue Q = queue_init();
-    G->graphNodes[s].status = DISCOVERED;
-    queue_enqueue(&Q, s);
+    struct queue q = queue_init();
+    g->graph_nodes[s].status = DISCOVERED;
+    queue_enqueue(&q, s);
     
-    while (Q.size) {
-        int v = queue_dequeue(&Q);
+    while (q.size) {
+        int v = queue_dequeue(&q);
         
         printf("%d",v);
-        for (int u = next_nbr(G,v,4+1); -1<u; u=next_nbr(G,v,u)) {
-            if (G->graphNodes[u].status == UNDISCOVERED) {
-                G->graphNodes[u].status = DISCOVERED;
-                queue_enqueue(&Q, u);
+        for (int u = next_nbr(g,v,4+1); -1<u; u=next_nbr(g,v,u)) {
+            if (g->graph_nodes[u].status == UNDISCOVERED) {
+                g->graph_nodes[u].status = DISCOVERED;
+                queue_enqueue(&q, u);
             }
         }
         
-        G->graphNodes[v].status = VISITED;
+        g->graph_nodes[v].status = VISITED;
     }
 }
 
-void graph_bfs(struct graph *G)
+void graph_bfs(struct graph *g)
 {
     for (int i = 0; i<5; i++) {
-        if (G->graphNodes[i].status == UNDISCOVERED) {
-            bfs(G,i);
+        if (g->graph_nodes[i].status == UNDISCOVERED) {
+            bfs(g,i);
         }
     }
 }
 
-static void dfs(struct graph *G,int s)
+static void dfs(struct graph *g,int s)
 {
-    G->graphNodes[s].status = DISCOVERED;
+    g->graph_nodes[s].status = DISCOVERED;
 
     printf("%d",s);
-    for (int u = next_nbr(G,s,4+1); -1<u; u=next_nbr(G,s,u)) {
-        if (G->graphNodes[u].status == UNDISCOVERED) {
-            dfs(G,u);
+    for (int u = next_nbr(g,s,4+1); -1<u; u=next_nbr(g,s,u)) {
+        if (g->graph_nodes[u].status == UNDISCOVERED) {
+            dfs(g,u);
         }
     }
     
-    G->graphNodes[s].status = VISITED;
+    g->graph_nodes[s].status = VISITED;
 
 }
 
-void graph_dfs(struct graph *G)
+void graph_dfs(struct graph *g)
 {
     for (int i = 0; i<5; i++) {
-        if (G->graphNodes[i].status == UNDISCOVERED) {
-            dfs(G,i);
+        if (g->graph_nodes[i].status == UNDISCOVERED) {
+            dfs(g,i);
         }
     }
 }

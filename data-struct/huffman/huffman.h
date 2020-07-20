@@ -45,7 +45,7 @@ struct huff_tree* generate_tree(struct huff_forest* forest);
 char *huffman_encode(struct hash_table* table, char* s);
 void huffman_decode(struct huff_tree* tree,char * code);
 int* statistics ( char* sample_text_file );
-struct huff_forest* initForest ( int* freq );
+struct huff_forest* init_forest ( int* freq );
 void write_huff_tree_to_dotfile(struct huff_forest *forest,char opt[],char info[]);
 struct hash_table* generate_table (struct huff_tree* tree);
 

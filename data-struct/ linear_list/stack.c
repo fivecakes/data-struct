@@ -2,29 +2,29 @@
 
 struct stack stack_init()
 {
-    struct stack S;
-    S.elem = malloc(2* sizeof(int));
-    S.capacity =2;
-    S.size = 0;
-    return S;
+    struct stack s;
+    s.elem = malloc(2* sizeof(int));
+    s.capacity =2;
+    s.size = 0;
+    return s;
 }
 
 //扩容
-static void expand(struct stack *S)
+static void expand(struct stack *s)
 {
-    if(S->size < S->capacity) return; //尚未满员，不必扩容
-    S->elem = realloc(S->elem,(S->capacity<<=1)*sizeof(int));
+    if(s->size < s->capacity) return; //尚未满员，不必扩容
+    s->elem = realloc(s->elem,(s->capacity<<=1)*sizeof(int));
 }
 
-void stack_push(struct stack *S, int e)
+void stack_push(struct stack *s, int e)
 {
-    expand(S);
-    *(S->elem+S->size) = e;
-    S->size++;
+    expand(s);
+    *(s->elem+s->size) = e;
+    s->size++;
 }
 
-int stack_pop(struct stack *S)
+int stack_pop(struct stack *s)
 {
-    S->size--;
-    return *(S->elem + S->size);
+    s->size--;
+    return *(s->elem + s->size);
 }

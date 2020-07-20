@@ -1,5 +1,5 @@
-#ifndef binTree_h
-#define binTree_h
+#ifndef bin_tree_h
+#define bin_tree_h
 #include "common.h"
 #define stature(p) ((p) ? (p)->height : -1)
 
@@ -23,11 +23,11 @@ struct tree{
 
 
 struct tree init_tree(void);
-void level_traversal(struct tree T,void visit(struct tree_node *e));
-void in_traversal(struct tree T,void visit(struct tree_node *e));
-void pre_traversal(struct tree T,void visit(struct tree_node *e));
+void level_traversal(struct tree t,void visit(struct tree_node *e));
+void in_traversal(struct tree t,void visit(struct tree_node *e));
+void pre_traversal(struct tree t,void visit(struct tree_node *e));
 void visit(struct tree_node *e);
-void write_tree_to_dotfile(struct tree *T,char opt[],char info[]);
+void write_tree_to_dotfile(struct tree *t,char opt[],char info[]);
 
 //栈数据结构
 struct tree_stack{

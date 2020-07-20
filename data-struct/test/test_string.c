@@ -4,14 +4,14 @@
 
 void test_string()
 {
-    struct string S = string_init();
-    string_insert(&S,"dkdfcfcfcfcfcfcfcfcfcfcfcfcfcdmkmfcm");
+    struct string s = string_init();
+    string_insert(&s,"dkdfcfcfcfcfcfcfcfcfcfcfcfcfcdmkmfcm");
     
-    char P[] = "fcm";
+    char pa[] = "fcm";
     
-    int r1 = string_match(P, S.elem);
-    int r2 = string_kmp(P, S.elem);
-    int r3 = string_bm(P, S.elem);
+    int r1 = string_match(pa, s.elem);
+    int r2 = string_kmp(pa, s.elem);
+    int r3 = string_bm(pa, s.elem);
     
     printf("manli = %d\n",r1);
     printf("kmp = %d\n",r2);

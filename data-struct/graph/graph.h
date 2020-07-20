@@ -13,7 +13,7 @@ struct graph_node{
     int out_degree;
     
     int status;
-    int dTime,fTime;
+    int d_time,f_time;
     int parent;
     int priority;
 };
@@ -21,12 +21,12 @@ struct graph_node{
 
 struct graph{
     int (*matrix)[5];
-    struct graph_node *graphNodes;
+    struct graph_node *graph_nodes;
 };
 
 
 struct graph graph_init(int (*arr)[5]);
-void graph_bfs(struct graph *G);
-void graph_dfs(struct graph *G);
+void graph_bfs(struct graph *g);
+void graph_dfs(struct graph *g);
 
 #endif /* graph_h */

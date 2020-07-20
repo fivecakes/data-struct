@@ -12,8 +12,8 @@ struct string{
 
 
 struct string string_init(void);
-void string_insert(struct string *S, char *s);
-int string_match(char *P, char *T);
-int string_kmp(char *P, char *T);
-int string_bm(char *P,char* T);
+void string_insert(struct string *string, char *s);
+int string_match(char *p, char *t);
+int string_kmp(char *p, char *t);
+int string_bm(char *p,char* t);
 #endif /* string_h */

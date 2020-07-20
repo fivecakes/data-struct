@@ -1,7 +1,5 @@
-
-
-#ifndef BTree_h
-#define BTree_h
+#ifndef b_tree_h
+#define b_tree_h
 
 #include "vector.h"
 struct b_tree_vector{
@@ -27,13 +25,13 @@ struct b_tree{
 
 
 struct b_tree_vector btree_vector_init(void);
-void btree_vector_insert(struct b_tree_vector *V, int r, struct b_tree_node* e);
-void btree_vector_delete(struct b_tree_vector *V, int r);
-struct b_tree_node *btree_vector_get(struct b_tree_vector *V,int r);
+void btree_vector_insert(struct b_tree_vector *v, int r, struct b_tree_node* e);
+void btree_vector_delete(struct b_tree_vector *v, int r);
+struct b_tree_node *btree_vector_get(struct b_tree_vector *v,int r);
 
 
 struct b_tree btree_init(void);
-void btree_insert(struct b_tree *BT,int e);
-void btree_remove(struct b_tree *BT,int e);
-void write_b_tree_to_dotfile(struct b_tree *T,char opt[],char info[]);
-#endif /* BTree_h */
+void btree_insert(struct b_tree *t,int e);
+void btree_remove(struct b_tree *t,int e);
+void write_b_tree_to_dotfile(struct b_tree *t,char opt[],char info[]);
+#endif

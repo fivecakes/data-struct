@@ -3,54 +3,54 @@
 
 struct b_tree_vector btree_vector_init()
 {
-    struct b_tree_vector V;
-    V.elem = malloc(2* sizeof(struct b_tree_node*));
-    V.capacity =2;
-    V.size = 0;
-    return V;
+    struct b_tree_vector v;
+    v.elem = malloc(2* sizeof(struct b_tree_node*));
+    v.capacity =2;
+    v.size = 0;
+    return v;
 }
 
 
 //扩容
-static void btree_vector_expand(struct b_tree_vector *V)
+static void btree_vector_expand(struct b_tree_vector *v)
 {
-    if(V->size < V->capacity) return; //尚未满员，不必扩容
-    V->elem = realloc(V->elem,(V->capacity<<=1)*sizeof(struct b_tree_node*));
+    if(v->size < v->capacity) return; //尚未满员，不必扩容
+    v->elem = realloc(v->elem,(v->capacity<<=1)*sizeof(struct b_tree_node*));
 }
 
-void btree_vector_insert(struct b_tree_vector *V, int r, struct b_tree_node* e)
+void btree_vector_insert(struct b_tree_vector *v, int r, struct b_tree_node* e)
 {
-    btree_vector_expand(V);
-    for (int i = V->size; i>r; i--) {
-        *(V->elem+i) = *(V->elem+i-1);
+    btree_vector_expand(v);
+    for (int i = v->size; i>r; i--) {
+        *(v->elem+i) = *(v->elem+i-1);
     }
-    *(V->elem+r) = e;
-    V->size++;
+    *(v->elem+r) = e;
+    v->size++;
 }
 
 //特殊的：对于指针类型的遍历搜索
-int btree_vector_search(struct b_tree_vector *V, struct b_tree_node* e)
+int btree_vector_search(struct b_tree_vector *v, struct b_tree_node* e)
 {
-    for (int i = 0; i<V->size; i++) {
-        if (*(V->elem+i) == e) {
+    for (int i = 0; i<v->size; i++) {
+        if (*(v->elem+i) == e) {
             return i;
         }
     }
     return -1;
 }
 
-struct b_tree_node *btree_vector_get(struct b_tree_vector *V,int r)
+struct b_tree_node *btree_vector_get(struct b_tree_vector *v,int r)
 {
-    return *(V->elem + r);
+    return *(v->elem + r);
 }
 
 //删除
-void btree_vector_delete(struct b_tree_vector *V, int r)
+void btree_vector_delete(struct b_tree_vector *v, int r)
 {
-    for (int i = r; i<V->size -1; i++) {
-        *(V->elem+i) = *(V->elem+i+1);
+    for (int i = r; i<v->size -1; i++) {
+        *(v->elem+i) = *(v->elem+i+1);
     }
-    V->size--;
+    v->size--;
 }
 
 struct b_tree btree_init()
@@ -61,25 +61,25 @@ struct b_tree btree_init()
     new->child = btree_vector_init();
     btree_vector_insert(&new->child, 0, NULL);
     
-    struct b_tree BT;
-    BT.size = 1;
-    BT.hot = NULL;
-    BT.root = new;
-    BT.m = 4;
+    struct b_tree b_tree;
+    b_tree.size = 1;
+    b_tree.hot = NULL;
+    b_tree.root = new;
+    b_tree.m = 4;
     
-    return BT;
+    return b_tree;
 }
 
 
-struct b_tree_node *btree_search(struct b_tree *BT,int e)
+struct b_tree_node *btree_search(struct b_tree *t,int e)
 {
-    struct b_tree_node *v = BT->root;
-    BT->hot = NULL;
+    struct b_tree_node *v = t->root;
+    t->hot = NULL;
     
     while (v) {
         int r = vector_search(&v->key,e);
         if (r>=0 && vector_get(&v->key, r) == e) return v;
-        BT->hot = v;
+        t->hot = v;
         //此步模拟I/O操作，
         v= btree_vector_get(&v->child,r+1);
     }
@@ -87,10 +87,10 @@ struct b_tree_node *btree_search(struct b_tree *BT,int e)
     return NULL;
 }
 
-void solveOverflow(struct b_tree *BT,struct b_tree_node *v)
+void solve_overflow(struct b_tree *t,struct b_tree_node *v)
 {
     //  ⌈m/2⌉ ≤ n+1 < m
-    if (v->child.size < BT->m) return;
+    if (v->child.size < t->m) return;
     
     //writeBTreeToDotFile(BT,"a+","分裂之前");
     struct b_tree_node *p = v->parent;
@@ -124,7 +124,7 @@ void solveOverflow(struct b_tree *BT,struct b_tree_node *v)
         newroot->key = vector_init();
         newroot->child = btree_vector_init();
         vector_insert(&newroot->key, 0, mid_value);
-        BT->root = newroot;
+        t->root = newroot;
         btree_vector_insert(&newroot->child, 0, v);
         btree_vector_insert(&newroot->child, 1, new);
 
@@ -150,16 +150,16 @@ void solveOverflow(struct b_tree *BT,struct b_tree_node *v)
         //设置新节点父亲
         new->parent = p;
         
-        solveOverflow(BT,p);
+        solve_overflow(t,p);
     }
     
 }
 
-void solveUnderflow(struct b_tree *BT,struct b_tree_node *v)
+void solveUnderflow(struct b_tree *t,struct b_tree_node *v)
 {
-    write_b_tree_to_dotfile(BT,"a+","solveUnderflow");
+    write_b_tree_to_dotfile(t,"a+","solveUnderflow");
     //向上取整c = (a + b - 1) / b;
-    int under = (BT->m + 2 - 1) / 2;
+    int under = (t->m + 2 - 1) / 2;
     //  ⌈m/2⌉ ≤ n+1 < m
     if (v->child.size >= under) return;
     
@@ -234,10 +234,10 @@ void solveUnderflow(struct b_tree *BT,struct b_tree_node *v)
         }
         if (!v->parent->parent) {
             printf("合并根节点！\n");
-            BT->root = brother;
+            t->root = brother;
             brother->parent = NULL;
         }else{
-            solveUnderflow(BT, v->parent);
+            solveUnderflow(t, v->parent);
         }
     }
     
@@ -245,28 +245,28 @@ void solveUnderflow(struct b_tree *BT,struct b_tree_node *v)
 }
 
 
-void btree_insert(struct b_tree *BT,int e)
+void btree_insert(struct b_tree *t,int e)
 {
-    struct b_tree_node *v = btree_search(BT,e);
+    struct b_tree_node *v = btree_search(t,e);
     if (v) {
         printf("%d存在,插入失败\n",e);
     }
     
-    int r = vector_search(&BT->hot->key,e);
+    int r = vector_search(&t->hot->key,e);
     //printf("插入到第%d\n",r+1);
-    vector_insert(&BT->hot->key, r+1, e);
-    btree_vector_insert(&BT->hot->child, r+2, NULL);
+    vector_insert(&t->hot->key, r+1, e);
+    btree_vector_insert(&t->hot->child, r+2, NULL);
     
-    BT->size++;
+    t->size++;
     
-    solveOverflow(BT,BT->hot);
+    solve_overflow(t,t->hot);
     
 }
 
 
-void btree_remove(struct b_tree *BT,int e)
+void btree_remove(struct b_tree *t,int e)
 {
-    struct b_tree_node *v = btree_search(BT,e);
+    struct b_tree_node *v = btree_search(t,e);
     if (!v) {
         printf("%d不存在,删除失败\n",e);
     }
@@ -285,12 +285,12 @@ void btree_remove(struct b_tree *BT,int e)
     }
     vector_delete(&v->key, r);
     btree_vector_delete(&v->child, r+1);
-    BT->size--;
+    t->size--;
     
-    solveUnderflow(BT,v);
+    solveUnderflow(t,v);
 }
 
-static void printDotNode1(FILE* fp ,struct b_tree_node *e)
+static void print_dot_node1(FILE* fp ,struct b_tree_node *e)
 {
     if (!e || !(e->key.size)) {
         return;
@@ -313,7 +313,7 @@ static void printDotNode1(FILE* fp ,struct b_tree_node *e)
                 fprintf(fp, " node%p:<node%d>:se -> node%p\n", e,vector_get(&e->key,i-1), childnode);
             }
             
-            printDotNode1(fp,childnode);
+            print_dot_node1(fp,childnode);
         }else{
 //            fprintf(fp, " Null%p%d [label=\"Null\"][style = dotted]\n",e, i);
 //            if (!i) {
@@ -328,7 +328,7 @@ static void printDotNode1(FILE* fp ,struct b_tree_node *e)
 
 
 
-void write_b_tree_to_dotfile(struct b_tree *BT,char opt[],char info[])
+void write_b_tree_to_dotfile(struct b_tree *t,char opt[],char info[])
 {
     FILE* fp = fopen(DOT_FILE_PATH, opt);
     if( NULL == fp)
@@ -342,7 +342,7 @@ void write_b_tree_to_dotfile(struct b_tree *BT,char opt[],char info[])
     fprintf(fp, " splines=false;\n");
     fprintf(fp, " node [shape = record,height=.1,style=filled,color=lightblue;];\n\n");
 
-    printDotNode1(fp ,BT->root);
+    print_dot_node1(fp ,t->root);
     fprintf(fp, "}\n");
     fclose(fp);
 }

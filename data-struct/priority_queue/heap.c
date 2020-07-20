@@ -1,57 +1,57 @@
 #include "heap.h"
 
 
-int lt(struct vector *V, int i, int p)
+int lt(struct vector *v, int i, int p)
 {
-    if (vector_get(V,i) <= vector_get(V,p)) {
+    if (vector_get(v,i) <= vector_get(v,p)) {
         return 1;
     }else{
         return 0;
     }
 }
 
-void swap(struct vector *V, int i, int j)
+void swap(struct vector *v, int i, int j)
 {
     int tmp;
-    tmp = vector_get(V,i);
-    vector_replace(V, i, vector_get(V,j));
-    vector_replace(V, j, tmp);
+    tmp = vector_get(v,i);
+    vector_replace(v, i, vector_get(v,j));
+    vector_replace(v, j, tmp);
 }
 
-void percolate_up(struct vector *V,int i)
+void percolate_up(struct vector *v,int i)
 {
     while (i>0) {
-        int p = Parent(i);
-        if(lt(V,i,p)){
+        int p = PARENT(i);
+        if(lt(v,i,p)){
             break;
         }else{
-            swap(V,i,p);
+            swap(v,i,p);
             i = p;
         }
     }
 }
 
 
-void percolate_down(struct vector *V,int i)
+void percolate_down(struct vector *v,int i)
 {
     while (1) {
-        int lchild = LChild(i);
-        int rchild = RChild(i);
+        int lchild = L_CHILD(i);
+        int rchild = R_CHILD(i);
         int maxchild;
         
-        if (lchild>=V->size && rchild>=V->size) {
+        if (lchild>=v->size && rchild>=v->size) {
             break;
-        }else if (lchild>=V->size) {
+        }else if (lchild>=v->size) {
             maxchild = rchild;
-        }else if (rchild>=V->size){
+        }else if (rchild>=v->size){
             maxchild = lchild;
-        }else if(vector_get(V, lchild) > vector_get(V, rchild)){
+        }else if(vector_get(v, lchild) > vector_get(v, rchild)){
             maxchild = lchild;
         }else{
             maxchild = rchild;
         }
-        if(vector_get(V, maxchild) > vector_get(V, i)){
-            swap(V,i,maxchild);
+        if(vector_get(v, maxchild) > vector_get(v, i)){
+            swap(v,i,maxchild);
             i = maxchild;
         }else{
             break;
@@ -62,70 +62,70 @@ void percolate_down(struct vector *V,int i)
 
 struct vector heapfy(int a[],int len)
 {
-    struct vector V = vector_init();
+    struct vector v = vector_init();
     for (int i=0; i<len; i++) {
-        vector_insert(&V, V.size, a[i]);
-        percolate_up(&V,i);
+        vector_insert(&v, v.size, a[i]);
+        percolate_up(&v,i);
     }
-    return V;
+    return v;
 }
 
-void heap_insert(struct vector *V, int e)
+void heap_insert(struct vector *v, int e)
 {
-    int r =V->size;
-    vector_insert(V, r, e);
-    percolate_up(V,r);
+    int r =v->size;
+    vector_insert(v, r, e);
+    percolate_up(v,r);
 }
 
-int heap_get_max(struct vector *V)
+int heap_get_max(struct vector *v)
 {
-    return vector_get(V, 0);
+    return vector_get(v, 0);
 }
 
-int heap_del_max(struct vector *V)
+int heap_del_max(struct vector *v)
 {
-    int max = vector_get(V, 0);
-    vector_replace(V, 0, vector_get(V, V->size-1));
-    V->size--;
-    percolate_down(V,0);
+    int max = vector_get(v, 0);
+    vector_replace(v, 0, vector_get(v, v->size-1));
+    v->size--;
+    percolate_down(v,0);
     return max;
 }
 
 
 
-static void printDotNode(FILE* fp ,struct vector *V,int r)
+static void print_dot_node(FILE* fp ,struct vector *v,int r)
 {
-    if (!V) return;
+    if (!v) return;
     
-    fprintf(fp, " node%d[label=\"%d\"]\n", r,vector_get(V, r));
+    fprintf(fp, " node%d[label=\"%d\"]\n", r,vector_get(v, r));
     
-    int lchild = LChild(r);
-    int rchild = RChild(r);
+    int lchild = L_CHILD(r);
+    int rchild = R_CHILD(r);
     
-    if (lchild>=V->size && rchild>=V->size) {
+    if (lchild>=v->size && rchild>=v->size) {
         return;
     }
     
-    if (lchild<V->size) {
+    if (lchild<v->size) {
         fprintf(fp, " node%d -> node%d\n", r ,lchild) ;
         fprintf(fp, " node%d -> node%d\n", lchild,r) ;
-        printDotNode(fp ,V,lchild);
+        print_dot_node(fp ,v,lchild);
     }else{
         fprintf(fp, " lChild%d [label=\"Null\"][style = dotted]\n", r);
         fprintf(fp, " node%d -> lChild%d[style = dotted]\n", r,r);
     }
     
-    if (rchild<V->size) {
+    if (rchild<v->size) {
         fprintf(fp, " node%d -> node%d\n", r ,rchild) ;
         fprintf(fp, " node%d -> node%d\n", rchild,r) ;
-        printDotNode(fp ,V,rchild);
+        print_dot_node(fp ,v,rchild);
     }else{
         fprintf(fp, " rChild%d [label=\"Null\"][style = dotted]\n", r);
         fprintf(fp, " node%d -> rChild%d[style = dotted]\n", r,r);
     }
 }
 
-void heap_write2dot(struct vector *V,char opt[],char info[])
+void heap_write2dot(struct vector *v,char opt[],char info[])
 {
     FILE* fp = fopen(DOT_FILE_PATH, opt);
     if( NULL == fp)
@@ -140,13 +140,13 @@ void heap_write2dot(struct vector *V,char opt[],char info[])
     //完全二叉树
     fprintf(fp, " splines=false;\n");
     fprintf(fp, " node [style=filled,color=lightblue;];\n\n");
-    printDotNode(fp,V,0);
+    print_dot_node(fp,v,0);
     
     //下面是向量
     fprintf(fp, " node [shape=\"record\", style=Null,height=.1]\n");
     fprintf(fp, " vector [label=\"{秩 | 值}");
-    for (int i = 0; i<V->size; i++) {
-        fprintf(fp, "|{%d | %d}",i,*(V->elem+i));
+    for (int i = 0; i<v->size; i++) {
+        fprintf(fp, "|{%d | %d}",i,*(v->elem+i));
     }
     fprintf(fp, "\"]\n");
     fprintf(fp, "}\n");

@@ -4,18 +4,18 @@
 
 struct list list_init()
 {
-    struct list L;
-    L.size = 0;
-    L.header = malloc(sizeof(struct list_node));
-    L.trailer = malloc(sizeof(struct list_node));
-    L.trailer->pred = L.header;
-    L.header->succ = L.trailer;
-    return L;
+    struct list list;
+    list.size = 0;
+    list.header = malloc(sizeof(struct list_node));
+    list.trailer = malloc(sizeof(struct list_node));
+    list.trailer->pred = list.header;
+    list.header->succ = list.trailer;
+    return list;
 }
 
-int list_get(struct list L,int r)
+int list_get(struct list list,int r)
 {
-    struct list_node *p = L.header;
+    struct list_node *p = list.header;
     while (r--) {
         p = p->succ;
     }
@@ -36,22 +36,22 @@ void list_insert_before(struct list_node *p,int e)
 }
 
 
-void list_insert(struct list *L, int n, int e)
+void list_insert(struct list *list, int n, int e)
 {
-    struct list_node *p = L->header->succ;
+    struct list_node *p = list->header->succ;
     while (n) {
         p=p->succ;
         n--;
     }
     list_insert_before(p,e);
-    L->size++;
+    list->size++;
 }
 
 
 //取出前n个中最大的
-static struct list_node* selectMax(struct list *L, int n)
+static struct list_node* select_max(struct list *list, int n)
 {
-    struct list_node *p = L->header->succ;
+    struct list_node *p = list->header->succ;
     struct list_node *max = p;
     
     while (n-1) {
@@ -66,14 +66,14 @@ static struct list_node* selectMax(struct list *L, int n)
 
 
 //选择排序
-void list_selection_sort(struct list *L)
+void list_selection_sort(struct list *list)
 {
     struct list_node* p;
-    struct list_node* t = L->trailer->pred;
+    struct list_node* t = list->trailer->pred;
     int tmp;
     
-    for (int i = L->size; i>0; i--) {
-        p = selectMax(L, i);
+    for (int i = list->size; i>0; i--) {
+        p = select_max(list, i);
         tmp = p->data;
         p->data = t->data;
         t->data = tmp;
@@ -95,7 +95,7 @@ static struct list_node* search(struct list_node *p, int n, int e)
 
 
 
-static void moveAfter(struct list_node *p,struct list_node *s)
+static void move_after(struct list_node *p,struct list_node *s)
 {
     p->pred->succ = p->succ;
     p->succ->pred = p->pred;
@@ -107,21 +107,21 @@ static void moveAfter(struct list_node *p,struct list_node *s)
 }
 
 //插入排序
-void list_insert_sort(struct list *L)
+void list_insert_sort(struct list *list)
 {
-    struct list_node *c = L->header->succ->succ->succ;
+    struct list_node *c = list->header->succ->succ->succ;
     struct list_node *s,*p;
     
-    for (int i = 1; i<L->size; i++) {
+    for (int i = 1; i<list->size; i++) {
         p = c->pred;
         s = search(p,i,p->data);
-        moveAfter(p, s);
+        move_after(p, s);
         c = c->succ;
     }
 }
 
 
-void list_write2dot(struct list L,char opt[],char info[])
+void list_write2dot(struct list list,char opt[],char info[])
 {
     FILE* fp = fopen(DOT_FILE_PATH, opt);
     if( NULL == fp)
@@ -134,17 +134,17 @@ void list_write2dot(struct list L,char opt[],char info[])
     fprintf(fp, "\ndigraph {\n");
     fprintf(fp, " rankdir = LR\n");
     fprintf(fp, " node0 [label=\"header\"][style = dotted]\n");
-    struct list_node *v = L.header->succ;
-    for (int i = 0; i<L.size; i++) {
+    struct list_node *v = list.header->succ;
+    for (int i = 0; i<list.size; i++) {
         fprintf(fp, " node%d[label=\"%d\"]\n",i+1,v->data);
         fprintf(fp, " node%d -> node%d\n",i,i+1);
         fprintf(fp, " node%d -> node%d\n",i+1,i);
         v = v->succ;
     }
     
-    fprintf(fp, " node%d [label=\"trailer\"][style = dotted]\n",L.size+1);
-    fprintf(fp, " node%d -> node%d\n",L.size,L.size+1);
-    fprintf(fp, " node%d -> node%d\n",L.size+1,L.size);
+    fprintf(fp, " node%d [label=\"trailer\"][style = dotted]\n",list.size+1);
+    fprintf(fp, " node%d -> node%d\n",list.size,list.size+1);
+    fprintf(fp, " node%d -> node%d\n",list.size+1,list.size);
     
     fprintf(fp, "}\n");
     fclose(fp);

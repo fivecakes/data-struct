@@ -12,7 +12,7 @@ void test_graph()
         {0,1,1,0,0},
         {0,1,0,1,0}
     };
-    struct graph G = graph_init(arr);
-    graph_dfs(&G);
+    struct graph g = graph_init(arr);
+    graph_dfs(&g);
     printf("\n");
 }

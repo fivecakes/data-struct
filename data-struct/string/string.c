@@ -13,20 +13,20 @@ struct string string_init()
 
 
 //在末尾追加字符串
-void string_insert(struct string *S, char *s)
+void string_insert(struct string *string, char *s)
 {
     int len = (int)strlen(s);
     //扩容
-    if(S->capacity < S->size+len){
-        S->elem = realloc(S->elem,(S->capacity+len+1)*sizeof(char));
-        S->capacity += len;
+    if(string->capacity < string->size+len){
+        string->elem = realloc(string->elem,(string->capacity+len+1)*sizeof(char));
+        string->capacity += len;
     }
     
     for (int i = 0; i<len; i++) {
-        *(S->elem+S->size+i) = *(s+i);
+        *(string->elem+string->size+i) = *(s+i);
     }
-    *(S->elem+S->size+len) = '\0';
-    S->size += len;
+    *(string->elem+string->size+len) = '\0';
+    string->size += len;
 }
 
 
