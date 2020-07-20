@@ -158,18 +158,13 @@ struct huff_tree* generate_tree(struct huff_forest* forest)
 //根据编码表，将字符串转换为二进制编码
 char *huffman_encode(struct hash_table* table, char* s)
 {
-    char * code = malloc(100*sizeof(char));
+    char * code = malloc(200*sizeof(char));
     char c[] = {' ','\0'};
     int len = 0;
     for ( size_t m = strlen (s), i = 0; i < m; i++ ) {
         //对每个字符从编码表中获取编码
         c[0] = s[i];
         char* pCharCode = hash_get(table, c);
-        //忽略大小写
-        if ( !pCharCode ) {
-            c[0] = s[i] + 'A' - 'a';
-            pCharCode = hash_get(table, c );
-        }
         //不能识别的用空格代替
         if ( !pCharCode ) pCharCode = hash_get (table, " " );
         
