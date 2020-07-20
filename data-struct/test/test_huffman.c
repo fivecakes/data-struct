@@ -7,7 +7,7 @@ void test_huffman()
     struct huff_forest *forest = initForest(freq);
     struct huff_tree* huff_tree = generate_tree(forest);
     write_huff_tree_to_dotfile(forest,"w+","");
-
+    
     //根据huffman树，生成编码表
     struct hash_table* table = generate_table(huff_tree);
     printf("A = %s\n",hash_get(table, "A"));

@@ -149,7 +149,6 @@ struct huff_tree* generate_tree(struct huff_forest* forest)
         
         //将新树加入森林
         huff_forest_insert(forest,new_huff_tree);
-        write_huff_tree_to_dotfile(forest,"a+","");
     }
     return &forest->header->succ->huff_tree;
 }
@@ -235,7 +234,7 @@ static void print_dot_forest(FILE* fp ,struct huff_forest *forest)
     while(p->succ){
         fprintf(fp, " node [shape=\"box\",style=filled,color=\"#8139e5ff\"]\n");
         fprintf(fp, " edge [color=\"#8139e5ff\",minlen=\"10\"]\n");
-        fprintf(fp, " node%p[label=\"%p\"]\n", p,p);
+        fprintf(fp, " node%p[label=\"\"]\n", p);
         if (p->succ->succ) {
             fprintf(fp, " node%p->node%p[dir=\"both\"]\n",p,p->succ);
             fprintf(fp, " {rank=same; node%p;node%p}\n",p,p->succ);
