@@ -6,6 +6,7 @@
 #include "vector.h"
 
 #define  N_CHAR  (0x80 - 0x20)
+
 struct huff_char{
     char ch;
     int weight;
@@ -15,7 +16,7 @@ struct huff_tree_node{
     struct huff_tree_node *parent;
     struct huff_tree_node *left_child;
     struct huff_tree_node *right_child;
-    struct huff_char data;
+    struct huff_char huff_char;
 };
 
 struct huff_tree{
@@ -27,7 +28,7 @@ struct huff_tree{
 
 
 struct huff_forest_node{
-    struct huff_tree data;
+    struct huff_tree huff_tree;
     struct huff_forest_node *pred;
     struct huff_forest_node *succ;
 };
@@ -41,9 +42,11 @@ struct huff_forest{
 
 struct huff_forest generate_forest(char* s);
 struct huff_tree generate_tree(struct huff_forest* forest);
-int huffman_encode(struct hash_table* table, struct vector* code, char* s);
+void huffman_encode(struct hash_table* table, struct vector* code, char* s);
 void huffman_decode(struct huff_tree* tree, struct vector* code);
-
+int* statistics ( char* sample_text_file );
+struct huff_forest* initForest ( int* freq );
+void write_huff_tree_to_dotfile(struct huff_forest *forest,char opt[],char info[]);
 
 
 

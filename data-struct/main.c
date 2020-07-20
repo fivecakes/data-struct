@@ -4,6 +4,7 @@
 #include "test_hash.h"
 #include "test_heap.h"
 #include "test_string.h"
+#include "test_huffman.h"
 
 
 int main()

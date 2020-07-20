@@ -2,7 +2,7 @@
 
 
 
-void test_huffman(void)
+void test_huffman()
 {
     //创建编码表
     struct hash_table t;
@@ -18,8 +18,12 @@ void test_huffman(void)
     huffman_encode(&t, &code, "AAABBACCCDEEA");
     
     //创建huffman树
-//    struct huff_forest forest = generate_forest("AAABBACCCDEEA");
-//    struct huff_tree huff_tree = generate_tree(&forest);
+    int* freq = statistics ("/Users/book/Codes/data-struct/data-struct/huffman/sample.txt");
+    struct huff_forest *forest = initForest(freq);
+    write_huff_tree_to_dotfile(forest,"w+","");
+    struct huff_tree huff_tree = generate_tree(forest);
+    write_huff_tree_to_dotfile(forest,"a+","");
     //解码
-    //huffman_decode(&huff_tree, &code);
+    huffman_decode(&huff_tree, &code);
+    
 }
