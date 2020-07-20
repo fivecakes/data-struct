@@ -15,6 +15,7 @@ struct vector vector_init(void);
 
 //插入
 void vector_push(struct vector *v, int e);
+int vector_pop(struct vector *v);
 void vector_insert(struct vector *V, int r, int e);
 void vector_delete(struct vector *V, int r);
 void vector_replace(struct vector *V, int r, int e);

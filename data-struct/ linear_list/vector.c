@@ -42,6 +42,11 @@ void vector_push(struct vector *v, int e)
     v->size++;
 }
 
+int vector_pop(struct vector *v)
+{
+    v->size--;
+    return *(v->elem + v->size);
+}
 
 //替换
 void vector_replace(struct vector *V, int r, int e)
