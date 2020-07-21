@@ -86,17 +86,20 @@ void graph_dfs(struct graph *g)
     }
 }
 
-void dfs_pu(struct graph * g, int uk, int v )
+void dfs_pu(struct graph * g, struct heap *pq,int uk, int v )
 {
     if (g->graph_nodes[v].status == UNDISCOVERED){
         if(g->graph_nodes[v].priority<g->graph_nodes[uk].priority+1){
             g->graph_nodes[v].priority=g->graph_nodes[uk].priority+1;
-            //heap_insert(&v, 11);
+            struct heap_node hn;
+            hn.data = v;
+            hn.priority =g->graph_nodes[uk].priority+1;
+            heap_insert(pq, hn);
         }
     }
 }
 
-static void pfs(struct graph *g,int s, void prio_updater(struct graph *g,int uk,int i))
+static void pfs(struct graph *g,int s, void prio_updater(struct graph *g,struct heap *pq,int uk,int i))
 {
     //起点s加入PFS树
     g->graph_nodes[s].status = VISITED;
@@ -107,17 +110,9 @@ static void pfs(struct graph *g,int s, void prio_updater(struct graph *g,int uk,
     while (1) {
         //对s的所有邻居，更新优先级
         for (int u = next_nbr(g,s,g->n); -1<u; u=next_nbr(g,s,u))
-            prio_updater(g,s,u);
+            prio_updater(g,&pq,s,u);
 
         //选择优先级最高的顶点s
-//        for (int shortest = INT_MIN,w=0; w<g->n; w++) {
-//            if (g->graph_nodes[w].status == UNDISCOVERED) {
-//                if (shortest < g->graph_nodes[w].priority) {
-//                    shortest = g->graph_nodes[w].priority;
-//                    s = w;
-//                }
-//            }
-//        }
         s = heap_del_max(&pq).data;
         
         //如果所有节点都遍历过了，退出否则，将s加入遍历树
@@ -130,7 +125,7 @@ static void pfs(struct graph *g,int s, void prio_updater(struct graph *g,int uk,
     }
 }
 
-void graph_pfs(struct graph *g, void prio_updater(struct graph *g,int uk,int i))
+void graph_pfs(struct graph *g, void prio_updater(struct graph *g,struct heap *pq,int uk,int i))
 {
     for (int i = 0; i<g->n; i++) {
         if (g->graph_nodes[i].status == UNDISCOVERED) {
