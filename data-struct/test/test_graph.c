@@ -20,5 +20,7 @@ void test_graph()
     
     //graph_bfs(&g);
     graph_dfs(&g);
+//    printf("\n");
+    //graph_pfs(&g,dfs_pu);
     printf("\n");
 }

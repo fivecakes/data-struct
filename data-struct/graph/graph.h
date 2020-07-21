@@ -29,5 +29,6 @@ struct graph{
 struct graph graph_init(int n);
 void graph_bfs(struct graph *g);
 void graph_dfs(struct graph *g);
-
+void graph_pfs(struct graph *g, void prio_updater(struct graph *g,int uk,int i));
+void dfs_pu(struct graph * g, int uk, int v );
 #endif
