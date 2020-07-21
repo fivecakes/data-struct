@@ -40,7 +40,7 @@ static void bfs(struct graph *g,int s)
     while (q.size) {
         int v = queue_dequeue(&q);
         
-        printf("%d",v);
+        printf("%d,",v);
         for (int u = next_nbr(g,v,g->n); -1<u; u=next_nbr(g,v,u)) {
             if (g->graph_nodes[u].status == UNDISCOVERED) {
                 g->graph_nodes[u].status = DISCOVERED;
@@ -65,7 +65,7 @@ static void dfs(struct graph *g,int s)
 {
     g->graph_nodes[s].status = DISCOVERED;
 
-    printf("%d",s);
+    printf("%d,",s);
     for (int u = next_nbr(g,s,g->n); -1<u; u=next_nbr(g,s,u)) {
         if (g->graph_nodes[u].status == UNDISCOVERED) {
             dfs(g,u);
@@ -100,7 +100,7 @@ static void pfs(struct graph *g,int s, void prio_updater(struct graph *g,int uk,
     //起点s加入PFS树
     g->graph_nodes[s].status = VISITED;
     g->graph_nodes[s].priority = 0;
-    printf("%d",s);
+    printf("%d(%d),",s,g->graph_nodes[s].priority);
     
     while (1) {
         //对s的所有邻居，更新优先级
@@ -122,7 +122,7 @@ static void pfs(struct graph *g,int s, void prio_updater(struct graph *g,int uk,
             break;
         }else{
             g->graph_nodes[s].status = VISITED;
-            printf("%d",s);
+            printf("%d(%d),",s,g->graph_nodes[s].priority);
         }
     }
 }
