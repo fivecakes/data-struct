@@ -2,6 +2,7 @@
 #define graph_h
 #include "common.h"
 #include "queue.h"
+#include "heap.h"
 
 #define UNDISCOVERED 0
 #define DISCOVERED 1
