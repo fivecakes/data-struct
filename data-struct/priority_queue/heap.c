@@ -1,24 +1,62 @@
 #include "heap.h"
 
-
-int lt(struct vector *v, int i, int p)
+struct heap heap_vector_init()
 {
-    if (vector_get(v,i) <= vector_get(v,p)) {
+    struct heap v;
+    v.elem = malloc(2* sizeof(struct heap_node));
+    v.capacity =2;
+    v.size = 0;
+    return v;
+}
+
+//扩容
+static void heap_vector_expand(struct heap *v)
+{
+    if(v->size < v->capacity) return; //尚未满员，不必扩容
+    v->elem = realloc(v->elem,(v->capacity<<=1)*sizeof(struct heap_node));
+}
+
+static struct heap_node heap_vector_get(struct heap *v,int r)
+{
+    return *(v->elem + r);
+}
+
+
+//插入
+static void heap_vector_insert(struct heap *v, int r, struct heap_node e)
+{
+    heap_vector_expand(v);
+    for (int i = v->size; i>r; i--) {
+        *(v->elem+i) = *(v->elem+i-1);
+    }
+    *(v->elem+r) = e;
+    v->size++;
+}
+
+//替换
+static void heap_vector_replace(struct heap *v, int r, struct heap_node e)
+{
+    *(v->elem+r) = e;
+}
+
+static int lt(struct heap *v, int i, int p)
+{
+    if (heap_vector_get(v,i).priority <= heap_vector_get(v,p).priority) {
         return 1;
     }else{
         return 0;
     }
 }
 
-void swap(struct vector *v, int i, int j)
+static void swap(struct heap *v, int i, int j)
 {
-    int tmp;
-    tmp = vector_get(v,i);
-    vector_replace(v, i, vector_get(v,j));
-    vector_replace(v, j, tmp);
+    struct heap_node tmp;
+    tmp = heap_vector_get(v,i);
+    heap_vector_replace(v, i, heap_vector_get(v,j));
+    heap_vector_replace(v, j, tmp);
 }
 
-void percolate_up(struct vector *v,int i)
+static void percolate_up(struct heap *v,int i)
 {
     while (i>0) {
         int p = PARENT(i);
@@ -32,7 +70,7 @@ void percolate_up(struct vector *v,int i)
 }
 
 
-void percolate_down(struct vector *v,int i)
+static void percolate_down(struct heap *v,int i)
 {
     while (1) {
         int lchild = L_CHILD(i);
@@ -45,12 +83,12 @@ void percolate_down(struct vector *v,int i)
             maxchild = rchild;
         }else if (rchild>=v->size){
             maxchild = lchild;
-        }else if(vector_get(v, lchild) > vector_get(v, rchild)){
+        }else if(heap_vector_get(v, lchild).priority > heap_vector_get(v, rchild).priority){
             maxchild = lchild;
         }else{
             maxchild = rchild;
         }
-        if(vector_get(v, maxchild) > vector_get(v, i)){
+        if(heap_vector_get(v, maxchild).priority > heap_vector_get(v, i).priority){
             swap(v,i,maxchild);
             i = maxchild;
         }else{
@@ -60,32 +98,23 @@ void percolate_down(struct vector *v,int i)
 }
 
 
-struct vector heapfy(int a[],int len)
-{
-    struct vector v = vector_init();
-    for (int i=0; i<len; i++) {
-        vector_insert(&v, v.size, a[i]);
-        percolate_up(&v,i);
-    }
-    return v;
-}
 
-void heap_insert(struct vector *v, int e)
+void heap_insert(struct heap *v, struct heap_node e)
 {
     int r =v->size;
-    vector_insert(v, r, e);
+    heap_vector_insert(v, r, e);
     percolate_up(v,r);
 }
 
-int heap_get_max(struct vector *v)
+struct heap_node heap_get_max(struct heap *v)
 {
-    return vector_get(v, 0);
+    return heap_vector_get(v, 0);
 }
 
-int heap_del_max(struct vector *v)
+struct heap_node heap_del_max(struct heap *v)
 {
-    int max = vector_get(v, 0);
-    vector_replace(v, 0, vector_get(v, v->size-1));
+    struct heap_node max = heap_vector_get(v, 0);
+    heap_vector_replace(v, 0, heap_vector_get(v, v->size-1));
     v->size--;
     percolate_down(v,0);
     return max;
@@ -93,11 +122,11 @@ int heap_del_max(struct vector *v)
 
 
 
-static void print_dot_node(FILE* fp ,struct vector *v,int r)
+static void print_dot_node(FILE* fp ,struct heap *v,int r)
 {
     if (!v) return;
     
-    fprintf(fp, " node%d[label=\"%d\"]\n", r,vector_get(v, r));
+    fprintf(fp, " node%d[label=\"%d\"]\n", r,heap_vector_get(v, r).priority);
     
     int lchild = L_CHILD(r);
     int rchild = R_CHILD(r);
@@ -125,7 +154,7 @@ static void print_dot_node(FILE* fp ,struct vector *v,int r)
     }
 }
 
-void heap_write2dot(struct vector *v,char opt[],char info[])
+void heap_write2dot(struct heap *v,char opt[],char info[])
 {
     FILE* fp = fopen(DOT_FILE_PATH, opt);
     if( NULL == fp)
@@ -143,12 +172,12 @@ void heap_write2dot(struct vector *v,char opt[],char info[])
     print_dot_node(fp,v,0);
     
     //下面是向量
-    fprintf(fp, " node [shape=\"record\", style=Null,height=.1]\n");
-    fprintf(fp, " vector [label=\"{秩 | 值}");
-    for (int i = 0; i<v->size; i++) {
-        fprintf(fp, "|{%d | %d}",i,*(v->elem+i));
-    }
-    fprintf(fp, "\"]\n");
+//    fprintf(fp, " node [shape=\"record\", style=Null,height=.1]\n");
+//    fprintf(fp, " heap_vector [label=\"{秩 | 值}");
+//    for (int i = 0; i<v->size; i++) {
+//        fprintf(fp, "|{%d | %d}",i,*(v->elem+i).priority);
+//    }
+//    fprintf(fp, "\"]\n");
     fprintf(fp, "}\n");
     fclose(fp);
 }

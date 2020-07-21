@@ -3,13 +3,15 @@
 
 void test_heap()
 {
-    int a[] = {1,3,5,7,9,2,4,6,8,10};
-    struct vector v = heapfy(a,10);
-    heap_write2dot(&v,"w+","");
-    heap_insert(&v, 11);
-    heap_insert(&v, 15);
-    heap_insert(&v, 20);
-    printf("%d\n",heap_get_max(&v));
-    heap_del_max(&v);
-    heap_write2dot(&v,"w+","");
+    struct heap pq = heap_vector_init();
+    
+    for (int i=10; i>0; i--) {
+        struct heap_node hn;
+        hn.data = i;
+        hn.priority = i;
+
+        heap_insert(&pq, hn);
+    }
+    printf("%d\n",heap_get_max(&pq).data);
+    heap_write2dot(&pq,"w+","");
 }
