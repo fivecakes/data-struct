@@ -12,6 +12,7 @@ void test_heap()
 
         heap_insert(&pq, hn);
     }
+    
     printf("%d\n",heap_get_max(&pq).data);
     heap_write2dot(&pq,"w+","");
 }
