@@ -9,6 +9,5 @@
 
 int main()
 {
-//    test_graph();
-    test_heap();
+    test_graph();
 }

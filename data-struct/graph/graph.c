@@ -135,3 +135,30 @@ void graph_pfs(struct graph *g, void prio_updater(struct graph *g,int uk,int i))
         }
     }
 }
+
+
+
+void write_group_to_dotfile(struct graph *g,char opt[],char info[])
+{
+    FILE* fp = fopen(DOT_FILE_PATH, opt);
+    if( NULL == fp)
+    {
+        printf("打开文件描述符失败\n");
+        fprintf(stderr, "打开文件描述符失败\n");
+        return;
+    }
+    fprintf(fp, "\n//%s",info);
+    fprintf(fp, "\ndigraph {\n");
+    fprintf(fp, " splines=false;\n");
+    fprintf(fp, " node [style=filled,color=lightblue;];\n\n");
+    for (int i=0; i<g->n; i++) {
+        for (int j=0; j<g->n; j++) {
+            fprintf(fp, " node%d[label=\"%d\"]\n", i,i);
+            if (g->matrix[i][j]) {
+                fprintf(fp, " node%d -> node%d\n", i,j) ;
+            }
+        }
+    }
+    fprintf(fp, "}\n");
+    fclose(fp);
+}
