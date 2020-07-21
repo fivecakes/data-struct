@@ -9,5 +9,5 @@
 
 int main()
 {
-    test_huffman();
+    test_graph();
 }

@@ -20,13 +20,14 @@ struct graph_node{
 
 
 struct graph{
-    int (*matrix)[5];
+    int **matrix;
+    int n;
     struct graph_node *graph_nodes;
 };
 
 
-struct graph graph_init(int (*arr)[5]);
+struct graph graph_init(int n);
 void graph_bfs(struct graph *g);
 void graph_dfs(struct graph *g);
 
-#endif /* graph_h */
+#endif

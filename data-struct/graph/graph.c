@@ -1,13 +1,14 @@
 #include "graph.h"
 
 
-struct graph graph_init(int (*arr)[5])
+struct graph graph_init(int n)
 {
     struct graph g;
-    g.matrix = arr;
-    g.graph_nodes = malloc(5*sizeof(struct graph_node));
+    g.n = n;
+    g.matrix = malloc(n*sizeof(int *));
+    g.graph_nodes = malloc(n*sizeof(struct graph_node));
     
-    for (int i = 0; i<5; i++) {
+    for (int i = 0; i<g.n; i++) {
         g.graph_nodes[i].data = i;
         g.graph_nodes[i].status = UNDISCOVERED;
     }
@@ -37,7 +38,7 @@ static void bfs(struct graph *g,int s)
         int v = queue_dequeue(&q);
         
         printf("%d",v);
-        for (int u = next_nbr(g,v,4+1); -1<u; u=next_nbr(g,v,u)) {
+        for (int u = next_nbr(g,v,g->n); -1<u; u=next_nbr(g,v,u)) {
             if (g->graph_nodes[u].status == UNDISCOVERED) {
                 g->graph_nodes[u].status = DISCOVERED;
                 queue_enqueue(&q, u);
@@ -50,7 +51,7 @@ static void bfs(struct graph *g,int s)
 
 void graph_bfs(struct graph *g)
 {
-    for (int i = 0; i<5; i++) {
+    for (int i = 0; i<g->n; i++) {
         if (g->graph_nodes[i].status == UNDISCOVERED) {
             bfs(g,i);
         }
@@ -62,7 +63,7 @@ static void dfs(struct graph *g,int s)
     g->graph_nodes[s].status = DISCOVERED;
 
     printf("%d",s);
-    for (int u = next_nbr(g,s,4+1); -1<u; u=next_nbr(g,s,u)) {
+    for (int u = next_nbr(g,s,g->n); -1<u; u=next_nbr(g,s,u)) {
         if (g->graph_nodes[u].status == UNDISCOVERED) {
             dfs(g,u);
         }
@@ -74,7 +75,7 @@ static void dfs(struct graph *g,int s)
 
 void graph_dfs(struct graph *g)
 {
-    for (int i = 0; i<5; i++) {
+    for (int i = 0; i<g->n; i++) {
         if (g->graph_nodes[i].status == UNDISCOVERED) {
             dfs(g,i);
         }
