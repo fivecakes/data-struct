@@ -32,9 +32,8 @@ void test_graph()
     
     //graph_bfs(&g);
     //graph_dfs(&g);
-//    printf("\n");
-    //graph_pfs(&g,dfs_pu);
-    write_group_to_dotfile(&g,"w+","");
+    graph_pfs(&g,dfs_pu);
+    //write_group_to_dotfile(&g,"w+","");
     printf("\n");
 }
 
