@@ -5,8 +5,6 @@
  深度优先遍历出来的树叫深度优先生成树
  广度优先遍历出来的树叫广度优先生成树
  各边权值之和最小的生成树叫最小生成树
- 
- 最短路径：找A到B所经过的边的权值之和最小的路径
  */
 
 struct graph graph_init(int n)
@@ -20,6 +18,7 @@ struct graph graph_init(int n)
         g.graph_nodes[i].data = i;
         g.graph_nodes[i].status = UNDISCOVERED;
         g.graph_nodes[i].priority = 0;
+        g.graph_nodes[i].parent = -1;
     }
     
     return g;
@@ -46,6 +45,7 @@ void dfs_pu(struct graph * g, struct heap *pq,int uk, int v )
     if (g->graph_nodes[v].status == UNDISCOVERED){
         g->graph_nodes[v].priority=g->graph_nodes[uk].priority-1;
         heap_insert(pq, v,g->graph_nodes[uk].priority-1);
+        g->graph_nodes[v].parent = uk;
     }
 }
 
@@ -59,6 +59,7 @@ void bfs_pu(struct graph * g, struct heap *pq,int uk, int v)
     if (g->graph_nodes[v].status == UNDISCOVERED){
         g->graph_nodes[v].priority=g->graph_nodes[uk].priority+1;
         heap_insert(pq, v,g->graph_nodes[uk].priority+1);
+        g->graph_nodes[v].parent = uk;
     }
 }
 
@@ -70,17 +71,19 @@ void prim_pu(struct graph * g, struct heap *pq,int uk, int v)
     if (g->graph_nodes[v].status == UNDISCOVERED){
         g->graph_nodes[v].priority = g->matrix[uk][v];
         heap_insert(pq, v, g->matrix[uk][v]);
+        g->graph_nodes[v].parent = uk;
     }
 }
 
 /**
-总是优先探索累积权值最小的那条路径
+贪心的优先探索累积权值最小的那条路径，这是贪心算法，结果并不一定是全局最优的
 */
 void dijkstra_pu(struct graph * g, struct heap *pq,int uk, int v)
 {
     if (g->graph_nodes[v].status == UNDISCOVERED){
         g->graph_nodes[v].priority = g->graph_nodes[uk].priority+g->matrix[uk][v];
         heap_insert(pq, v, g->graph_nodes[uk].priority+g->matrix[uk][v]);
+        g->graph_nodes[v].parent = uk;
     }
 }
 
@@ -133,13 +136,13 @@ void write_group_to_dotfile(struct graph *g,char opt[],char info[])
     }
     fprintf(fp, "\n//%s",info);
     fprintf(fp, "\ndigraph {\n");
-    fprintf(fp, " splines=false;\n");
-    fprintf(fp, " node [style=filled,color=lightblue;];\n\n");
+    fprintf(fp, " node [style=filled,color=lightblue;]\n");
+    fprintf(fp, " rankdir=LR\n");
     for (int i=0; i<g->n; i++) {
-        for (int j=0; j<g->n; j++) {
-            fprintf(fp, " node%d[label=\"%d\"]\n", i,i);
+        fprintf(fp, " node%d[label=\"%d\"]\n", i,i);
+        for (int j=i; j<g->n; j++) {
             if (g->matrix[i][j]) {
-                fprintf(fp, " node%d -> node%d\n", i,j) ;
+                fprintf(fp, " node%d -> node%d[dir=\"none\",label=\"%d\"]\n", i,j,g->matrix[i][j]) ;
             }
         }
     }
