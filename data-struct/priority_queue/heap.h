@@ -21,8 +21,8 @@ struct heap{
 
 struct heap heap_vector_init(void);
 void heap_insert(struct heap *v, int data,int priority);
-struct heap_node heap_get_max(struct heap *v);
-struct heap_node heap_del_max(struct heap *v);
+struct heap_node heap_get_min(struct heap *v);
+struct heap_node heap_del_min(struct heap *v);
 void heap_write2dot(struct heap *v,char opt[],char info[]);
 
 #endif

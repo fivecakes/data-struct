@@ -1,5 +1,9 @@
 #include "heap.h"
 
+/**
+ 优先级越小越优先
+ */
+
 struct heap heap_vector_init()
 {
     struct heap v;
@@ -41,7 +45,7 @@ static void heap_vector_replace(struct heap *v, int r, struct heap_node e)
 
 static int lt(struct heap *v, int i, int p)
 {
-    if (heap_vector_get(v,i).priority <= heap_vector_get(v,p).priority) {
+    if (heap_vector_get(v,i).priority < heap_vector_get(v,p).priority) {
         return 1;
     }else{
         return 0;
@@ -61,10 +65,10 @@ static void percolate_up(struct heap *v,int i)
     while (i>0) {
         int p = PARENT(i);
         if(lt(v,i,p)){
-            break;
-        }else{
             swap(v,i,p);
             i = p;
+        }else{
+            break;
         }
     }
 }
@@ -75,22 +79,22 @@ static void percolate_down(struct heap *v,int i)
     while (1) {
         int lchild = L_CHILD(i);
         int rchild = R_CHILD(i);
-        int maxchild;
+        int select;
         
-        if (lchild>=v->size && rchild>=v->size) {
+        if (lchild>=v->size && rchild>=v->size) {//没孩子,不用下溢了
             break;
-        }else if (lchild>=v->size) {
-            maxchild = rchild;
-        }else if (rchild>=v->size){
-            maxchild = lchild;
-        }else if(heap_vector_get(v, lchild).priority > heap_vector_get(v, rchild).priority){
-            maxchild = lchild;
+        }else if (rchild>=v->size){//如果没有右孩子，选择左孩子
+            select = lchild;
+        }else if(heap_vector_get(v, lchild).priority < heap_vector_get(v, rchild).priority){//选择优先级数小的
+            select = lchild;
         }else{
-            maxchild = rchild;
+            select = rchild;
         }
-        if(heap_vector_get(v, maxchild).priority > heap_vector_get(v, i).priority){
-            swap(v,i,maxchild);
-            i = maxchild;
+        
+        //如果选择的孩子优先级数小，与之交换
+        if(heap_vector_get(v, select).priority < heap_vector_get(v, i).priority){
+            swap(v,i,select);
+            i = select;
         }else{
             break;
         }
@@ -111,18 +115,18 @@ void heap_insert(struct heap *v, int data,int priority)
     percolate_up(v,r);
 }
 
-struct heap_node heap_get_max(struct heap *v)
+struct heap_node heap_get_min(struct heap *v)
 {
     return heap_vector_get(v, 0);
 }
 
-struct heap_node heap_del_max(struct heap *v)
+struct heap_node heap_del_min(struct heap *v)
 {
-    struct heap_node max = heap_vector_get(v, 0);
+    struct heap_node min = heap_vector_get(v, 0);
     heap_vector_replace(v, 0, heap_vector_get(v, v->size-1));
     v->size--;
     percolate_down(v,0);
-    return max;
+    return min;
 }
 
 
@@ -177,12 +181,12 @@ void heap_write2dot(struct heap *v,char opt[],char info[])
     print_dot_node(fp,v,0);
     
     //下面是向量
-//    fprintf(fp, " node [shape=\"record\", style=Null,height=.1]\n");
-//    fprintf(fp, " heap_vector [label=\"{秩 | 值}");
-//    for (int i = 0; i<v->size; i++) {
-//        fprintf(fp, "|{%d | %d}",i,*(v->elem+i).priority);
-//    }
-//    fprintf(fp, "\"]\n");
+    fprintf(fp, " node [shape=\"record\", style=Null,height=.1]\n");
+    fprintf(fp, " heap_vector [label=\"{秩 | 值}");
+    for (int i = 0; i<v->size; i++) {
+        fprintf(fp, "|{%d | %d}",i,(v->elem+i)->priority);
+    }
+    fprintf(fp, "\"]\n");
     fprintf(fp, "}\n");
     fclose(fp);
 }

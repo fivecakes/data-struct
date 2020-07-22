@@ -1,7 +1,12 @@
 #include "graph.h"
 
 /**
- 图可以通过遍历转化成一棵树
+ 图可以通过遍历转化成一棵树，这棵树叫做生成树(或支撑树)
+ 深度优先遍历出来的树叫深度优先生成树
+ 广度优先遍历出来的树叫广度优先生成树
+ 各边权值之和最小的生成树叫最小生成树
+ 
+ 最短路径：找A到B所经过的边的权值之和最小的路径
  */
 
 struct graph graph_init(int n)
@@ -31,53 +36,60 @@ static int next_nbr(struct graph *g,int i,int j)
     return j;
 }
 
-
+/**
+ 优先级越小越优先
+ 自节点优先级 = 父节点优先级 -1
+ 越深的节点优先级越小，越优先
+ */
 void dfs_pu(struct graph * g, struct heap *pq,int uk, int v )
 {
     if (g->graph_nodes[v].status == UNDISCOVERED){
-        if(g->graph_nodes[v].priority<g->graph_nodes[uk].priority+1){
-            g->graph_nodes[v].priority=g->graph_nodes[uk].priority+1;
-            heap_insert(pq, v,g->graph_nodes[uk].priority+1);
-        }
+        g->graph_nodes[v].priority=g->graph_nodes[uk].priority-1;
+        heap_insert(pq, v,g->graph_nodes[uk].priority-1);
     }
 }
 
+/**
+优先级越小越优先
+自节点优先级 = 父节点优先级 + 1
+越深的节点优先级越大，越不优先
+*/
 void bfs_pu(struct graph * g, struct heap *pq,int uk, int v)
 {
     if (g->graph_nodes[v].status == UNDISCOVERED){
-        if(g->graph_nodes[v].priority<g->graph_nodes[uk].priority-1){
-            g->graph_nodes[v].priority=g->graph_nodes[uk].priority-1;
-            heap_insert(pq, v,g->graph_nodes[uk].priority+1);
-        }
+        g->graph_nodes[v].priority=g->graph_nodes[uk].priority+1;
+        heap_insert(pq, v,g->graph_nodes[uk].priority+1);
     }
 }
 
+/**
+总是朝着权值最小的边扩展生成树
+*/
 void prim_pu(struct graph * g, struct heap *pq,int uk, int v)
 {
     if (g->graph_nodes[v].status == UNDISCOVERED){
-        if(g->graph_nodes[v].priority<g->matrix[uk][v]){
-            g->graph_nodes[v].priority=g->matrix[uk][v];
-            heap_insert(pq, v, g->matrix[uk][v]);
-        }
+        g->graph_nodes[v].priority = g->matrix[uk][v];
+        heap_insert(pq, v, g->matrix[uk][v]);
     }
 }
 
+/**
+总是优先探索累积权值最小的那条路径
+*/
 void dijkstra_pu(struct graph * g, struct heap *pq,int uk, int v)
 {
     if (g->graph_nodes[v].status == UNDISCOVERED){
-        int w = g->matrix[uk][v]+g->graph_nodes[uk].priority;
-        if(g->graph_nodes[v].priority<w){
-            g->graph_nodes[v].priority=w;
-            heap_insert(pq, v,w);
-        }
+        g->graph_nodes[v].priority = g->graph_nodes[uk].priority+g->matrix[uk][v];
+        heap_insert(pq, v, g->graph_nodes[uk].priority+g->matrix[uk][v]);
     }
 }
+
 
 static void pfs(struct graph *g,int s, void prio_updater(struct graph *g,struct heap *pq,int uk,int i))
 {
     //起点s加入PFS树
     g->graph_nodes[s].status = VISITED;
-    g->graph_nodes[s].priority = 10;
+    g->graph_nodes[s].priority = 100;
     printf("%d(%d),",s,g->graph_nodes[s].priority);
     struct heap pq = heap_vector_init();
     
@@ -86,8 +98,8 @@ static void pfs(struct graph *g,int s, void prio_updater(struct graph *g,struct 
         for (int u = next_nbr(g,s,g->n); -1<u; u=next_nbr(g,s,u))
             prio_updater(g,&pq,s,u);
 
-        //选择优先级最高的顶点s
-        s = heap_del_max(&pq).data;
+        //选择优先级小的顶点s
+        s = heap_del_min(&pq).data;
         
         //如果所有节点都遍历过了，退出否则，将s加入遍历树
         if (g->graph_nodes[s].status == VISITED){

@@ -9,6 +9,6 @@ void test_heap()
         heap_insert(&pq, i,i);
     }
     
-    printf("%d\n",heap_get_max(&pq).data);
+    //heap_del_min(&pq);
     heap_write2dot(&pq,"w+","");
 }
