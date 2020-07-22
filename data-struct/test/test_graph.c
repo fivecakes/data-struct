@@ -35,11 +35,6 @@ void test_graph()
     g.matrix[12] = a12;
     
     graph_pfs(&g,dijkstra_pu);
-    int w = 11;
-    while (w>=0) {
-        printf("%d,",w);
-        w = g.graph_nodes[w].parent;
-    }
     //write_group_to_dotfile(&g,"w+","");
     printf("\n");
 }
