@@ -28,7 +28,11 @@ struct graph{
 
 struct graph graph_init(int n);
 void graph_pfs(struct graph *g, void prio_updater(struct graph *g,struct heap *pq,int uk,int i));
+
 void dfs_pu(struct graph * g, struct heap *pq,int uk, int v );
 void bfs_pu(struct graph * g, struct heap *pq,int uk, int v);
+void prim_pu(struct graph * g, struct heap *pq,int uk, int v);
+void dijkstra_pu(struct graph * g, struct heap *pq,int uk, int v);
+
 void write_group_to_dotfile(struct graph *g,char opt[],char info[]);
 #endif
