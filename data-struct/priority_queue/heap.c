@@ -99,10 +99,15 @@ static void percolate_down(struct heap *v,int i)
 
 
 
-void heap_insert(struct heap *v, struct heap_node e)
+void heap_insert(struct heap *v, int data,int priority)
 {
     int r =v->size;
-    heap_vector_insert(v, r, e);
+    
+    struct heap_node hn;
+    hn.data = data;
+    hn.priority =priority;
+    
+    heap_vector_insert(v, r, hn);
     percolate_up(v,r);
 }
 

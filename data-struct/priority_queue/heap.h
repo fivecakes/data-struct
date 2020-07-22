@@ -20,7 +20,7 @@ struct heap{
 #define R_CHILD(i) ((1+i)<<1)
 
 struct heap heap_vector_init(void);
-void heap_insert(struct heap *v, struct heap_node e);
+void heap_insert(struct heap *v, int data,int priority);
 struct heap_node heap_get_max(struct heap *v);
 struct heap_node heap_del_max(struct heap *v);
 void heap_write2dot(struct heap *v,char opt[],char info[]);
