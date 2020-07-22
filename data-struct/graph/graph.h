@@ -1,7 +1,6 @@
 #ifndef graph_h
 #define graph_h
 #include "common.h"
-#include "queue.h"
 #include "heap.h"
 
 #define UNDISCOVERED 0
@@ -28,9 +27,8 @@ struct graph{
 
 
 struct graph graph_init(int n);
-void graph_bfs(struct graph *g);
-void graph_dfs(struct graph *g);
 void graph_pfs(struct graph *g, void prio_updater(struct graph *g,struct heap *pq,int uk,int i));
 void dfs_pu(struct graph * g, struct heap *pq,int uk, int v );
+void bfs_pu(struct graph * g, struct heap *pq,int uk, int v);
 void write_group_to_dotfile(struct graph *g,char opt[],char info[]);
 #endif

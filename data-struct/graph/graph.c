@@ -32,60 +32,6 @@ static int next_nbr(struct graph *g,int i,int j)
 }
 
 
-static void bfs(struct graph *g,int s)
-{
-    struct queue q = queue_init();
-    g->graph_nodes[s].status = DISCOVERED;
-    queue_enqueue(&q, s);
-    
-    while (q.size) {
-        int v = queue_dequeue(&q);
-        
-        printf("%d,",v);
-        for (int u = next_nbr(g,v,g->n); -1<u; u=next_nbr(g,v,u)) {
-            if (g->graph_nodes[u].status == UNDISCOVERED) {
-                g->graph_nodes[u].status = DISCOVERED;
-                queue_enqueue(&q, u);
-            }
-        }
-        
-        g->graph_nodes[v].status = VISITED;
-    }
-}
-
-void graph_bfs(struct graph *g)
-{
-    for (int i = 0; i<g->n; i++) {
-        if (g->graph_nodes[i].status == UNDISCOVERED) {
-            bfs(g,i);
-        }
-    }
-}
-
-static void dfs(struct graph *g,int s)
-{
-    g->graph_nodes[s].status = DISCOVERED;
-
-    printf("%d,",s);
-    for (int u = next_nbr(g,s,g->n); -1<u; u=next_nbr(g,s,u)) {
-        if (g->graph_nodes[u].status == UNDISCOVERED) {
-            dfs(g,u);
-        }
-    }
-    
-    g->graph_nodes[s].status = VISITED;
-
-}
-
-void graph_dfs(struct graph *g)
-{
-    for (int i = 0; i<g->n; i++) {
-        if (g->graph_nodes[i].status == UNDISCOVERED) {
-            dfs(g,i);
-        }
-    }
-}
-
 void dfs_pu(struct graph * g, struct heap *pq,int uk, int v )
 {
     if (g->graph_nodes[v].status == UNDISCOVERED){
@@ -94,6 +40,46 @@ void dfs_pu(struct graph * g, struct heap *pq,int uk, int v )
             struct heap_node hn;
             hn.data = v;
             hn.priority =g->graph_nodes[uk].priority+1;
+            heap_insert(pq, hn);
+        }
+    }
+}
+
+void bfs_pu(struct graph * g, struct heap *pq,int uk, int v)
+{
+    if (g->graph_nodes[v].status == UNDISCOVERED){
+        if(g->graph_nodes[v].priority<g->graph_nodes[uk].priority-1){
+            g->graph_nodes[v].priority=g->graph_nodes[uk].priority-1;
+            struct heap_node hn;
+            hn.data = v;
+            hn.priority =g->graph_nodes[uk].priority+1;
+            heap_insert(pq, hn);
+        }
+    }
+}
+
+void prim_pu(struct graph * g, struct heap *pq,int uk, int v)
+{
+    if (g->graph_nodes[v].status == UNDISCOVERED){
+        if(g->graph_nodes[v].priority<g->matrix[uk][v]){
+            g->graph_nodes[v].priority=g->matrix[uk][v];
+            struct heap_node hn;
+            hn.data = v;
+            hn.priority =g->matrix[uk][v];
+            heap_insert(pq, hn);
+        }
+    }
+}
+
+void dijkstra_pu(struct graph * g, struct heap *pq,int uk, int v)
+{
+    if (g->graph_nodes[v].status == UNDISCOVERED){
+        int w = g->matrix[uk][v]+g->graph_nodes[uk].priority;
+        if(g->graph_nodes[v].priority<w){
+            g->graph_nodes[v].priority=w;
+            struct heap_node hn;
+            hn.data = v;
+            hn.priority =w;
             heap_insert(pq, hn);
         }
     }
