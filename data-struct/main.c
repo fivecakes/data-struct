@@ -9,5 +9,5 @@
 
 int main()
 {
-    test_graph();
+    test_list();
 }
