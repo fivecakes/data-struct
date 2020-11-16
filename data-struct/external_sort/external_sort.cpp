@@ -7,21 +7,24 @@ using namespace std;
 #define MAX_INT 0x7fffffff
 #define MIN_INT -1
 
+//工作区大小
 const int kMaxSize = 1000000;
+//最大归并路数
 const int kMaxWay = 10;
-
-int buffer[kMaxSize];   //假设内存只能放1000000个整型
+//工作区
+int buffer[kMaxSize];
+//堆的大小，堆的大小会改变且小于工作区，用于排除比上次输出小的数据
 int heap_size;
 int num_of_runs;
 
 struct Run
 {
-    int *buffer;       // 每个顺串的缓冲区
+    int *buffer;       //工作区，也是堆
     int length;     // 缓冲区内元素个数
     int idx;        // 当前所读元素下标
 };
 int ls[kMaxWay];        //败者树,ls[0]是最小值的位置，其余是各败者的位置
-Run *runs[kMaxWay];     //顺串结构
+Run *runs[kMaxWay];     //归并段结构
 
 void Swap(int *arr, int i, int j)
 {
@@ -51,14 +54,17 @@ void BuildHeap(int *heap, int size)
         Siftdown(heap, i, size);
 }
 
-// 返回生成顺串的数量
+// 返回生成归并段的数量
 int GenerateRuns(const char *in_file)
 {
     ifstream in(in_file);
     char output_file[20];
     ofstream out;
-    int i = 0, count = 0;
+    int i = 0;//工作区中的数据
+    int count = 0;//文件计数
     int num;
+    
+    //往第一个buffer里面读数据？为什么单独拿出来？
     while(!in.eof())
     {
         in >> buffer[i];
@@ -72,25 +78,30 @@ int GenerateRuns(const char *in_file)
         out.close();
         sprintf(output_file, "%d", count);
         out.open(output_file);
+        //把buffer建成堆
         BuildHeap(buffer, heap_size);
+        
+        //文件还没读完，heap_size是指堆中还有比刚输出的数大的
         while(heap_size != 0 && !in.eof())
         {
+            //将最小的输出到文件
             out << buffer[0] << endl;
+            //再读入一个
             in >> num;
-            if(num > buffer[0])
-            {
+            
+            if(num > buffer[0]){//如果这个数比刚输出的大，放到堆顶
                 buffer[0] = num;
-            }
-            else
-            {
+            }else{ //如果小,放到堆底，减小堆的大小
                 buffer[0] = buffer[heap_size-1];
                 buffer[heap_size-1] = num;
                 heap_size--;
             }
             Siftdown(buffer, 0, heap_size);
         }
-        if(heap_size != 0)    //输入缓冲区已空
-        {
+        
+        //当文件被读完,减小i，跳出循环
+        //将工作区内比上次输出大的数输出
+        if(heap_size != 0) {
             i = i - heap_size;
             while(heap_size != 0)
             {
@@ -100,9 +111,9 @@ int GenerateRuns(const char *in_file)
             }
         }
     }
-    // 处理buffer中剩余数据
-    if(i != 0)
-    {
+
+    //新起一个文件，将剩余的数输出
+    if(i != 0){
         heap_size = i;
         count++;
         out.close();
@@ -119,7 +130,6 @@ int GenerateRuns(const char *in_file)
         out.close();
     }
     return count;
-
 }
 
 void Adjust(Run **runs, int n, int s)
@@ -145,12 +155,10 @@ void Adjust(Run **runs, int n, int s)
 }
 void CreateLoserTree(Run **runs, int n)
 {
-    for(int i = 0; i < n; i++)
-    {
+    for(int i = 0; i < n; i++){
         ls[i] = -1;
     }
-    for(int i = n-1; i >= 0; i--)
-    {
+    for(int i = n-1; i >= 0; i--){
         Adjust(runs, n, i);
     }
 }
@@ -171,7 +179,7 @@ void MergeSort(Run **runs, int num_of_runs, const char* file_out)
         sprintf(file_name, "%d", i+1);
         in[i].open(file_name);
     }
-    // 将顺串文件的数据读到缓冲区中
+    // 将归并段文件的数据读到缓冲区中
     for(int i = 0; i < num_of_runs; i++)
     {
         int j = 0;
@@ -188,8 +196,7 @@ void MergeSort(Run **runs, int num_of_runs, const char* file_out)
     CreateLoserTree(runs, num_of_runs);
     ofstream out(file_out);
     int live_runs = num_of_runs;
-    while(live_runs > 0)
-    {
+    while(live_runs > 0){
         out << runs[ls[0]]->buffer[runs[ls[0]]->idx++] << endl;
         if(runs[ls[0]]->idx == runs[ls[0]]->length)
         {
@@ -213,19 +220,18 @@ void MergeSort(Run **runs, int num_of_runs, const char* file_out)
 }
 int main(int argc, char **argv)
 {
-    if(argc != 2)
-    {
+    if(argc != 2){
         cerr << "请输入要排序的文件名！" << endl;
         exit(1);
     }
     char *in_file = argv[1];
     clock_t t;
-    cout << "生成顺串..." << endl;
+    cout << "生成归并段..." << endl;
     num_of_runs = 6;
     t = clock();
     num_of_runs = GenerateRuns(in_file);
     t = clock() - t;
-    cout << "顺串生成成功， 数量:" << num_of_runs << endl;
+    cout << "归并段生成成功， 数量:" << num_of_runs << endl;
     cout << "耗时: " << (double)t / CLOCKS_PER_SEC << "s" << endl;
     cout << "归并开始..." << endl;
     t = clock();
