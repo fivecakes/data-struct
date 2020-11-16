@@ -126,8 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				FD218537256205A100FB7D94 /* main.c */,
-				FD2185112562058400FB7D94 /*  linear */,
 				FD2184F42562058400FB7D94 /* common.h */,
+				FD2185112562058400FB7D94 /*  linear */,
 				FD2184EE2562058400FB7D94 /* graph */,
 				FD2184EB2562058400FB7D94 /* hash_table */,
 				FD21851D2562058400FB7D94 /* huffman */,
