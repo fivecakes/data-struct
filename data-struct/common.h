@@ -13,7 +13,7 @@
 #define RED 1
 #define BLACK 2
 
-#define DOT_FILE_PATH "/Users/book/Codes/data-struct/data-struct/tree.dot"
+#define DOT_FILE_PATH "/tmp/tree.dot"
 
 
 #endif /* common_h */

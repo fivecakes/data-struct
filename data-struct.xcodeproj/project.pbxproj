@@ -30,6 +30,9 @@
 		FD2185352562058400FB7D94 /* heap.c in Sources */ = {isa = PBXBuildFile; fileRef = FD21851B2562058400FB7D94 /* heap.c */; };
 		FD2185362562058400FB7D94 /* huffman.c in Sources */ = {isa = PBXBuildFile; fileRef = FD21851E2562058400FB7D94 /* huffman.c */; };
 		FD218538256205A100FB7D94 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = FD218537256205A100FB7D94 /* main.c */; };
+		FD2185502562139C00FB7D94 /* main.java in Sources */ = {isa = PBXBuildFile; fileRef = FD21854D2562139C00FB7D94 /* main.java */; };
+		FD2185532562147A00FB7D94 /* generate_data.c in Sources */ = {isa = PBXBuildFile; fileRef = FD2185522562147A00FB7D94 /* generate_data.c */; };
+		FD2185692562208C00FB7D94 /* external_sort.c in Sources */ = {isa = PBXBuildFile; fileRef = FD2185682562208C00FB7D94 /* external_sort.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -93,6 +96,11 @@
 		FD21851F2562058400FB7D94 /* huffman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = huffman.h; sourceTree = "<group>"; };
 		FD2185202562058400FB7D94 /* sample.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample.txt; sourceTree = "<group>"; };
 		FD218537256205A100FB7D94 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		FD21854D2562139C00FB7D94 /* main.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = main.java; sourceTree = "<group>"; };
+		FD2185512562147A00FB7D94 /* generate_data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = generate_data.h; sourceTree = "<group>"; };
+		FD2185522562147A00FB7D94 /* generate_data.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = generate_data.c; sourceTree = "<group>"; };
+		FD2185672562208C00FB7D94 /* external_sort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = external_sort.h; sourceTree = "<group>"; };
+		FD2185682562208C00FB7D94 /* external_sort.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = external_sort.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +135,7 @@
 			children = (
 				FD218537256205A100FB7D94 /* main.c */,
 				FD2184F42562058400FB7D94 /* common.h */,
+				FD21854A2562139C00FB7D94 /* external_sort */,
 				FD2185112562058400FB7D94 /*  linear */,
 				FD2184EE2562058400FB7D94 /* graph */,
 				FD2184EB2562058400FB7D94 /* hash_table */,
@@ -240,6 +249,18 @@
 			path = huffman;
 			sourceTree = "<group>";
 		};
+		FD21854A2562139C00FB7D94 /* external_sort */ = {
+			isa = PBXGroup;
+			children = (
+				FD21854D2562139C00FB7D94 /* main.java */,
+				FD2185512562147A00FB7D94 /* generate_data.h */,
+				FD2185522562147A00FB7D94 /* generate_data.c */,
+				FD2185672562208C00FB7D94 /* external_sort.h */,
+				FD2185682562208C00FB7D94 /* external_sort.c */,
+			);
+			path = external_sort;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -298,9 +319,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD21852C2562058400FB7D94 /* bst.c in Sources */,
+				FD2185532562147A00FB7D94 /* generate_data.c in Sources */,
 				FD21852F2562058400FB7D94 /* splay.c in Sources */,
 				FD2185232562058400FB7D94 /* string.c in Sources */,
+				FD2185692562208C00FB7D94 /* external_sort.c in Sources */,
 				FD2185342562058400FB7D94 /* queue.c in Sources */,
+				FD2185502562139C00FB7D94 /* main.java in Sources */,
 				FD218538256205A100FB7D94 /* main.c in Sources */,
 				FD2185312562058400FB7D94 /* list.c in Sources */,
 				FD2185222562058400FB7D94 /* graph.c in Sources */,
