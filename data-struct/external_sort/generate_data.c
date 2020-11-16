@@ -2,33 +2,21 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 
-static char* genRandomString(char *string)
+
+void generate_data()
 {
-    for (int i = 0; i < 8; i++)
-    {
-        string[i] = 'a' + rand() % 26;
-    }
-    string[8] = ',';
-    for (int i = 9; i < 25; i++)
-    {
-        string[i] = 'a' + rand() % 26;
-    }
-    string[25] = '\0';
-    return string;
-}
-
-
-int generate_data()
-{
-    int MAX=80000000;
-    
+    int MAX=80000;
+    srand((unsigned int)time(0));
     FILE *fp = fopen("/tmp/test.txt", "w+");
-    char *string = malloc(26 *sizeof(char));
+    
+    float random_float;
     for(int i=0;i<MAX;i++){
-        fprintf(fp, "%s\n", genRandomString(string));
+        // [-100,100]
+        random_float = (2.0*(float)rand()/RAND_MAX-1.0)*100;
+        fprintf(fp, "%f\n", random_float);
     }
     fclose(fp);
-    return 0;
 }

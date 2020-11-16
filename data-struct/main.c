@@ -5,9 +5,10 @@
 #include "test_heap.h"
 #include "test_string.h"
 #include "test_huffman.h"
+#include "generate_data.h"
 
 
 int main()
 {
-    test_list();
+    generate_data();
 }
