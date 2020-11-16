@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD086DBF2562AAD300281F91 /* external_sort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD086DBD2562AAD300281F91 /* external_sort.cpp */; };
+		FD086DC02562AAD300281F91 /* generate_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD086DBE2562AAD300281F91 /* generate_data.cpp */; };
 		FD2185212562058400FB7D94 /* hash_table.c in Sources */ = {isa = PBXBuildFile; fileRef = FD2184ED2562058400FB7D94 /* hash_table.c */; };
 		FD2185222562058400FB7D94 /* graph.c in Sources */ = {isa = PBXBuildFile; fileRef = FD2184F02562058400FB7D94 /* graph.c */; };
 		FD2185232562058400FB7D94 /* string.c in Sources */ = {isa = PBXBuildFile; fileRef = FD2184F22562058400FB7D94 /* string.c */; };
@@ -47,6 +49,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FD086DBD2562AAD300281F91 /* external_sort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = external_sort.cpp; sourceTree = "<group>"; };
+		FD086DBE2562AAD300281F91 /* generate_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = generate_data.cpp; sourceTree = "<group>"; };
 		FD2184E1256204F300FB7D94 /* data-struct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "data-struct"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD2184EC2562058400FB7D94 /* hash_table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hash_table.h; sourceTree = "<group>"; };
 		FD2184ED2562058400FB7D94 /* hash_table.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hash_table.c; sourceTree = "<group>"; };
@@ -250,6 +254,8 @@
 		FD21854A2562139C00FB7D94 /* external_sort */ = {
 			isa = PBXGroup;
 			children = (
+				FD086DBD2562AAD300281F91 /* external_sort.cpp */,
+				FD086DBE2562AAD300281F91 /* generate_data.cpp */,
 				FD2185512562147A00FB7D94 /* generate_data.h */,
 				FD2185522562147A00FB7D94 /* generate_data.c */,
 				FD2185672562208C00FB7D94 /* external_sort.h */,
@@ -322,11 +328,13 @@
 				FD2185692562208C00FB7D94 /* external_sort.c in Sources */,
 				FD2185342562058400FB7D94 /* queue.c in Sources */,
 				FD218538256205A100FB7D94 /* main.c in Sources */,
+				FD086DBF2562AAD300281F91 /* external_sort.cpp in Sources */,
 				FD2185312562058400FB7D94 /* list.c in Sources */,
 				FD2185222562058400FB7D94 /* graph.c in Sources */,
 				FD2185292562058400FB7D94 /* test_string.c in Sources */,
 				FD2185262562058400FB7D94 /* test_heap.c in Sources */,
 				FD21852A2562058400FB7D94 /* test_huffman.c in Sources */,
+				FD086DC02562AAD300281F91 /* generate_data.cpp in Sources */,
 				FD2185332562058400FB7D94 /* vector.c in Sources */,
 				FD2185272562058400FB7D94 /* test_tree.c in Sources */,
 				FD2185322562058400FB7D94 /* stack.c in Sources */,
