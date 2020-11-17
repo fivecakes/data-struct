@@ -19,7 +19,7 @@ int num_of_runs;
 
 struct Run
 {
-    int *buffer;       //工作区，也是堆
+    int *buffer;       //每个归并段的缓存
     int length;     // 缓冲区内元素个数
     int idx;        // 当前所读元素下标
 };
@@ -71,6 +71,8 @@ int GenerateRuns(const char *in_file)
         if(++i == kMaxSize) 
             break;
     }
+    
+    //当工作区满时,一直循环
     while(i == kMaxSize)
     {
         heap_size = kMaxSize;
@@ -153,6 +155,8 @@ void Adjust(Run **runs, int n, int s)
     }
     ls[0] = s;
 }
+
+//n路败者树，runs里是每路的内容
 void CreateLoserTree(Run **runs, int n)
 {
     for(int i = 0; i < n; i++){
@@ -169,9 +173,11 @@ void MergeSort(Run **runs, int num_of_runs, const char* file_out)
     if(num_of_runs > kMaxWay)
         num_of_runs = kMaxWay;
     int length_per_run = kMaxSize / num_of_runs;
+    //
     for(int i = 0; i < num_of_runs; i++)
         runs[i]->buffer = buffer + i * length_per_run;
 
+    //打开文件
     ifstream in[kMaxWay];
     char file_name[20];
     for(int i = 0; i< num_of_runs; i++)
@@ -183,6 +189,7 @@ void MergeSort(Run **runs, int num_of_runs, const char* file_out)
     for(int i = 0; i < num_of_runs; i++)
     {
         int j = 0;
+        //读第i个文件
         while(in[i] >> runs[i]->buffer[j])
         {
             j++;
@@ -193,9 +200,12 @@ void MergeSort(Run **runs, int num_of_runs, const char* file_out)
         runs[i]->idx = 0;
     }
 
+    //败者树，一下子创建多个败者树？？？
     CreateLoserTree(runs, num_of_runs);
     ofstream out(file_out);
     int live_runs = num_of_runs;
+    
+    //输出到文件
     while(live_runs > 0){
         out << runs[ls[0]]->buffer[runs[ls[0]]->idx++] << endl;
         if(runs[ls[0]]->idx == runs[ls[0]]->length)
@@ -218,6 +228,7 @@ void MergeSort(Run **runs, int num_of_runs, const char* file_out)
         Adjust(runs, num_of_runs, ls[0]);
     }
 }
+
 int main(int argc, char **argv)
 {
     if(argc != 2){
