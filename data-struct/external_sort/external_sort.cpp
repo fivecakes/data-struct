@@ -23,7 +23,10 @@ struct Run
     int length;     // 缓冲区内元素个数
     int idx;        // 当前所读元素下标
 };
-int ls[kMaxWay];        //败者树,ls[0]是最小值的位置，其余是各败者的位置
+
+//败者树,记录了除叶节点外的位置,也就是记录了败者
+//败者树是完全二叉树，所以也可以像堆一样用数组来存
+int ls[kMaxWay];
 Run *runs[kMaxWay];     //归并段结构
 
 void Swap(int *arr, int i, int j)
@@ -134,34 +137,38 @@ int GenerateRuns(const char *in_file)
     return count;
 }
 
+//共n个叶节点，沿着第s个向根的路径调整
 void Adjust(Run **runs, int n, int s)
 {
-    //首先根据s计算出对应的ls中哪一个下标
-    int t = (s + n) / 2;    
+    //计算s父节点的编号t,这个计算方式书上没有耶,要记下来
+    int t = (s + n) / 2;
     int tmp;
 
     while(t != 0)
     {
         if(s == -1)
             break;
+        //当s比t大时
         if(ls[t] == -1 || runs[s]->buffer[runs[s]->idx] > 
                 runs[ls[t]]->buffer[runs[ls[t]]->idx])
         {
             tmp = s;
-            s = ls[t];
-            ls[t] = tmp;
+            s = ls[t];//新的胜者为t
+            ls[t] = tmp;//将这次的败者s存到败者树
         }
+        //对于完全二叉树，父节点的编号为⌊t/2⌋
         t /= 2;
     }
     ls[0] = s;
 }
 
-//n路败者树，runs里是每路的内容
+//败者树有n个叶子节点，runs里是每个叶子节点的内容
 void CreateLoserTree(Run **runs, int n)
 {
     for(int i = 0; i < n; i++){
         ls[i] = -1;
     }
+    //分别沿这n个叶子节点到根的路径调整败者树
     for(int i = n-1; i >= 0; i--){
         Adjust(runs, n, i);
     }
@@ -200,14 +207,17 @@ void MergeSort(Run **runs, int num_of_runs, const char* file_out)
         runs[i]->idx = 0;
     }
 
-    //败者树，一下子创建多个败者树？？？
+    //创建败者树
     CreateLoserTree(runs, num_of_runs);
     ofstream out(file_out);
     int live_runs = num_of_runs;
     
     //输出到文件
     while(live_runs > 0){
+        //输出败者树中最小的那个归并段中最小的元素
         out << runs[ls[0]]->buffer[runs[ls[0]]->idx++] << endl;
+        
+        //如果buffer里面的数据用光了，从临时文件读入
         if(runs[ls[0]]->idx == runs[ls[0]]->length)
         {
             int j = 0;
@@ -220,6 +230,8 @@ void MergeSort(Run **runs, int num_of_runs, const char* file_out)
             runs[ls[0]]->length = j;
             runs[ls[0]]->idx = 0;
         }
+        
+        //如果归并段内容全都输出了，放一个最大值
         if(runs[ls[0]]->length == 0)
         {
             runs[ls[0]]->buffer[runs[ls[0]]->idx] = MAX_INT;
@@ -248,6 +260,8 @@ int main(int argc, char **argv)
     t = clock();
     for(int i = 0; i < num_of_runs; i++)
         runs[i] = new Run();
+    
+    //只归并了一次，一次性将所有文件归并
     MergeSort(runs, num_of_runs, "sorted");
     t = clock() - t;
     cout << "归并成功." << endl;
