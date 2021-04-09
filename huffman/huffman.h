@@ -1,9 +1,9 @@
 #ifndef huffman_h
 #define huffman_h
-#include "common.h"
+#include "../common.h"
 #include <string.h>
-#include "hash_table.h"
-#include "vector.h"
+#include "../hash_table/hash_table.h"
+#include "../linear/vector.h"
 
 #define  N_CHAR  (0x80 - 0x20)
 

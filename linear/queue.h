@@ -1,6 +1,6 @@
 #ifndef queue_h
 #define queue_h
-#include "common.h"
+#include "../common.h"
 struct queue_node{
     int data;
     struct queue_node *pred;

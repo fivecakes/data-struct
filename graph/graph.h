@@ -1,7 +1,7 @@
 #ifndef graph_h
 #define graph_h
-#include "common.h"
-#include "heap.h"
+#include "../common.h"
+#include "../priority_queue/heap.h"
 
 #define UNDISCOVERED 0
 #define DISCOVERED 1

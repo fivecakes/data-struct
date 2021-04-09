@@ -1,7 +1,7 @@
 #ifndef b_tree_h
 #define b_tree_h
 
-#include "vector.h"
+#include "../linear/vector.h"
 struct b_tree_vector{
     struct b_tree_node **elem;
     int size;

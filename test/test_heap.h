@@ -2,6 +2,6 @@
 #define test_heap_h
 
 #include <stdio.h>
-#include "heap.h"
+#include "../priority_queue/heap.h"
 void test_heap(void);
 #endif

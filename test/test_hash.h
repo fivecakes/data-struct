@@ -2,7 +2,7 @@
 #define hash_table_h
 
 #include <stdio.h>
-#include "hash_table.h"
+#include "../hash_table/hash_table.h"
 
 void test_hash(void);
 

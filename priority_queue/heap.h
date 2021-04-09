@@ -2,7 +2,7 @@
 #define heap_h
 
 #include <stdio.h>
-#include "common.h"
+#include "../common.h"
 
 struct heap_node{
     int data;

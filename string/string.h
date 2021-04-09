@@ -1,6 +1,6 @@
 #ifndef string_h
 #define string_h
-#include "common.h"
+#include "../common.h"
 #include <string.h>
 
 struct string{

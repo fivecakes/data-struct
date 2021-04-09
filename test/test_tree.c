@@ -156,33 +156,3 @@ void test_b_tree()
 }
 
 
-
-void test_red_black()
-{
-    printf("测试红黑树...\n");
-    {
-        struct tree t = init_tree();
-        redblack_insert(&t,36);
-        redblack_insert(&t,27);
-        redblack_insert(&t,58);
-        redblack_insert(&t,6);
-        redblack_insert(&t,53);
-        redblack_insert(&t,69);
-        redblack_insert(&t,40);
-        redblack_insert(&t,41);
-        redblack_insert(&t,39);
-        redblack_insert(&t,76);
-//        redblack_insert(&T,21);
-//        redblack_insert(&T,24);
-//        redblack_insert(&T,78);
-//        redblack_insert(&T,98);
-//        redblack_insert(&T,57);
-//        redblack_insert(&T,35);
-        write_tree_to_dotfile(&t,"w+","");
-        //BB-1
-//        redblack_remove(&T,6);
-//        redblack_remove(&T,39);
-//        redblack_remove(&T,40);
-//        writeTreeToDotFile(&T,"a+","");
-    }
-}

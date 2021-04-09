@@ -1,6 +1,6 @@
 #ifndef stack_h
 #define stack_h
-#include "common.h"
+#include "../common.h"
 struct stack{
     int *elem;
     int size;

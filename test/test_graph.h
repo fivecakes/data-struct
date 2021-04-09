@@ -2,7 +2,7 @@
 #define test_graph_h
 
 #include <stdio.h>
-#include "graph.h"
+#include "../graph/graph.h"
 
 void test_graph(void);
 #endif

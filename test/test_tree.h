@@ -2,11 +2,10 @@
 #define test_tree_h
 
 #include <stdio.h>
-#include "bst.h"
-#include "avl.h"
-#include "splay.h"
-#include "b_tree.h"
-#include "red_black_tree.h"
+#include "../tree/bst.h"
+#include "../tree/avl.h"
+#include "../tree/splay.h"
+#include "../tree/b_tree.h"
 
 void test_bin_tree(void);
 void test_bst(void);
