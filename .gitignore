@@ -1,2 +1,5 @@
 *.dot
 .DS_Store
+*.o
+main
+*.udb
